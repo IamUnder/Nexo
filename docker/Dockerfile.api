@@ -1,0 +1,24 @@
+# Imagen de api, worker y migrate (mismo artefacto, distinto comando). Contexto: raíz del repo.
+#   api:     node dist/api.js
+#   worker:  node dist/worker.js
+#   migrate: node dist/migrate.js   (paso de release: aplica migraciones y termina)
+FROM node:24-alpine AS base
+RUN corepack enable && corepack prepare pnpm@12.8.1 --activate
+WORKDIR /repo
+
+FROM base AS build
+COPY . .
+RUN pnpm install --frozen-lockfile --filter @nexo/api... \
+ && pnpm --filter @nexo/api build \
+ && pnpm --filter @nexo/api deploy --legacy --prod /out \
+ && cp -r apps/api/dist /out/dist && cp -r apps/api/drizzle /out/drizzle
+
+FROM node:24-alpine AS runtime
+ENV NODE_ENV=production
+WORKDIR /app
+COPY --from=build /out /app
+# Sin privilegios de root.
+USER node
+EXPOSE 4000
+HEALTHCHECK --interval=15s --timeout=3s --retries=5 CMD wget -qO- http://127.0.0.1:4000/healthz || exit 1
+CMD ["node", "dist/api.js"]

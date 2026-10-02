@@ -1,0 +1,13 @@
+# Imagen de la SPA estática. Contexto: raíz del repo.
+FROM node:24-alpine AS build
+RUN corepack enable && corepack prepare pnpm@12.8.1 --activate
+WORKDIR /repo
+COPY . .
+RUN pnpm install --frozen-lockfile --filter @nexo/web... \
+ && pnpm --filter @nexo/design-tokens build \
+ && pnpm --filter @nexo/web build
+
+FROM caddy:2-alpine AS runtime
+COPY docker/Caddyfile /etc/caddy/Caddyfile
+COPY --from=build /repo/apps/web/dist /srv
+EXPOSE 8080
