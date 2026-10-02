@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "../src/styles.css";
+@import "@fontsource-variable/inter/opsz.css";
+@source "../src";
+
+html {
+  font-family: var(--nexo-font-body);
+  font-optical-sizing: auto;
+}

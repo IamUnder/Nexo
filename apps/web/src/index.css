@@ -1,0 +1,35 @@
+@import "tailwindcss";
+@import "@nexo/ui/styles.css";
+@import "@fontsource-variable/inter/opsz.css";
+
+/* Tailwind debe escanear también los componentes del design system. */
+@source "../../../packages/ui/src";
+
+@layer base {
+  html {
+    font-family: var(--nexo-font-body);
+    font-optical-sizing: auto;
+    background: var(--nexo-color-bg-canvas);
+    color: var(--nexo-color-text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Numerales tabulares en cifras: tablas, KPIs y columnas financieras (DESIGN_SYSTEM §5). */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  /* «Inter Display»: misma familia con eje óptico alto para titulares. */
+  .font-display {
+    font-variation-settings: "opsz" 32;
+  }
+  /* Movimiento reducido: sin desplazamientos ni transiciones (DESIGN_SYSTEM §4, §8). */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      /* biome-ignore lint/complexity/noImportantStyles: movimiento reducido debe ganar a cualquier animación */
+      animation-duration: 0.01ms !important;
+      /* biome-ignore lint/complexity/noImportantStyles: ídem */
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

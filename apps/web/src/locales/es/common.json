@@ -1,0 +1,15 @@
+{
+  "app": {
+    "name": "Nexo",
+    "tagline": "Todo conectado. Solo lo necesario."
+  },
+  "home": {
+    "title": "Bienvenido a Nexo",
+    "description": "CRM operativo modular: del lead al trabajo entregado. Esta es la base técnica del proyecto; los módulos llegan por hitos.",
+    "primaryAction": "Empezar"
+  },
+  "theme": {
+    "toDark": "Cambiar a tema oscuro",
+    "toLight": "Cambiar a tema claro"
+  }
+}

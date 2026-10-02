@@ -1,0 +1,7 @@
+/*
+ * Estilos base del design system: tokens (variables CSS Light/Dark) + tema Tailwind 4.
+ * Los consumidores (web, Storybook) importan ESTE fichero junto con `@import "tailwindcss"`.
+ * Requiere haber ejecutado `pnpm --filter @nexo/design-tokens build` (turbo lo hace en `build`/`dev`).
+ */
+@import "@nexo/design-tokens/tokens.css";
+@import "@nexo/design-tokens/tailwind-theme.css";

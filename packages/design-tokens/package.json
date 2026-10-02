@@ -1,0 +1,21 @@
+{
+  "name": "@nexo/design-tokens",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.json": "./tokens.json",
+    "./tokens.css": "./dist/tokens.css",
+    "./tailwind-theme.css": "./dist/tailwind-theme.css"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.3"
+  }
+}

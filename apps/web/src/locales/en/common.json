@@ -1,0 +1,15 @@
+{
+  "app": {
+    "name": "Nexo",
+    "tagline": "Everything connected. Only what you need."
+  },
+  "home": {
+    "title": "Welcome to Nexo",
+    "description": "Modular operational CRM: from lead to delivered work. This is the project's technical foundation; modules arrive in milestones.",
+    "primaryAction": "Get started"
+  },
+  "theme": {
+    "toDark": "Switch to dark theme",
+    "toLight": "Switch to light theme"
+  }
+}
