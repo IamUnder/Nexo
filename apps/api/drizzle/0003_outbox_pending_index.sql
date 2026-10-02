@@ -1,0 +1,1 @@
+CREATE INDEX "outbox_events_pending_idx" ON "outbox_events" USING btree ("occurred_at") WHERE "outbox_events"."status" = 'pending';

@@ -78,6 +78,8 @@ export const outboxEvents = pgTable(
   (t) => [
     unique("outbox_events_tenant_id_id_uq").on(t.tenantId, t.id),
     index("outbox_events_tenant_status_idx").on(t.tenantId, t.status, t.occurredAt),
+    // El dispatcher (transversal a tenants) escanea solo lo pendiente: índice parcial pequeño.
+    index("outbox_events_pending_idx").on(t.occurredAt).where(sql`${t.status} = 'pending'`),
   ],
 );
 

@@ -22,6 +22,27 @@
       "when": 1790982295797,
       "tag": "0002_kernel_rls_and_grants",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790984164950,
+      "tag": "0003_outbox_pending_index",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790984304193,
+      "tag": "0004_platform_core_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790984318756,
+      "tag": "0005_platform_core_rls_and_grants",
+      "breakpoints": true
     }
   ]
 }

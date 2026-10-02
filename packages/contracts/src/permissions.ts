@@ -2,8 +2,8 @@ import type { Role, SeatType } from "./roles";
 
 /**
  * Permisos con formato `<módulo>:<recurso>:<acción>` (ARCHITECTURE §7.2).
- * Aquí viven los del hito 1; cada módulo añade los suyos cuando se implementa
- * (la lista completa está en MODULES_SPEC.md, sección de cada módulo).
+ * Aquí viven los de plataforma (hito 1); cada módulo de negocio añade los suyos cuando se
+ * implementa (la lista completa está en MODULES_SPEC.md, sección de cada módulo).
  */
 export const PERMISSIONS = [
   "identity:member:read",
@@ -14,18 +14,35 @@ export const PERMISSIONS = [
   "billing:subscription:read",
   "billing:subscription:manage",
   "audit:log:read",
+  "files:file:read",
+  "files:file:create",
+  "files:file:delete",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
 
-/** Paquetes de permisos por rol. `owner` y `admin` lo tienen todo (admin sin borrar tenant: se añade en hito 1). */
+/**
+ * Paquetes de permisos por rol. `owner` y `admin` tienen todo; el borrado del tenant y la
+ * facturación son del owner por una comprobación explícita en sus casos de uso (no un permiso RBAC).
+ */
 export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
   owner: PERMISSIONS,
   admin: PERMISSIONS,
-  manager: ["identity:member:read", "tenancy:settings:read", "audit:log:read"],
-  sales: ["identity:member:read", "tenancy:settings:read"],
-  delivery: ["identity:member:read", "tenancy:settings:read"],
-  viewer: ["identity:member:read", "tenancy:settings:read"],
+  manager: [
+    "identity:member:read",
+    "tenancy:settings:read",
+    "audit:log:read",
+    "files:file:read",
+    "files:file:create",
+  ],
+  sales: ["identity:member:read", "tenancy:settings:read", "files:file:read", "files:file:create"],
+  delivery: [
+    "identity:member:read",
+    "tenancy:settings:read",
+    "files:file:read",
+    "files:file:create",
+  ],
+  viewer: ["identity:member:read", "tenancy:settings:read", "files:file:read"],
 };
 
 /**

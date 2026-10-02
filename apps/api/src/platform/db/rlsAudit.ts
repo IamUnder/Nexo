@@ -25,8 +25,19 @@ export interface GlobalTableRule {
  * `tenants`: el rol de aplicación solo ve su fila (política `tenant_self`).
  */
 export const GLOBAL_TABLES: Readonly<Record<string, GlobalTableRule>> = {
+  /** Cada tenant solo ve su fila. */
   tenants: { rls: true },
+  /** Identidad global: la app solo ve columnas no sensibles de los miembros de SU tenant. */
+  users: { rls: true },
+  /** Solo plataforma: `nexo_app` no puede tocarlas (se verifica con privilegios, no con RLS). */
+  superadmins: { rls: false },
+  refresh_tokens: { rls: false },
+  user_tokens: { rls: false },
+  platform_audit_log: { rls: false },
 };
+
+/** Tablas de auditoría: nadie con rol de aplicación o plataforma puede modificar ni borrar filas. */
+export const APPEND_ONLY_TABLES: readonly string[] = ["audit_log", "platform_audit_log"];
 
 export interface RlsViolation {
   table: string;
@@ -38,6 +49,9 @@ export interface RlsViolation {
     | "tenant_id_nullable"
     | "no_tenant_leading_index"
     | "fk_without_tenant_id"
+    | "global_table_exposed_to_app"
+    | "global_table_missing_policy"
+    | "append_only_violated"
     | "role_has_bypassrls";
   detail?: string;
 }
@@ -71,6 +85,25 @@ export async function auditRls(db: Queryable): Promise<RlsViolation[]> {
       }
       if (rule.rls && !t.rls) violations.push({ table: t.table, rule: "rls_not_enabled" });
       if (rule.rls && !t.forced) violations.push({ table: t.table, rule: "rls_not_forced" });
+      if (rule.rls) {
+        const anyPolicy = await db.query(
+          "select 1 from pg_policies where schemaname = 'public' and tablename = $1",
+          [t.table],
+        );
+        if (anyPolicy.rows.length === 0) {
+          violations.push({ table: t.table, rule: "global_table_missing_policy" });
+        }
+      } else {
+        // Sin RLS, la protección es NO conceder nada a nexo_app (ni a nivel de tabla ni de columna).
+        const exposed = await db.query(
+          `select has_any_column_privilege('nexo_app', format('public.%I', $1::text), 'SELECT,INSERT,UPDATE,REFERENCES') as exposed
+             where exists (select 1 from pg_roles where rolname = 'nexo_app')`,
+          [t.table],
+        );
+        if (exposed.rows.some((r) => (r as { exposed: boolean }).exposed)) {
+          violations.push({ table: t.table, rule: "global_table_exposed_to_app" });
+        }
+      }
       continue;
     }
 
@@ -114,6 +147,26 @@ export async function auditRls(db: Queryable): Promise<RlsViolation[]> {
     );
     for (const fk of fks.rows) {
       violations.push({ table: t.table, rule: "fk_without_tenant_id", detail: fk.conname });
+    }
+  }
+
+  for (const table of APPEND_ONLY_TABLES) {
+    const exists = tables.some((t) => t.table === table);
+    if (!exists) continue;
+    const mutable = await db.query(
+      `select r.rolname
+         from pg_roles r
+        where r.rolname in ('nexo_app', 'nexo_platform')
+          and (has_table_privilege(r.rolname, format('public.%I', $1::text), 'UPDATE')
+            or has_table_privilege(r.rolname, format('public.%I', $1::text), 'DELETE'))`,
+      [table],
+    );
+    for (const r of mutable.rows) {
+      violations.push({
+        table,
+        rule: "append_only_violated",
+        detail: (r as { rolname: string }).rolname,
+      });
     }
   }
 

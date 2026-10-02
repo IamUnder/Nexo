@@ -265,3 +265,142 @@ describe("pool de plataforma (BYPASSRLS)", () => {
     expect(all.map((t) => t.slug).sort()).toEqual(expect.arrayContaining(["tenant-a", "tenant-b"]));
   });
 });
+
+describe("hito 1 · identidad, auditoría y tablas solo de plataforma", () => {
+  let userA: string;
+  let userB: string;
+
+  beforeAll(async () => {
+    const owner = env.raw.ownerPool;
+    const ins = async (email: string) =>
+      (
+        await owner.query(
+          "insert into users (email, password_hash, full_name) values ($1, 'hash-secreto', $2) returning id",
+          [email, email],
+        )
+      ).rows[0].id as string;
+    userA = await ins("a@tenant-a.test");
+    userB = await ins("b@tenant-b.test");
+    await owner.query(
+      "insert into memberships (tenant_id, user_id, role) values ($1, $2, 'owner'), ($3, $4, 'owner')",
+      [A, userA, B, userB],
+    );
+  });
+
+  it("nexo_app solo ve a los usuarios con membresía en SU tenant", async () => {
+    const asA = await db.withTenant({ tenantId: A }, (tx) =>
+      tx.execute(sql`select email from users`),
+    );
+    const asB = await db.withTenant({ tenantId: B }, (tx) =>
+      tx.execute(sql`select email from users`),
+    );
+    expect(asA.rows.map((r) => r.email)).toEqual(["a@tenant-a.test"]);
+    expect(asB.rows.map((r) => r.email)).toEqual(["b@tenant-b.test"]);
+  });
+
+  it("nexo_app NO puede leer password_hash ni los contadores de bloqueo (columnas no concedidas)", async () => {
+    for (const col of ["password_hash", "failed_logins", "locked_until"]) {
+      await expectPgError(
+        db.withTenant({ tenantId: A }, (tx) => tx.execute(sql.raw(`select ${col} from users`))),
+        /permission denied/i,
+      );
+    }
+    await expectPgError(
+      db.withTenant({ tenantId: A }, (tx) => tx.execute(sql`select * from users`)),
+      /permission denied/i,
+    );
+  });
+
+  it("nexo_app no puede crear, modificar ni borrar usuarios", async () => {
+    await expectPgError(
+      db.withTenant({ tenantId: A }, (tx) =>
+        tx.execute(sql`update users set full_name = 'x' where id = ${userA}`),
+      ),
+      /permission denied/i,
+    );
+    await expectPgError(
+      db.withTenant({ tenantId: A }, (tx) =>
+        tx.execute(
+          sql`insert into users (email, password_hash, full_name) values ('z@z.test', 'h', 'z')`,
+        ),
+      ),
+      /permission denied/i,
+    );
+  });
+
+  it.each(["superadmins", "refresh_tokens", "user_tokens", "platform_audit_log"])(
+    "nexo_app no tiene NINGÚN acceso a la tabla global %s",
+    async (table) => {
+      await expectPgError(
+        db.withTenant({ tenantId: A }, (tx) =>
+          tx.execute(sql.raw(`select 1 from ${table} limit 1`)),
+        ),
+        /permission denied/i,
+      );
+    },
+  );
+
+  it("un miembro de A no puede ver las membresías ni las invitaciones de B", async () => {
+    await env.raw.ownerPool.query(
+      "insert into invitations (tenant_id, email, role, token_hash, expires_at) values ($1, 'x@b.test', 'sales', 'h-b', now() + interval '1 day')",
+      [B],
+    );
+    const m = await db.withTenant({ tenantId: A }, (tx) =>
+      tx.execute(sql`select tenant_id from memberships`),
+    );
+    const i = await db.withTenant({ tenantId: A }, (tx) =>
+      tx.execute(sql`select tenant_id from invitations`),
+    );
+    expect(m.rows.every((r) => r.tenant_id === A)).toBe(true);
+    expect(i.rows).toHaveLength(0);
+  });
+
+  it("la auditoría es inmutable: ni nexo_app ni nexo_platform pueden modificar ni borrar", async () => {
+    await db.withTenant({ tenantId: A }, (tx) =>
+      tx.execute(sql`insert into audit_log (tenant_id, action) values (${A}, 'test.accion')`),
+    );
+    await expectPgError(
+      db.withTenant({ tenantId: A }, (tx) => tx.execute(sql`update audit_log set action = 'x'`)),
+      /permission denied/i,
+    );
+    await expectPgError(
+      db.withTenant({ tenantId: A }, (tx) => tx.execute(sql`delete from audit_log`)),
+      /permission denied/i,
+    );
+    await expectPgError(
+      withPlatform(db, "test", (tx) => tx.execute(sql`delete from audit_log`)),
+      /permission denied/i,
+    );
+  });
+
+  it("A no ve la auditoría de B", async () => {
+    await db.withTenant({ tenantId: B }, (tx) =>
+      tx.execute(sql`insert into audit_log (tenant_id, action) values (${B}, 'solo.de.b')`),
+    );
+    const rows = await db.withTenant({ tenantId: A }, (tx) =>
+      tx.execute(sql`select action from audit_log`),
+    );
+    expect(rows.rows.map((r) => r.action)).not.toContain("solo.de.b");
+  });
+
+  it("auditRls detecta una tabla global expuesta a nexo_app y una auditoría mutable", async () => {
+    const owner = env.raw.ownerPool;
+    await owner.query(
+      "grant select on refresh_tokens to nexo_app; grant update on audit_log to nexo_app",
+    );
+    try {
+      const v = await auditRls(owner);
+      expect(v).toContainEqual({ table: "refresh_tokens", rule: "global_table_exposed_to_app" });
+      expect(v).toContainEqual({
+        table: "audit_log",
+        rule: "append_only_violated",
+        detail: "nexo_app",
+      });
+    } finally {
+      await owner.query(
+        "revoke select on refresh_tokens from nexo_app; revoke update on audit_log from nexo_app",
+      );
+    }
+    expect(await auditRls(owner)).toEqual([]);
+  });
+});

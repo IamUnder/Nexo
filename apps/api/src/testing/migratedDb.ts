@@ -15,12 +15,13 @@ export interface MigratedDb {
 }
 
 /** PostgreSQL real, con TODAS las migraciones aplicadas y los roles de login creados. */
-export async function setupMigratedDb(): Promise<MigratedDb> {
+export async function setupMigratedDb(options: { queues?: string[] } = {}): Promise<MigratedDb> {
   const raw = await startTestDatabase();
   await runMigrations({
     ownerUrl: raw.ownerUrl,
     appPassword: TEST_APP_PASSWORD,
     platformPassword: TEST_PLATFORM_PASSWORD,
+    queues: options.queues ?? [],
   });
   const opened: Database[] = [];
   return {

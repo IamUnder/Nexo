@@ -3,6 +3,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { Pool } from "pg";
 import { parseMigrateEnv } from "./platform/config/env";
+import { installQueues } from "./platform/queue/boss";
 
 /** Carpeta de migraciones SQL generadas por drizzle-kit (junto a este fichero, en `../drizzle`). */
 export const MIGRATIONS_FOLDER = fileURLToPath(new URL("../drizzle", import.meta.url));
@@ -13,6 +14,8 @@ export interface MigrateOptions {
   appPassword?: string | undefined;
   platformPassword?: string | undefined;
   migrationsFolder?: string;
+  /** Colas de pg-boss a crear (una por suscriptor de eventos). Requiere DDL: solo `migrate` puede. */
+  queues?: string[];
 }
 
 /**
@@ -42,6 +45,9 @@ export async function runMigrations(options: MigrateOptions): Promise<void> {
   } finally {
     await pool.end();
   }
+
+  // pg-boss: esquema + colas + permisos del rol de plataforma (DDL → rol propietario).
+  await installQueues(options.ownerUrl, options.queues ?? []);
 }
 
 // Ejecución directa: `node dist/migrate.js` / `pnpm db:migrate`.
