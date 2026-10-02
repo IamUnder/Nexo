@@ -1,0 +1,20 @@
+{
+  "name": "@nexo/testing",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@testcontainers/postgresql": "^12.2.0",
+    "pg": "^8.23.1",
+    "testcontainers": "^12.2.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.23.1"
+  }
+}

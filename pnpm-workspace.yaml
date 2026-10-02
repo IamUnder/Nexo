@@ -1,0 +1,13 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Scripts de instalación permitidos (pnpm bloquea el resto por seguridad). Añadir aquí solo con motivo.
+allowBuilds:
+  lefthook: true
+  esbuild: true
+  argon2: true
+  # Aceleradores nativos opcionales de testcontainers: no se necesitan.
+  cpu-features: false
+  ssh2: false
+  protobufjs: false

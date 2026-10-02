@@ -1,0 +1,53 @@
+{
+  "name": "nexo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Nexo — CRM operativo modular (SaaS B2B multitenant)",
+  "packageManager": "pnpm@12.8.1",
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=10"
+  },
+  "scripts": {
+    "infra:up": "node tools/infra.mjs up",
+    "infra:down": "node tools/infra.mjs down",
+    "dev": "turbo run dev --parallel",
+    "dev:api": "pnpm --filter @nexo/api dev:api",
+    "dev:worker": "pnpm --filter @nexo/api dev:worker",
+    "dev:web": "pnpm --filter @nexo/web dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "check:boundaries": "depcruise apps packages --config .dependency-cruiser.cjs",
+    "check:i18n": "node tools/check-i18n/index.mjs",
+    "test": "turbo run test",
+    "test:unit": "turbo run test:unit",
+    "test:integration": "turbo run test:integration",
+    "test:isolation": "pnpm --filter @nexo/api test:isolation",
+    "test:e2e": "pnpm --filter @nexo/web test:e2e",
+    "test:a11y": "pnpm --filter @nexo/ui test:a11y",
+    "test:coverage": "turbo run test:coverage",
+    "db:generate": "pnpm --filter @nexo/api db:generate",
+    "db:migrate": "pnpm --filter @nexo/api db:migrate",
+    "db:seed": "pnpm --filter @nexo/api db:seed",
+    "db:seed:demo": "pnpm --filter @nexo/api db:seed:demo",
+    "db:reset:demo": "pnpm --filter @nexo/api db:reset:demo",
+    "db:check-rls": "pnpm --filter @nexo/api db:check-rls",
+    "storybook": "pnpm --filter @nexo/ui storybook",
+    "openapi:generate": "pnpm --filter @nexo/api openapi:generate",
+    "module:new": "node tools/new-module/index.mjs",
+    "prepare": "lefthook install || true"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "@types/node": "^26.6.4",
+    "dependency-cruiser": "^18.5.0",
+    "lefthook": "^2.1.16",
+    "turbo": "^2.11.6",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.3"
+  }
+}

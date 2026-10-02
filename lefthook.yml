@@ -1,0 +1,19 @@
+# Hooks de Git (AGENTS.md §7). Si un hook falla, arregla la causa; no uses --no-verify.
+pre-commit:
+  commands:
+    biome:
+      glob: "*.{ts,tsx,js,mjs,cjs,json,css}"
+      run: pnpm exec biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit {1}
+pre-push:
+  parallel: false
+  commands:
+    typecheck:
+      run: pnpm typecheck
+    boundaries:
+      run: pnpm check:boundaries
+    tests:
+      run: pnpm test
