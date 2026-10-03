@@ -29,6 +29,16 @@ docker compose -f deploy/docker-compose.prod.yml logs -f api worker
 3. **Superadmin**: entra en `/admin/login` con `SUPERADMIN_BOOTSTRAP_EMAIL/PASSWORD`; después elimina esas dos variables.
 4. **Secretos**: `JWT_SIGNING_KEYS` (`kid:secreto`, ≥ 32 car.; rotación: añadir la nueva delante), contraseñas de BD, S3.
 
+## Tenant demo
+
+Un tenant «Nexo Demo» activo (sin caducidad de prueba) con los datos de ejemplo, para enseñar el producto. Idempotente; define `DEMO_ADMIN_EMAIL` y `DEMO_ADMIN_PASSWORD` (≥ 12 caracteres, que no contenga el email) y ejecuta una vez desplegado:
+
+```bash
+docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env run --rm -e DEMO_ADMIN_EMAIL=... -e DEMO_ADMIN_PASSWORD=... api node dist/seed-demo.js
+# Volver a dejarlo como al principio (quita y recarga solo lo de ejemplo; no toca las credenciales):
+docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env run --rm -e DEMO_ADMIN_EMAIL=... -e DEMO_ADMIN_PASSWORD=... api node dist/reset-demo.js
+```
+
 ## Actualizaciones
 
 `up -d --build` reconstruye y vuelve a ejecutar `migrate` y `seed` (idempotentes) antes de `api`/`worker`. Las migraciones son solo hacia adelante y compatibles hacia atrás: el rollback de código es seguro; el de esquema no existe (ARCHITECTURE §5.6).

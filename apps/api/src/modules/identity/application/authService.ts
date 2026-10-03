@@ -7,6 +7,7 @@ import type {
   SeatType,
   SessionResponse,
 } from "@nexo/contracts";
+import { EVENT_TYPES, membershipChangedV1 } from "@nexo/contracts";
 import { generateToken, hashToken } from "../../../platform/crypto/tokens";
 import type { Database, Tx } from "../../../platform/db/database";
 import { withPlatform } from "../../../platform/db/platform";
@@ -16,6 +17,8 @@ import {
   NotFoundError,
   UnauthenticatedError,
 } from "../../../platform/errors";
+import { publishEvent } from "../../../platform/events/outbox";
+import { uuidv7 } from "../../../platform/ids";
 import type { AccessClaims, AuditLogger, Clock, SystemMailer } from "../../../platform/ports";
 import { isLocked, isWithinReuseLeeway, lockUntilAfterFailure } from "../domain/lockout";
 import { checkPassword } from "../domain/password";
@@ -571,12 +574,13 @@ export class AuthService {
         const existing = await this.d.users.findByEmail(tx, inv.email);
         if (existing) {
           if (!(await this.d.memberships.findByUserAndTenant(tx, existing.id, inv.tenantId))) {
-            await this.d.memberships.insert(tx, {
+            const created = await this.d.memberships.insert(tx, {
               tenantId: inv.tenantId,
               userId: existing.id,
               role: inv.role,
               seatType: inv.seatType,
             });
+            await this.emitMembershipCreated(tx, inv.tenantId, created, now);
           }
           await this.d.invitations.markAccepted(tx, inv.id, now);
           return { kind: "accepted" };
@@ -603,6 +607,7 @@ export class AuthService {
           seatType: inv.seatType,
         });
         await this.d.invitations.markAccepted(tx, inv.id, now);
+        await this.emitMembershipCreated(tx, inv.tenantId, membership, now);
         await this.d.audit.record(
           tx,
           { tenantId: inv.tenantId, actor: { membershipId: membership.id, source: "user" } },
@@ -618,6 +623,30 @@ export class AuthService {
     );
     if (outcome.kind === "fail") throw outcome.error;
     return outcome;
+  }
+
+  /** Evento `identity.membership.created` al aceptar una invitación (lo consume, p. ej., el onboarding). */
+  private async emitMembershipCreated(
+    tx: Tx,
+    tenantId: string,
+    m: { id: string; userId: string; role: string; seatType: string; status?: string },
+    now: Date,
+  ) {
+    await publishEvent(tx, {
+      id: uuidv7(),
+      ...EVENT_TYPES.membershipCreated,
+      tenantId,
+      occurredAt: now.toISOString(),
+      actor: { membershipId: m.id, source: "user" },
+      entity: { type: "membership", id: m.id },
+      payload: membershipChangedV1.parse({
+        membershipId: m.id,
+        userId: m.userId,
+        role: m.role,
+        seatType: m.seatType,
+        status: m.status ?? "active",
+      }),
+    });
   }
 
   /** Crea la cuenta del propietario de un tenant nuevo (puerto `OwnerProvisioner` de tenancy). */

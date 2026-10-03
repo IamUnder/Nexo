@@ -28,6 +28,7 @@ import { AccountProjects, ProjectsPage } from "../features/delivery/ProjectsPage
 import { HomePage } from "../features/home/HomePage";
 import { ImportPage } from "../features/import/ImportPage";
 import { SalesPanel } from "../features/insights/SalesPanel";
+import { OnboardingChecklist } from "../features/onboarding/OnboardingChecklist";
 import { SettingsPage } from "../features/settings/SettingsPage";
 import { TeamPage } from "../features/team/TeamPage";
 import { useAuthStore } from "../shared/auth/authStore";
@@ -118,7 +119,16 @@ const appRoute = createRoute({
 const homeRoute = createRoute({
   getParentRoute: () => appRoute,
   path: "/",
-  component: () => <HomePage panel={<SalesPanel />} />,
+  component: () => (
+    <HomePage
+      panel={
+        <>
+          <OnboardingChecklist />
+          <SalesPanel />
+        </>
+      }
+    />
+  ),
 });
 const teamRoute = createRoute({
   getParentRoute: () => appRoute,

@@ -15,6 +15,8 @@ await build({
     worker: "src/worker.ts",
     migrate: "src/migrate.ts",
     seed: "scripts/seed.ts",
+    "seed-demo": "scripts/seed-demo.ts",
+    "reset-demo": "scripts/reset-demo.ts",
   },
   outdir: "dist",
   bundle: true,

@@ -1,0 +1,16 @@
+{
+  "title": "Getting started",
+  "activated": "Account activated!",
+  "progress": "{{done}} of {{total}} steps completed",
+  "dismiss": "Hide",
+  "restore": "Show getting started",
+  "go": "Go",
+  "soon": "Coming soon",
+  "steps": {
+    "import_50_records": "Import your first 50 records",
+    "mailbox_connected": "Connect your email and calendar",
+    "invited_3_users": "Invite 3 people from your team",
+    "deal_created_or_moved": "Create or move a deal",
+    "project_from_deal": "Win a deal and generate its project"
+  }
+}

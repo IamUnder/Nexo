@@ -93,6 +93,8 @@
     "delivery_task_update": "Update project tasks",
     "delivery_task_delete": "Delete project tasks",
     "delivery_time_read": "View logged time",
-    "delivery_time_create": "Log time"
+    "delivery_time_create": "Log time",
+    "onboarding_checklist_read": "View getting started",
+    "onboarding_checklist_manage": "Hide getting started"
   }
 }

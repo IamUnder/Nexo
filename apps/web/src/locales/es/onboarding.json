@@ -1,0 +1,16 @@
+{
+  "title": "Primeros pasos",
+  "activated": "¡Cuenta activada!",
+  "progress": "{{done}} de {{total}} pasos completados",
+  "dismiss": "Ocultar",
+  "restore": "Mostrar los primeros pasos",
+  "go": "Ir",
+  "soon": "Próximamente",
+  "steps": {
+    "import_50_records": "Importa tus primeros 50 registros",
+    "mailbox_connected": "Conecta tu correo y calendario",
+    "invited_3_users": "Invita a 3 personas de tu equipo",
+    "deal_created_or_moved": "Crea o mueve una oportunidad",
+    "project_from_deal": "Gana una oportunidad y genera su proyecto"
+  }
+}

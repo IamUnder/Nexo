@@ -7,6 +7,7 @@ export * from "./api/delivery";
 export * from "./api/files";
 export * from "./api/import";
 export * from "./api/insights";
+export * from "./api/onboarding";
 export * from "./api/team";
 export * from "./api/tenant";
 export * from "./errors";

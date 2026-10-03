@@ -1,6 +1,16 @@
 /**
- * `pnpm db:reset:demo`: devuelve el tenant demo a su estado inicial sin tocar las credenciales
- * de su admin (MODULES_SPEC §2.1). Llega en el hito 7.
+ * `pnpm db:reset:demo`: devuelve el tenant demo a su estado inicial (quita y vuelve a cargar los datos
+ * de ejemplo) sin tocar las credenciales de su admin. Requiere DEMO_ADMIN_EMAIL y DEMO_ADMIN_PASSWORD.
  */
-console.error("reset:demo no disponible todavía: se implementa en el hito 7");
-process.exit(1);
+import { ensureDemoTenant, loadDemoData, openDemoRuntime } from "./lib/demo";
+
+const rt = openDemoRuntime();
+try {
+  const ctx = await ensureDemoTenant(rt);
+  const result = await loadDemoData(rt, ctx, true);
+  console.log(
+    `demo reseteado: ${result.accounts} empresas, ${result.contacts} contactos, ${result.deals} oportunidades`,
+  );
+} finally {
+  await rt.close();
+}

@@ -16,7 +16,7 @@ _Última actualización: 2026-10-03 · Fase: **hitos 0, 1 y 3 completados** y pa
 | **4 · Data Onboarding** | 🟡 Parcial | Hecho: importar empresas y contactos desde CSV (simulación, dedupe, ejecución reanudable, rollback) y exportar a CSV. Pendiente: XLSX, oportunidades, plantillas de mapeo, revisión de coincidencias dudosas. |
 | 5 · Comunicación | ⬜ Pendiente | |
 | **6 · Delivery Lite** | 🟡 Parcial | Deal ganado → proyecto con plantilla (idempotente), tareas, hitos, salud automática, tiempo, proyectos en la ficha de empresa. Pendiente: plantillas editables, comentarios, desactivar creación automática. |
-| 7 · Insights, Onboarding y Demo | 🟡 Parcial | Hecho: panel de ventas (módulo `insights`). Pendiente: asistente de onboarding/plantilla vertical, tenant demo persistente con reset, iconos PNG de la PWA. |
+| **7 · Insights, Onboarding y Demo** | 🟡 Parcial | Hecho: panel de ventas, checklist de activación por eventos, datos de ejemplo y tenant demo con reset. Pendiente: asistente de plantilla vertical, señales PQL, adopción/exportación de Insights, iconos PNG de la PWA. |
 | 8 · API pública y endurecimiento | ⬜ Pendiente | |
 
 ## Bloqueos (necesitan al usuario)
@@ -35,6 +35,12 @@ _Última actualización: 2026-10-03 · Fase: **hitos 0, 1 y 3 completados** y pa
 - **Datos de ejemplo** (onboarding minuto 0): `POST/DELETE /crm/sample-data` (8 empresas, 10 oportunidades en todas las etapas, tareas y timeline) con los casos de uso reales; solo quita lo marcado como ejemplo. Botones en el tablero.
 - **Editor de embudo** en `/crm/pipeline` (botón en el tablero).
 - **Pendiente del CRM:** exportación CSV, importación (hito 4).
+
+## Hito 7 (parcial) · onboarding y demo
+
+- **`onboarding`:** checklist de activación (importar 50 registros, invitar a 3 personas, crear o mover una oportunidad, generar un proyecto desde un deal; el buzón figura «Próximamente») alimentado solo por eventos; descartable y retomable; se muestra en Inicio con enlaces a la pantalla real. Para ello `identity` ahora emite `identity.membership.created` al aceptar una invitación.
+- **Demo:** `pnpm db:seed:demo` / `pnpm db:reset:demo` (también `node dist/seed-demo.js` y `dist/reset-demo.js` en la imagen). El tenant demo queda activo sin caducidad.
+- **Tests:** API 252 en total (6 de onboarding + 1 de demo), E2E del checklist con axe.
 
 ## Hito 6 (parcial) · qué hay (verificado)
 

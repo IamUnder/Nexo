@@ -93,6 +93,8 @@
     "delivery_task_update": "Actualizar tareas de proyecto",
     "delivery_task_delete": "Borrar tareas de proyecto",
     "delivery_time_read": "Ver tiempo registrado",
-    "delivery_time_create": "Registrar tiempo"
+    "delivery_time_create": "Registrar tiempo",
+    "onboarding_checklist_read": "Ver los primeros pasos",
+    "onboarding_checklist_manage": "Ocultar los primeros pasos"
   }
 }

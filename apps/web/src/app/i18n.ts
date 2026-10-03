@@ -10,6 +10,7 @@ import enErrors from "../locales/en/errors.json";
 import enHome from "../locales/en/home.json";
 import enImport from "../locales/en/import.json";
 import enInsights from "../locales/en/insights.json";
+import enOnboarding from "../locales/en/onboarding.json";
 import enSettings from "../locales/en/settings.json";
 import enTeam from "../locales/en/team.json";
 import esAdmin from "../locales/es/admin.json";
@@ -22,6 +23,7 @@ import esErrors from "../locales/es/errors.json";
 import esHome from "../locales/es/home.json";
 import esImport from "../locales/es/import.json";
 import esInsights from "../locales/es/insights.json";
+import esOnboarding from "../locales/es/onboarding.json";
 import esSettings from "../locales/es/settings.json";
 import esTeam from "../locales/es/team.json";
 
@@ -44,6 +46,7 @@ export const NAMESPACES = [
   "insights",
   "import",
   "delivery",
+  "onboarding",
 ] as const;
 
 export const resources = {
@@ -60,6 +63,7 @@ export const resources = {
     insights: esInsights,
     import: esImport,
     delivery: esDelivery,
+    onboarding: esOnboarding,
   },
   en: {
     common: enCommon,
@@ -74,6 +78,7 @@ export const resources = {
     insights: enInsights,
     import: enImport,
     delivery: enDelivery,
+    onboarding: enOnboarding,
   },
 } as const;
 

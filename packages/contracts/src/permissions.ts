@@ -53,6 +53,9 @@ export const PERMISSIONS = [
   "delivery:task:delete",
   "delivery:time:read",
   "delivery:time:create",
+  // Onboarding
+  "onboarding:checklist:read",
+  "onboarding:checklist:manage",
   // Data Onboarding
   "import:batch:read",
   "import:batch:create",
@@ -82,6 +85,7 @@ const PLATFORM_READ: Permission[] = [
   "tenancy:settings:read",
   "files:file:read",
   "insights:dashboard:read",
+  "onboarding:checklist:read",
 ];
 
 /** Todo el CRM de lectura. */
@@ -126,6 +130,7 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     "crm:deal:manage",
     "crm:task:delete",
     "crm:pipeline:manage",
+    "onboarding:checklist:manage",
     ...DELIVERY_WORK,
     "delivery:project:create",
     "delivery:project:update",
