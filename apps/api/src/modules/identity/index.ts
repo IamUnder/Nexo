@@ -5,7 +5,7 @@
  */
 import type { FastifyInstance } from "fastify";
 import type { SigningKeys } from "../../platform/config/env";
-import type { Database } from "../../platform/db/database";
+import type { Database, Tx } from "../../platform/db/database";
 import type { createGuards } from "../../platform/http/guards";
 import type {
   AccessTokenVerifier,
@@ -56,6 +56,11 @@ export interface IdentityModule {
   owners: AuthService;
   sessions: { issue: AuthService["issueForMembership"] };
   members: { countByTenant: TeamService["countByTenant"] };
+  /** Directorio de miembros que ofrece a otros módulos (nombres y comprobación de miembro activo). */
+  directory: {
+    names(tx: Tx, membershipIds: string[]): Promise<Map<string, string>>;
+    isActiveMember(tx: Tx, membershipId: string): Promise<boolean>;
+  };
   subscribers: ReturnType<typeof tenantCreatedMailSubscriber>[];
   registerRoutes(app: FastifyInstance): void;
 }
@@ -139,6 +144,18 @@ export function createIdentityModule(deps: {
     owners: auth,
     sessions: { issue: (args) => auth.issueForMembership(args) },
     members: { countByTenant: (tx, ids) => team.countByTenant(tx, ids) },
+    directory: {
+      async names(tx, ids) {
+        // Bajo withTenant: RLS limita memberships y users a este tenant.
+        const wanted = new Set(ids);
+        const all = await memberships.listForTenant(tx);
+        return new Map(all.filter((m) => wanted.has(m.id)).map((m) => [m.id, m.fullName]));
+      },
+      async isActiveMember(tx, id) {
+        const m = await memberships.findById(tx, id);
+        return m?.status === "active";
+      },
+    },
     subscribers: [
       tenantCreatedMailSubscriber({
         database: deps.database,

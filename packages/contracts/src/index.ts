@@ -2,6 +2,7 @@ export * from "./api/admin";
 export * from "./api/audit";
 export * from "./api/auth";
 export * from "./api/common";
+export * from "./api/crm";
 export * from "./api/files";
 export * from "./api/team";
 export * from "./api/tenant";

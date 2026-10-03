@@ -43,6 +43,20 @@
       "when": 1790984318756,
       "tag": "0005_platform_core_rls_and_grants",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790988142126,
+      "tag": "0006_crm_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1790988143256,
+      "tag": "0007_crm_rls_and_indexes",
+      "breakpoints": true
     }
   ]
 }

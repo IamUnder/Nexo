@@ -41,7 +41,7 @@ function bearer(req: FastifyRequest): string {
 export function createGuards(deps: { database: Database; ports: PlatformPorts }) {
   const { database, ports } = deps;
 
-  return function guard(options: GuardOptions = {}): preHandlerAsyncHookHandler {
+  function guard(options: GuardOptions = {}): preHandlerAsyncHookHandler {
     const scope = options.scope ?? "tenant";
     return async (req) => {
       // 1 · autenticación
@@ -82,7 +82,28 @@ export function createGuards(deps: { database: Database; ports: PlatformPorts })
         }
       });
     };
-  };
+  }
+
+  /**
+   * ¿Tiene la petición autenticada este permiso ADICIONAL? Para reglas finas dentro de un caso de uso
+   * (p. ej. cambiar el importe de una oportunidad ganada exige `crm:deal:manage`).
+   */
+  async function can(req: FastifyRequest, permission: Permission): Promise<boolean> {
+    const claims = req.auth;
+    if (!claims || claims.scope !== "tenant" || !claims.tenantId || !claims.membershipId)
+      return false;
+    const { tenantId, membershipId } = claims;
+    return database.withTenant({ tenantId }, async (tx) => {
+      const scope = await ports.permissions.scopeFor(
+        tx,
+        { ...claims, tenantId, membershipId },
+        permission,
+      );
+      return scope !== null;
+    });
+  }
+
+  return Object.assign(guard, { can });
 }
 
 export type Guard = ReturnType<typeof createGuards>;
