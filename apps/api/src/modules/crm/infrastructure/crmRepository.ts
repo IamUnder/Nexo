@@ -181,6 +181,14 @@ export class DbCrmRepository implements CrmRepository {
     return row ?? null;
   }
 
+  async sampleAccountIds(tx: Tx): Promise<string[]> {
+    const rows = await tx
+      .select({ id: accounts.id })
+      .from(accounts)
+      .where(and(eq(accounts.source, "sample"), isNull(accounts.deletedAt)));
+    return rows.map((r) => r.id);
+  }
+
   async listAccounts(tx: Tx, f: ListFilter): Promise<Paged<AccountRow>> {
     const cur = decodeCursor(f.cursor);
     const rows = await tx

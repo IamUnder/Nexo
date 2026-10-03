@@ -252,5 +252,13 @@
     "save": "Save pipeline",
     "saved": "Pipeline saved",
     "stageLocked": "It has {{count}} deals; move them before removing it."
+  },
+  "sample": {
+    "load": "Load sample data",
+    "loadHint": "Fills the CRM with sample companies, contacts and deals so you can explore. You can remove them at any time.",
+    "remove": "Remove sample data",
+    "removeConfirm": "Remove the sample data? Nothing you created yourself will be touched.",
+    "loaded": "Sample data loaded",
+    "removed": "Sample data removed"
   }
 }

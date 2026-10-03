@@ -16,7 +16,7 @@ _Última actualización: 2026-10-03 · Fase: **hitos 0, 1 y 3 completados** y pa
 | 4 · Data Onboarding | ⬜ Pendiente | |
 | 5 · Comunicación | ⬜ Pendiente | |
 | 6 · Delivery Lite | ⬜ Pendiente | |
-| 7 · Insights, Onboarding y Demo | 🟡 Parcial | Hecho: panel de ventas (módulo `insights`). Pendiente: onboarding/plantilla vertical, tenant demo, iconos PNG de la PWA. |
+| 7 · Insights, Onboarding y Demo | 🟡 Parcial | Hecho: panel de ventas (módulo `insights`). Pendiente: asistente de onboarding/plantilla vertical, tenant demo persistente con reset, iconos PNG de la PWA. |
 | 8 · API pública y endurecimiento | ⬜ Pendiente | |
 
 ## Bloqueos (necesitan al usuario)
@@ -32,6 +32,7 @@ _Última actualización: 2026-10-03 · Fase: **hitos 0, 1 y 3 completados** y pa
 - **Web:** tablero con arrastre y menú accesible «Mover a…», ficha de oportunidad (ganar/perder/reabrir, edición, tareas, timeline), empresas (lista, ficha, contactos, oportunidades), contactos, «Mis tareas», búsqueda global en la barra superior; i18n es/en.
 - **Insights (panel de ventas, parte del hito 7):** read models por eventos, conciliación con el CRM verificada por test, alcance `own`/`all`, panel en Inicio con pipeline, ponderado, conversión, ciclo medio, ingresos ganados, previsión, actividad y motivos de pérdida.
 - **Tests:** API 203 (23 de integración CRM + 7 de Insights), E2E del flujo comercial completo con axe en claro/oscuro.
+- **Datos de ejemplo** (onboarding minuto 0): `POST/DELETE /crm/sample-data` (8 empresas, 10 oportunidades en todas las etapas, tareas y timeline) con los casos de uso reales; solo quita lo marcado como ejemplo. Botones en el tablero.
 - **Pendiente del CRM:** editor de pipeline en Ajustes (la API ya existe: `PUT /crm/pipelines/:id/stages`), exportación CSV, importación (hito 4).
 
 ## Hallazgos de los hitos 3 y despliegue

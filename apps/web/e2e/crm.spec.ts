@@ -112,4 +112,25 @@ test.describe("CRM: del alta de una empresa a ganar una oportunidad", () => {
     await expect(page.getByRole("cell", { name: "Eva Ruiz" })).toBeVisible();
     await expectAccessible(page);
   });
+
+  test("datos de ejemplo: cargar, explorar el tablero y quitarlos", async ({ page }) => {
+    await signup(page);
+    await page.getByRole("link", { name: "Oportunidades", exact: true }).click();
+    await expect(page.getByText("Aún no hay oportunidades")).toBeVisible();
+
+    await page.getByRole("button", { name: "Cargar datos de ejemplo" }).click();
+    await expect(page.getByText("Auditoría de procesos")).toBeVisible();
+    await expect(
+      page.getByRole("region", { name: "Ganada" }).getByText("Auditoría de procesos"),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("region", { name: "Perdida" }).getByText("ERP ligero"),
+    ).toBeVisible();
+    await expectAccessible(page);
+
+    page.once("dialog", (d) => void d.accept());
+    await page.getByRole("button", { name: "Quitar datos de ejemplo" }).click();
+    await expect(page.getByText("Aún no hay oportunidades")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Cargar datos de ejemplo" })).toBeVisible();
+  });
 });

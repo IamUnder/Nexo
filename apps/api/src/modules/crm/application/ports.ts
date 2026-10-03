@@ -159,6 +159,8 @@ export interface CrmRepository {
   ): Promise<void>;
   softDeleteAccount(tx: Tx, id: string): Promise<void>;
   countOpenDealsOfAccount(tx: Tx, accountId: string): Promise<number>;
+  /** Ids de las empresas de ejemplo (`source = 'sample'`) no borradas. */
+  sampleAccountIds(tx: Tx): Promise<string[]>;
 
   // Contactos
   insertContact(

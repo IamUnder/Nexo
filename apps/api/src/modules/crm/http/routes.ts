@@ -27,6 +27,7 @@ import type { ActivityService } from "../application/activityService";
 import type { ContactService } from "../application/contactService";
 import type { DealService } from "../application/dealService";
 import type { PipelineService } from "../application/pipelineService";
+import type { SampleDataService } from "../application/sampleDataService";
 import type { Access } from "../application/shared";
 
 export interface CrmServices {
@@ -35,6 +36,7 @@ export interface CrmServices {
   pipelines: PipelineService;
   deals: DealService;
   activities: ActivityService;
+  sampleData: SampleDataService;
 }
 
 /** Alcance concedido por el permiso exigido por el guard (`own` | `all`). */
@@ -45,7 +47,7 @@ export function registerCrmRoutes(
   deps: { services: CrmServices; guard: ReturnType<typeof createGuards> },
 ): void {
   const r = app.withTypeProvider<ZodTypeProvider>();
-  const { accounts, contacts, pipelines, deals, activities } = deps.services;
+  const { accounts, contacts, pipelines, deals, activities, sampleData } = deps.services;
   const guard = deps.guard;
   /** Todas las rutas del CRM exigen el módulo contratado + un permiso concreto. */
   const g = (
@@ -267,6 +269,18 @@ export function registerCrmRoutes(
       return reply.status(204).send();
     },
   );
+
+  // ── Datos de ejemplo (onboarding): consultar / cargar / quitar ────────────────────────────────
+  r.get(`${P}/sample-data`, { preHandler: g("crm:pipeline:manage") }, (req) =>
+    sampleData.status(tenantContextOf(req)),
+  );
+  r.post(`${P}/sample-data`, { preHandler: g("crm:pipeline:manage") }, async (req, reply) =>
+    reply.status(201).send(await sampleData.load(tenantContextOf(req))),
+  );
+  r.delete(`${P}/sample-data`, { preHandler: g("crm:pipeline:manage") }, async (req, reply) => {
+    await sampleData.remove(tenantContextOf(req));
+    return reply.status(204).send();
+  });
 
   r.get(
     `${P}/search`,

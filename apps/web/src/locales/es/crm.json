@@ -252,5 +252,13 @@
     "save": "Guardar embudo",
     "saved": "Embudo guardado",
     "stageLocked": "Tiene {{count}} oportunidades; muévelas antes de quitarla."
+  },
+  "sample": {
+    "load": "Cargar datos de ejemplo",
+    "loadHint": "Rellena el CRM con empresas, contactos y oportunidades de ejemplo para explorar. Podrás quitarlos cuando quieras.",
+    "remove": "Quitar datos de ejemplo",
+    "removeConfirm": "¿Quitar los datos de ejemplo? No se tocará nada de lo que hayas creado tú.",
+    "loaded": "Datos de ejemplo cargados",
+    "removed": "Datos de ejemplo quitados"
   }
 }

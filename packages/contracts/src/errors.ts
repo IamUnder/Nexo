@@ -25,6 +25,7 @@ export const ERROR_CODES = [
   "crm.stage_has_deals",
   "crm.invalid_stages",
   "crm.invalid_owner",
+  "crm.sample_exists",
   "tenant.blocked",
   "entitlement.missing",
   "limit.exceeded",

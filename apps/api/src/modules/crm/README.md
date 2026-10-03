@@ -27,7 +27,7 @@ Empresas, contactos, oportunidades (pipelines configurables), actividad (timelin
 - Un pipeline tiene al menos una etapa abierta, una ganada y una perdida, sin nombres repetidos.
 
 ## Cómo probarlo
-`pnpm --filter @nexo/api test -- crm` (unitarios de dominio + 23 de integración HTTP con PostgreSQL real).
+`pnpm --filter @nexo/api test -- crm` (unitarios de dominio + 25 de integración HTTP con PostgreSQL real).
 
 ## Reglas de aislamiento
 No importa ningún otro módulo (`pnpm check:boundaries`). Habla con el resto por eventos y puertos.

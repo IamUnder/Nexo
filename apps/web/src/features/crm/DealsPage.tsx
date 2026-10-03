@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useCan } from "../../shared/api/queries";
 import { useDeals, usePipelines } from "./api";
 import { DealDialog, isOverdue, LoseDealDialog, useDealActions, useFormatters } from "./components";
+import { SampleDataControls } from "./SampleDataControls";
 
 function DealCard({
   deal,
@@ -116,12 +117,15 @@ export function DealsPage() {
           <h1 className="font-display text-2xl font-semibold">{t("deals.title")}</h1>
           <p className="text-secondary text-sm">{t("deals.subtitle")}</p>
         </div>
-        {canCreate ? (
-          <Button onClick={() => setCreating(true)}>
-            <Icon name="plus" size={16} />
-            {t("deals.new")}
-          </Button>
-        ) : null}
+        <div className="flex flex-wrap items-center gap-2">
+          <SampleDataControls mode="remove" />
+          {canCreate ? (
+            <Button onClick={() => setCreating(true)}>
+              <Icon name="plus" size={16} />
+              {t("deals.new")}
+            </Button>
+          ) : null}
+        </div>
       </header>
 
       <div className="flex flex-wrap gap-3">
@@ -171,9 +175,12 @@ export function DealsPage() {
           title={t("deals.empty.title")}
           description={t("deals.empty.description")}
           action={
-            canCreate ? (
-              <Button onClick={() => setCreating(true)}>{t("deals.new")}</Button>
-            ) : undefined
+            <div className="flex flex-wrap justify-center gap-2">
+              {canCreate ? (
+                <Button onClick={() => setCreating(true)}>{t("deals.new")}</Button>
+              ) : null}
+              <SampleDataControls mode="load" />
+            </div>
           }
         />
       ) : null}

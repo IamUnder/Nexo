@@ -700,3 +700,68 @@ describe("aislamiento total entre tenants (CRM)", () => {
     ).toBe(404);
   });
 });
+
+describe("datos de ejemplo", () => {
+  it("se cargan con los casos de uso reales, no se duplican y se quitan sin tocar lo real", async () => {
+    const s = await owner();
+    const real = await account(s, "Cliente real");
+    await deal(s, real.id, { name: "Trato real" });
+
+    expect((await call(s, "GET", "/sample-data")).json()).toEqual({ loaded: false });
+    const loaded = await call(s, "POST", "/sample-data");
+    expect(loaded.statusCode, loaded.body).toBe(201);
+    expect(loaded.json()).toMatchObject({ accounts: 8, deals: 10 });
+    expect((await call(s, "GET", "/sample-data")).json()).toEqual({ loaded: true });
+
+    const again = await call(s, "POST", "/sample-data");
+    expect(again.statusCode).toBe(409);
+    expect(again.json().error.code).toBe("crm.sample_exists");
+
+    // Hay oportunidades en varias etapas, ganadas y perdidas, y tareas pendientes.
+    const deals = (await call(s, "GET", "/deals")).json() as Array<{ status: string }>;
+    expect(deals.length).toBe(11);
+    expect(new Set(deals.map((d) => d.status))).toEqual(new Set(["open", "won", "lost"]));
+    expect(
+      ((await call(s, "GET", "/tasks?status=open")).json() as unknown[]).length,
+    ).toBeGreaterThan(3);
+
+    await h.drainOutbox();
+    const insights = await h.app.inject({
+      method: "GET",
+      url: "/api/v1/insights/overview",
+      headers: h.auth(s),
+    });
+    expect(insights.json().won.count).toBe(2);
+
+    expect((await call(s, "DELETE", "/sample-data")).statusCode).toBe(204);
+    expect((await call(s, "GET", "/sample-data")).json()).toEqual({ loaded: false });
+    const left = (await call(s, "GET", "/deals")).json() as Array<{ name: string }>;
+    expect(left.map((d) => d.name)).toEqual(["Trato real"]);
+    expect(
+      (await call(s, "GET", "/accounts?limit=100"))
+        .json()
+        .items.map((a: { name: string }) => a.name),
+    ).toEqual(["Cliente real"]);
+    await h.drainOutbox();
+    const after = await h.app.inject({
+      method: "GET",
+      url: "/api/v1/insights/overview",
+      headers: h.auth(s),
+    });
+    expect(after.json().won.count).toBe(0);
+    expect(after.json().pipeline.count).toBe(1);
+    // Se puede volver a cargar.
+    expect((await call(s, "POST", "/sample-data")).statusCode).toBe(201);
+  });
+
+  it("solo quien gestiona el embudo puede cargarlos o quitarlos", async () => {
+    const o = await owner();
+    const sales = await h.addMember(o, "sales");
+    expect((await call(sales, "POST", "/sample-data")).statusCode).toBe(403);
+    expect((await call(sales, "DELETE", "/sample-data")).statusCode).toBe(403);
+    const other = await owner();
+    await call(other, "POST", "/sample-data");
+    // El otro tenant tiene sus datos; el primero sigue vacío.
+    expect((await call(o, "GET", "/sample-data")).json()).toEqual({ loaded: false });
+  });
+});

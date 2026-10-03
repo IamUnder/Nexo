@@ -15,6 +15,7 @@ import { ContactService } from "./application/contactService";
 import { DealService } from "./application/dealService";
 import { PipelineService } from "./application/pipelineService";
 import type { MemberDirectory } from "./application/ports";
+import { SampleDataService } from "./application/sampleDataService";
 import { registerCrmRoutes } from "./http/routes";
 import { DbCrmRepository } from "./infrastructure/crmRepository";
 
@@ -34,6 +35,7 @@ export interface CrmModule {
     pipelines: PipelineService;
     deals: DealService;
     activities: ActivityService;
+    sampleData: SampleDataService;
   };
 }
 
@@ -52,13 +54,21 @@ export function createCrmModule(deps: {
     clock: deps.clock,
   };
   const pipelines = new PipelineService(d);
-  const services = {
-    accounts: new AccountService(d),
-    contacts: new ContactService(d),
+  const accounts = new AccountService(d);
+  const contacts = new ContactService(d);
+  const deals = new DealService(d, pipelines);
+  const activities = new ActivityService(d);
+  const sampleData = new SampleDataService({
+    database: d.database,
+    repo: d.repo,
+    accounts,
+    contacts,
+    deals,
+    activities,
     pipelines,
-    deals: new DealService(d, pipelines),
-    activities: new ActivityService(d),
-  };
+    clock: d.clock,
+  });
+  const services = { accounts, contacts, pipelines, deals, activities, sampleData };
 
   return {
     services,

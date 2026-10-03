@@ -144,3 +144,10 @@ export function clean<T extends Record<string, unknown>>(o: T): Partial<T> {
     Object.entries(o).filter(([, v]) => v !== undefined && v !== ""),
   ) as Partial<T>;
 }
+
+export const useSampleStatus = (enabled: boolean) =>
+  useQuery({
+    queryKey: ["crm", "sample-data"],
+    queryFn: () => api<{ loaded: boolean }>("/crm/sample-data"),
+    enabled,
+  });
