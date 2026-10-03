@@ -15,6 +15,8 @@ export interface AppDeps {
   env: Pick<Env, "NODE_ENV" | "NEXO_PUBLIC_URL">;
   logger: Logger;
   database: Pick<Database, "ping">;
+  /** `false` desactiva el rate limit (solo tests de integración, que hacen decenas de altas desde una IP). */
+  rateLimit?: boolean;
 }
 
 /**
@@ -43,7 +45,9 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     allowedHeaders: ["authorization", "content-type", "x-request-id", "x-nexo-csrf"],
   });
   await app.register(cookie);
-  await app.register(rateLimit, { global: true, max: 300, timeWindow: "1 minute" });
+  if (deps.rateLimit !== false) {
+    await app.register(rateLimit, { global: true, max: 300, timeWindow: "1 minute" });
+  }
 
   app.addHook("onSend", async (req, reply) => {
     reply.header("x-request-id", req.id);

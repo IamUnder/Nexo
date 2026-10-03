@@ -90,6 +90,14 @@ export const loginResponseSchema = z.discriminatedUnion("kind", [
 ]);
 export type LoginResponse = z.infer<typeof loginResponseSchema>;
 
+/** Aceptar una invitación con una cuenta que ya existía: queda añadida, pero debe iniciar sesión. */
+export const invitationAcceptedResponseSchema = z.object({ kind: z.literal("accepted") });
+export const acceptInvitationResponseSchema = z.discriminatedUnion("kind", [
+  sessionResponseSchema,
+  invitationAcceptedResponseSchema,
+]);
+export type AcceptInvitationResponse = z.infer<typeof acceptInvitationResponseSchema>;
+
 /** `GET /session/me`: todo lo que la UI necesita para construir navegación y permisos. */
 export const meResponseSchema = z.object({
   user: sessionUserSchema,

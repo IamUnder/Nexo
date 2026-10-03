@@ -22,6 +22,13 @@ export class UnauthenticatedError extends AppError {
   }
 }
 
+/** Access token caducado: el cliente debe refrescar la sesión (código distinto de «no autenticado»). */
+export class TokenExpiredError extends AppError {
+  constructor() {
+    super("auth.token_expired", 401, "Token caducado");
+  }
+}
+
 export class ForbiddenError extends AppError {
   constructor(message = "Permiso insuficiente") {
     super("auth.forbidden", 403, message);

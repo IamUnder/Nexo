@@ -75,6 +75,11 @@ export interface AccessTokenVerifier {
 }
 
 export interface PermissionResolver {
+  /** Lanza `UnauthenticatedError` si la membresía no existe o no está activa (p. ej. suspendida). */
+  assertActive(
+    tx: Tx,
+    claims: AccessClaims & { tenantId: string; membershipId: string },
+  ): Promise<void>;
   /** ¿Puede esta membresía ejecutar `permission`? Devuelve el alcance (`own`|`all`) o null si no. */
   scopeFor(
     tx: Tx,

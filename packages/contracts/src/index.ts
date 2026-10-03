@@ -6,7 +6,7 @@ export * from "./api/files";
 export * from "./api/team";
 export * from "./api/tenant";
 export * from "./errors";
-export * from "./events/envelope";
+export * from "./events";
 export * from "./modules";
 export * from "./permissions";
 export * from "./roles";

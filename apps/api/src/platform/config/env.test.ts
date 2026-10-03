@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { parseEnv, parseMigrateEnv } from "./env";
+import { parseEnv, parseMigrateEnv, parseSigningKeys } from "./env";
 
 const valid = {
   DATABASE_URL_APP: "postgres://nexo_app:x@localhost:5432/nexo",
   DATABASE_URL_PLATFORM: "postgres://nexo_platform:x@localhost:5432/nexo",
+  JWT_SIGNING_KEYS: "k1:0123456789abcdef0123456789abcdef0123",
 };
 
 describe("parseEnv", () => {
@@ -35,5 +36,30 @@ describe("parseMigrateEnv", () => {
         NEXO_APP_DB_PASSWORD: "corta",
       }),
     ).toThrow();
+  });
+});
+
+describe("claves de firma JWT", () => {
+  it("la primera firma y todas validan (rotación)", () => {
+    const keys = parseSigningKeys("nueva:" + "n".repeat(32) + ",vieja:" + "v".repeat(32));
+    expect(keys.current.kid).toBe("nueva");
+    expect([...keys.all.keys()]).toEqual(["nueva", "vieja"]);
+  });
+
+  it("rechaza secretos cortos y formatos erróneos", () => {
+    expect(() => parseSigningKeys("k1:corto")).toThrow(/32/);
+    expect(() => parseSigningKeys("sin-separador")).toThrow(/formato/);
+    expect(() => parseSigningKeys("")).toThrow();
+  });
+
+  it("parseEnv falla si faltan o son inválidas, y exige dominio base en modo subdomain", () => {
+    expect(() => parseEnv({ ...valid, JWT_SIGNING_KEYS: "k1:corto" })).toThrow(/32/);
+    expect(() => parseEnv({ ...valid, TENANT_RESOLUTION_MODE: "subdomain" })).toThrow(
+      /NEXO_BASE_DOMAIN/,
+    );
+    expect(
+      parseEnv({ ...valid, TENANT_RESOLUTION_MODE: "subdomain", NEXO_BASE_DOMAIN: "nexo.test" })
+        .NEXO_BASE_DOMAIN,
+    ).toBe("nexo.test");
   });
 });

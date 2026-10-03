@@ -58,6 +58,9 @@ export function createGuards(deps: { database: Database; ports: PlatformPorts })
         await ports.tenantGate.assertCanOperate(tx, tenantId, {
           allowWhenBlocked: options.allowWhenBlocked ?? false,
         });
+        // La membresía debe seguir activa: un miembro suspendido pierde el acceso al instante,
+        // aunque su access token (15 min) aún no haya caducado.
+        await ports.permissions.assertActive(tx, { ...claims, tenantId, membershipId });
         // 3 · entitlement
         if (options.entitlement) {
           const ok = await ports.entitlements.has(

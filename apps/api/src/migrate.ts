@@ -2,6 +2,7 @@ import { fileURLToPath } from "node:url";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { Pool } from "pg";
+import { SUBSCRIBER_QUEUES } from "./composition/queues";
 import { parseMigrateEnv } from "./platform/config/env";
 import { installQueues } from "./platform/queue/boss";
 
@@ -57,6 +58,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     ownerUrl: env.DATABASE_URL_OWNER,
     appPassword: env.NEXO_APP_DB_PASSWORD,
     platformPassword: env.NEXO_PLATFORM_DB_PASSWORD,
+    queues: SUBSCRIBER_QUEUES,
   })
     .then(() => console.log("migraciones aplicadas"))
     .catch((err) => {
