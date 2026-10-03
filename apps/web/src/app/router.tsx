@@ -21,6 +21,7 @@ import { AccountsPage } from "../features/crm/AccountsPage";
 import { ContactsPage } from "../features/crm/ContactsPage";
 import { DealDetailPage } from "../features/crm/DealDetailPage";
 import { DealsPage } from "../features/crm/DealsPage";
+import { PipelineEditorPage } from "../features/crm/PipelineEditorPage";
 import { TasksPage } from "../features/crm/TasksPage";
 import { HomePage } from "../features/home/HomePage";
 import { ImportPage } from "../features/import/ImportPage";
@@ -158,6 +159,11 @@ const crmContactsRoute = createRoute({
   path: "/crm/contacts",
   component: ContactsPage,
 });
+const crmPipelineRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/crm/pipeline",
+  component: PipelineEditorPage,
+});
 const crmTasksRoute = createRoute({
   getParentRoute: () => appRoute,
   path: "/crm/tasks",
@@ -217,6 +223,7 @@ const routeTree = rootRoute.addChildren([
     crmAccountRoute,
     crmContactsRoute,
     crmTasksRoute,
+    crmPipelineRoute,
     importRoute,
     teamRoute,
     settingsRoute,

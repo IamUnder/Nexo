@@ -80,6 +80,7 @@ export function DealsPage() {
   const fmt = useFormatters();
   const canCreate = useCan("crm:deal:create");
   const canUpdate = useCan("crm:deal:update");
+  const canManagePipeline = useCan("crm:pipeline:manage");
   const pipelines = usePipelines();
   const [pipelineId, setPipelineId] = useState<string | undefined>();
   const [search, setSearch] = useState("");
@@ -118,6 +119,11 @@ export function DealsPage() {
           <p className="text-secondary text-sm">{t("deals.subtitle")}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          {canManagePipeline ? (
+            <Link to="/crm/pipeline">
+              <Button variant="secondary">{t("pipelines.title")}</Button>
+            </Link>
+          ) : null}
           <SampleDataControls mode="remove" />
           {canCreate ? (
             <Button onClick={() => setCreating(true)}>

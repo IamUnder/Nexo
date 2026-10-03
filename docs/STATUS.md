@@ -33,7 +33,8 @@ _Última actualización: 2026-10-03 · Fase: **hitos 0, 1 y 3 completados** y pa
 - **Insights (panel de ventas, parte del hito 7):** read models por eventos, conciliación con el CRM verificada por test, alcance `own`/`all`, panel en Inicio con pipeline, ponderado, conversión, ciclo medio, ingresos ganados, previsión, actividad y motivos de pérdida.
 - **Tests:** API 203 (23 de integración CRM + 7 de Insights), E2E del flujo comercial completo con axe en claro/oscuro.
 - **Datos de ejemplo** (onboarding minuto 0): `POST/DELETE /crm/sample-data` (8 empresas, 10 oportunidades en todas las etapas, tareas y timeline) con los casos de uso reales; solo quita lo marcado como ejemplo. Botones en el tablero.
-- **Pendiente del CRM:** editor de pipeline en Ajustes (la API ya existe: `PUT /crm/pipelines/:id/stages`), exportación CSV, importación (hito 4).
+- **Editor de embudo** en `/crm/pipeline` (botón en el tablero).
+- **Pendiente del CRM:** exportación CSV, importación (hito 4).
 
 ## Hito 4 (parcial) · qué hay (verificado)
 

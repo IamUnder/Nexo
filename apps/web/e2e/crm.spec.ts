@@ -134,3 +134,16 @@ test.describe("CRM: del alta de una empresa a ganar una oportunidad", () => {
     await expect(page.getByRole("button", { name: "Cargar datos de ejemplo" })).toBeVisible();
   });
 });
+
+test("editor de embudo: renombrar una etapa y añadir otra", async ({ page }) => {
+  await signup(page);
+  await page.getByRole("link", { name: "Oportunidades", exact: true }).click();
+  await page.getByRole("link", { name: "Embudo de ventas" }).click();
+  await expect(page.getByRole("heading", { name: "Embudo de ventas" })).toBeVisible();
+  await page.getByLabel("Etapa").first().fill("Lead");
+  await page.getByRole("button", { name: "Añadir etapa" }).click();
+  await page.getByLabel("Etapa").last().fill("Demo");
+  await page.getByRole("button", { name: "Guardar embudo" }).click();
+  await expect(page.getByText("Embudo guardado")).toBeVisible();
+  await expectAccessible(page);
+});
