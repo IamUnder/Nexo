@@ -114,6 +114,9 @@ services:
     mem_limit: 256m
     <<: *api
     command: ["node", "dist/worker.js"]
+    # El worker no sirve HTTP: se anula el HEALTHCHECK de la imagen (que consulta :4000).
+    healthcheck:
+      disable: true
     depends_on:
       seed:
         condition: service_completed_successfully

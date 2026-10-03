@@ -83,7 +83,9 @@ const baseSchema = z.object({
 export type Env = z.infer<typeof baseSchema>;
 
 export function parseEnv(source: Record<string, string | undefined> = process.env): Env {
-  const result = baseSchema.safeParse(source);
+  // Docker Compose inyecta `VAR: ${VAR:-}` como cadena vacía: para la configuración, vacío = no definida.
+  const cleaned = Object.fromEntries(Object.entries(source).filter(([, v]) => v !== ""));
+  const result = baseSchema.safeParse(cleaned);
   if (!result.success) {
     const detail = result.error.issues
       .map((i) => `  - ${i.path.join(".")}: ${i.message}`)

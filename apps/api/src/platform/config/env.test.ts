@@ -62,4 +62,10 @@ describe("claves de firma JWT", () => {
         .NEXO_BASE_DOMAIN,
     ).toBe("nexo.test");
   });
+
+  it("una variable vacía cuenta como no definida (compose inyecta cadenas vacías)", () => {
+    const env = parseEnv({ ...valid, S3_PUBLIC_ENDPOINT: "", SMTP_URL: "" });
+    expect(env.S3_PUBLIC_ENDPOINT).toBeUndefined();
+    expect(env.SMTP_URL).toBeUndefined();
+  });
 });
