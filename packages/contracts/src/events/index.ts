@@ -1,6 +1,7 @@
 export * from "./crm";
 export * from "./envelope";
 export * from "./identity";
+export * from "./import";
 export * from "./tenancy";
 
 /** Catálogo de tipos de evento con su versión vigente (la fuente es MODULES_SPEC §10). */
@@ -22,6 +23,9 @@ export const EVENT_TYPES = {
   dealWon: { type: "crm.deal.won", version: 1 },
   dealLost: { type: "crm.deal.lost", version: 1 },
   dealDeleted: { type: "crm.deal.deleted", version: 1 },
+  importBatchCompleted: { type: "import.batch.completed", version: 1 },
+  importBatchFailed: { type: "import.batch.failed", version: 1 },
+  importBatchRolledBack: { type: "import.batch.rolled_back", version: 1 },
   taskCreated: { type: "crm.task.created", version: 1 },
   taskCompleted: { type: "crm.task.completed", version: 1 },
   activityLogged: { type: "crm.activity.logged", version: 1 },

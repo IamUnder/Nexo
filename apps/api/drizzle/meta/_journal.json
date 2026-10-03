@@ -71,6 +71,20 @@
       "when": 1790990742509,
       "tag": "0009_insights_rls",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1790991907019,
+      "tag": "0010_import_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1790991908175,
+      "tag": "0011_import_rls",
+      "breakpoints": true
     }
   ]
 }

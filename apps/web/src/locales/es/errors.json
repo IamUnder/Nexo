@@ -32,5 +32,8 @@
   "crm.stage_has_deals": "Esa etapa tiene oportunidades. Muévelas antes de quitarla.",
   "crm.invalid_stages": "Las etapas no son válidas: necesitas al menos una abierta, una ganada y una perdida, sin nombres repetidos.",
   "crm.invalid_owner": "La persona elegida no es un miembro activo del equipo.",
-  "crm.sample_exists": "Los datos de ejemplo ya están cargados."
+  "crm.sample_exists": "Los datos de ejemplo ya están cargados.",
+  "import.batch_invalid_state": "Esta importación no está en un estado que permita esa acción.",
+  "import.mapping_invalid": "La correspondencia de columnas no es válida: revisa que el nombre esté relacionado.",
+  "import.too_many_rows": "El fichero tiene demasiadas filas. Divídelo en varios."
 }

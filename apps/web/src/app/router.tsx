@@ -23,6 +23,7 @@ import { DealDetailPage } from "../features/crm/DealDetailPage";
 import { DealsPage } from "../features/crm/DealsPage";
 import { TasksPage } from "../features/crm/TasksPage";
 import { HomePage } from "../features/home/HomePage";
+import { ImportPage } from "../features/import/ImportPage";
 import { SalesPanel } from "../features/insights/SalesPanel";
 import { SettingsPage } from "../features/settings/SettingsPage";
 import { TeamPage } from "../features/team/TeamPage";
@@ -163,6 +164,12 @@ const crmTasksRoute = createRoute({
   component: TasksPage,
 });
 
+const importRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/import",
+  component: ImportPage,
+});
+
 // ── Administración de Nexo (sesión de superadmin, independiente) ─────────────────────────────
 const adminLoginRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -210,6 +217,7 @@ const routeTree = rootRoute.addChildren([
     crmAccountRoute,
     crmContactsRoute,
     crmTasksRoute,
+    importRoute,
     teamRoute,
     settingsRoute,
     auditRoute,

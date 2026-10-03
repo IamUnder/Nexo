@@ -42,6 +42,11 @@ export const PERMISSIONS = [
   "crm:pipeline:manage",
   // Insights
   "insights:dashboard:read",
+  // Data Onboarding
+  "import:batch:read",
+  "import:batch:create",
+  "import:batch:rollback",
+  "import:data:export",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
@@ -95,6 +100,10 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     "crm:deal:manage",
     "crm:task:delete",
     "crm:pipeline:manage",
+    "import:batch:read",
+    "import:batch:create",
+    "import:batch:rollback",
+    "import:data:export",
   ],
   sales: [...PLATFORM_READ, "files:file:create", ...CRM_WORK],
   delivery: [

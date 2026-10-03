@@ -13,6 +13,7 @@ import { AccountService } from "./application/accountService";
 import { ActivityService } from "./application/activityService";
 import { ContactService } from "./application/contactService";
 import { DealService } from "./application/dealService";
+import { CrmImportAdapter } from "./application/importAdapter";
 import { PipelineService } from "./application/pipelineService";
 import type { MemberDirectory } from "./application/ports";
 import { SampleDataService } from "./application/sampleDataService";
@@ -37,6 +38,8 @@ export interface CrmModule {
     activities: ActivityService;
     sampleData: SampleDataService;
   };
+  /** Adaptador que cumple (por estructura) el puerto `ImportTarget` de `data-import`. */
+  importTarget: CrmImportAdapter;
 }
 
 export function createCrmModule(deps: {
@@ -69,9 +72,16 @@ export function createCrmModule(deps: {
     clock: d.clock,
   });
   const services = { accounts, contacts, pipelines, deals, activities, sampleData };
+  const importTarget = new CrmImportAdapter({
+    database: d.database,
+    repo: d.repo,
+    accounts,
+    contacts,
+  });
 
   return {
     services,
+    importTarget,
     subscribers: [
       {
         // Todo tenant nuevo nace con su pipeline de ventas listo (el CRM funciona sin configurar nada).

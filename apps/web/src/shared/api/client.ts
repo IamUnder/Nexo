@@ -119,6 +119,24 @@ export async function api<T>(path: string, opts: RequestOptions = {}): Promise<T
   }
 }
 
+/** Descarga un fichero protegido (CSV de exportación) con el token de sesión y lo guarda en el navegador. */
+export async function downloadFile(path: string, filename: string): Promise<void> {
+  const token = tenantToken();
+  const res = await fetch(`${BASE}${path}`, {
+    credentials: "include",
+    headers: token ? { authorization: `Bearer ${token}` } : {},
+  });
+  if (!res.ok) throw await parseError(res);
+  const url = URL.createObjectURL(await res.blob());
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
 export async function logout(scope: "tenant" | "admin"): Promise<void> {
   const path = scope === "tenant" ? "/auth/logout" : "/admin/auth/logout";
   try {

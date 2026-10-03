@@ -181,6 +181,40 @@ export class DbCrmRepository implements CrmRepository {
     return row ?? null;
   }
 
+  async findAccountByKeys(
+    tx: Tx,
+    k: { taxId?: string | undefined; name?: string | undefined },
+  ): Promise<AccountRow | null> {
+    const taxId = k.taxId?.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (taxId) {
+      const [byTax] = await tx
+        .select(accountSelect)
+        .from(accounts)
+        .where(
+          and(
+            isNull(accounts.deletedAt),
+            sql`regexp_replace(upper(coalesce(${accounts.taxId}, '')), '[^A-Z0-9]', '', 'g') = ${taxId}`,
+          ),
+        )
+        .limit(1);
+      if (byTax) return byTax;
+    }
+    if (k.name) {
+      const [byName] = await tx
+        .select(accountSelect)
+        .from(accounts)
+        .where(
+          and(
+            isNull(accounts.deletedAt),
+            sql`nexo_unaccent(lower(btrim(${accounts.name}))) = ${fold(k.name.trim())}`,
+          ),
+        )
+        .limit(1);
+      return byName ?? null;
+    }
+    return null;
+  }
+
   async sampleAccountIds(tx: Tx): Promise<string[]> {
     const rows = await tx
       .select({ id: accounts.id })

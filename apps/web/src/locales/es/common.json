@@ -14,7 +14,8 @@
     "deals": "Oportunidades",
     "accounts": "Empresas",
     "contacts": "Contactos",
-    "tasks": "Tareas"
+    "tasks": "Tareas",
+    "import": "Importar"
   },
   "actions": {
     "save": "Guardar cambios",

@@ -1,0 +1,118 @@
+{
+  "title": "Import and export",
+  "subtitle": "Bring your companies and contacts from a CSV (Excel, Pipedrive, HubSpot, Holded…) and take them out whenever you want.",
+  "entity": {
+    "companies": "Companies",
+    "contacts": "Contacts"
+  },
+  "step1": {
+    "title": "1. Choose what to import",
+    "description": "The file is read in your browser; nothing is written to the CRM until you press “Import”.",
+    "entity": "What are you importing",
+    "onDuplicate": "If it already exists",
+    "onDuplicateHint": "Companies: same tax ID or name. Contacts: same email."
+  },
+  "duplicate": {
+    "skip": "Skip (leave existing data alone)",
+    "update": "Fill in empty fields only"
+  },
+  "file": {
+    "label": "CSV file",
+    "choose": "Choose CSV file",
+    "change": "Change file",
+    "loaded": "{{name}} · {{count}} rows",
+    "empty": "The file is empty or not recognised as CSV.",
+    "tooMany": "The file has too many rows (maximum {{max}}). Split it into several."
+  },
+  "step2": {
+    "title": "2. Match the columns",
+    "description": "We proposed a match; fix it if needed. Anything left as “Do not import” is ignored.",
+    "ignore": "Do not import",
+    "requiredHint": "Required",
+    "preview": "First rows of the file",
+    "simulate": "Simulate import",
+    "needRequired": "Match at least the name column."
+  },
+  "fields": {
+    "companies": {
+      "name": "Name",
+      "legalName": "Legal name",
+      "taxId": "Tax ID",
+      "domain": "Domain",
+      "industry": "Industry",
+      "website": "Website",
+      "phone": "Phone",
+      "notes": "Notes"
+    },
+    "contacts": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "fullName": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "jobTitle": "Job title",
+      "companyName": "Company"
+    }
+  },
+  "status": {
+    "simulated": "Simulated",
+    "running": "Importing",
+    "completed": "Completed",
+    "failed": "Failed",
+    "rolled_back": "Rolled back"
+  },
+  "rowStatus": {
+    "valid": "Valid",
+    "invalid": "Rejected",
+    "duplicate": "Duplicate",
+    "imported": "Imported",
+    "skipped": "Skipped"
+  },
+  "simulation": {
+    "description": "This is what will happen when you import. Nothing has been written to your CRM yet."
+  },
+  "stats": {
+    "total": "Rows",
+    "toCreate": "Will be created",
+    "toUpdate": "Will be completed",
+    "duplicates": "Duplicates",
+    "skipped": "Skipped",
+    "invalid": "Rejected",
+    "created": "Created",
+    "updated": "Completed",
+    "failed": "Failed"
+  },
+  "problems": {
+    "title": "Rows with warnings or errors",
+    "download": "Download CSV",
+    "row": "Row",
+    "record": "Record",
+    "status": "Status",
+    "detail": "Detail",
+    "more": "… and {{count}} more (download the CSV to see them all)."
+  },
+  "execute_one": "Import {{count}} record",
+  "execute_other": "Import {{count}} records",
+  "discard": "Discard simulation",
+  "running": "Importing… {{done}} of {{total}}",
+  "failed": "The import was interrupted. You can reopen it from the history to resume it.",
+  "another": "Import another file",
+  "rollback": {
+    "button": "Undo import",
+    "confirm": "Undo the whole import? What it created will be removed and what it completed will be restored.",
+    "done": "Import undone",
+    "keptSome_one": "Import undone; {{count}} record is kept because you already used it.",
+    "keptSome_other": "Import undone; {{count}} records are kept because you already used them."
+  },
+  "history": {
+    "title": "Import history",
+    "empty": "You have not imported anything yet.",
+    "open": "Open"
+  },
+  "export": {
+    "title": "Export your data",
+    "description": "Download all your companies or contacts as CSV (Excel compatible).",
+    "companies": "Export companies",
+    "contacts": "Export contacts"
+  }
+}

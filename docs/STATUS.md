@@ -13,7 +13,7 @@ _Última actualización: 2026-10-03 · Fase: **hitos 0, 1 y 3 completados** y pa
 | **1 · Platform Core** | ✅ Hecho | Ver detalle abajo. |
 | 2 · Entitlements y Billing (Stripe) | ⬜ Pendiente | |
 | **3 · CRM** | ✅ Hecho | Ver detalle abajo. |
-| 4 · Data Onboarding | ⬜ Pendiente | |
+| **4 · Data Onboarding** | 🟡 Parcial | Hecho: importar empresas y contactos desde CSV (simulación, dedupe, ejecución reanudable, rollback) y exportar a CSV. Pendiente: XLSX, oportunidades, plantillas de mapeo, revisión de coincidencias dudosas. |
 | 5 · Comunicación | ⬜ Pendiente | |
 | 6 · Delivery Lite | ⬜ Pendiente | |
 | 7 · Insights, Onboarding y Demo | 🟡 Parcial | Hecho: panel de ventas (módulo `insights`). Pendiente: asistente de onboarding/plantilla vertical, tenant demo persistente con reset, iconos PNG de la PWA. |
@@ -34,6 +34,12 @@ _Última actualización: 2026-10-03 · Fase: **hitos 0, 1 y 3 completados** y pa
 - **Tests:** API 203 (23 de integración CRM + 7 de Insights), E2E del flujo comercial completo con axe en claro/oscuro.
 - **Datos de ejemplo** (onboarding minuto 0): `POST/DELETE /crm/sample-data` (8 empresas, 10 oportunidades en todas las etapas, tareas y timeline) con los casos de uso reales; solo quita lo marcado como ejemplo. Botones en el tablero.
 - **Pendiente del CRM:** editor de pipeline en Ajustes (la API ya existe: `PUT /crm/pipelines/:id/stages`), exportación CSV, importación (hito 4).
+
+## Hito 4 (parcial) · qué hay (verificado)
+
+- **Backend `data-import`:** lote con simulación fiel (no escribe), normalización (NIF, teléfono, dominio, nombre completo), dedupe contra el CRM y dentro del fichero, política omitir/completar, ejecución asíncrona con checkpoint por fila, rollback en 30 días (avisa de lo que el usuario ya usó), exportación CSV para Excel (`;` + BOM). El CRM se conecta por el puerto `ImportTarget` (sin imports entre módulos).
+- **Web:** asistente «Importar» (lectura del CSV en el navegador con detección de `;`/Windows-1252, mapeo sugerido, vista previa, simulación, progreso, errores descargables, historial y deshacer) y exportación.
+- **Tests:** API 234 en total (12 de integración de importación), web 22, E2E del flujo completo con axe.
 
 ## Hallazgos de los hitos 3 y despliegue
 

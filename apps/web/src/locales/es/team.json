@@ -79,6 +79,10 @@
     "files_file_read": "Ver archivos",
     "files_file_create": "Subir archivos",
     "files_file_delete": "Eliminar archivos",
-    "insights_dashboard_read": "Ver el panel de ventas"
+    "insights_dashboard_read": "Ver el panel de ventas",
+    "import_batch_read": "Ver importaciones",
+    "import_batch_create": "Importar datos",
+    "import_batch_rollback": "Deshacer importaciones",
+    "import_data_export": "Exportar datos"
   }
 }

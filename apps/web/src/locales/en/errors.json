@@ -32,5 +32,8 @@
   "crm.stage_has_deals": "That stage has deals. Move them before removing it.",
   "crm.invalid_stages": "The stages are not valid: you need at least one open, one won and one lost stage, with no repeated names.",
   "crm.invalid_owner": "The chosen person is not an active team member.",
-  "crm.sample_exists": "The sample data is already loaded."
+  "crm.sample_exists": "The sample data is already loaded.",
+  "import.batch_invalid_state": "This import is not in a state that allows that action.",
+  "import.mapping_invalid": "The column mapping is not valid: check that the name is matched.",
+  "import.too_many_rows": "The file has too many rows. Split it into several."
 }

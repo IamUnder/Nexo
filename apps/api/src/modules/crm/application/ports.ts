@@ -159,6 +159,11 @@ export interface CrmRepository {
   ): Promise<void>;
   softDeleteAccount(tx: Tx, id: string): Promise<void>;
   countOpenDealsOfAccount(tx: Tx, accountId: string): Promise<number>;
+  /** Busca una empresa por NIF normalizado (sin espacios ni guiones) o, si no, por nombre sin tildes. */
+  findAccountByKeys(
+    tx: Tx,
+    k: { taxId?: string | undefined; name?: string | undefined },
+  ): Promise<AccountRow | null>;
   /** Ids de las empresas de ejemplo (`source = 'sample'`) no borradas. */
   sampleAccountIds(tx: Tx): Promise<string[]>;
 

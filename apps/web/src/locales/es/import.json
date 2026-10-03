@@ -1,0 +1,118 @@
+{
+  "title": "Importar y exportar",
+  "subtitle": "Trae tus empresas y contactos desde un CSV (Excel, Pipedrive, HubSpot, Holded…) y llévatelos cuando quieras.",
+  "entity": {
+    "companies": "Empresas",
+    "contacts": "Contactos"
+  },
+  "step1": {
+    "title": "1. Elige qué importar",
+    "description": "El fichero se lee en tu navegador; hasta que pulses «Importar» no se escribe nada en el CRM.",
+    "entity": "Qué vas a importar",
+    "onDuplicate": "Si ya existe",
+    "onDuplicateHint": "Empresas: mismo NIF o nombre. Contactos: mismo email."
+  },
+  "duplicate": {
+    "skip": "Omitir (no tocar lo existente)",
+    "update": "Completar solo los campos vacíos"
+  },
+  "file": {
+    "label": "Fichero CSV",
+    "choose": "Elegir fichero CSV",
+    "change": "Cambiar fichero",
+    "loaded": "{{name}} · {{count}} filas",
+    "empty": "El fichero está vacío o no se reconoce como CSV.",
+    "tooMany": "El fichero tiene demasiadas filas (máximo {{max}}). Divídelo en varios."
+  },
+  "step2": {
+    "title": "2. Relaciona las columnas",
+    "description": "Hemos propuesto una correspondencia; corrígela si hace falta. Lo que dejes en «No importar» se ignora.",
+    "ignore": "No importar",
+    "requiredHint": "Obligatorio",
+    "preview": "Primeras filas del fichero",
+    "simulate": "Simular importación",
+    "needRequired": "Relaciona al menos la columna del nombre."
+  },
+  "fields": {
+    "companies": {
+      "name": "Nombre",
+      "legalName": "Razón social",
+      "taxId": "NIF/CIF",
+      "domain": "Dominio",
+      "industry": "Sector",
+      "website": "Sitio web",
+      "phone": "Teléfono",
+      "notes": "Notas"
+    },
+    "contacts": {
+      "firstName": "Nombre",
+      "lastName": "Apellidos",
+      "fullName": "Nombre completo",
+      "email": "Email",
+      "phone": "Teléfono",
+      "jobTitle": "Cargo",
+      "companyName": "Empresa"
+    }
+  },
+  "status": {
+    "simulated": "Simulado",
+    "running": "Importando",
+    "completed": "Completado",
+    "failed": "Con error",
+    "rolled_back": "Deshecho"
+  },
+  "rowStatus": {
+    "valid": "Válida",
+    "invalid": "Rechazada",
+    "duplicate": "Duplicada",
+    "imported": "Importada",
+    "skipped": "Omitida"
+  },
+  "simulation": {
+    "description": "Esto es lo que pasará al importar. Todavía no se ha escrito nada en tu CRM."
+  },
+  "stats": {
+    "total": "Filas",
+    "toCreate": "Se crearán",
+    "toUpdate": "Se completarán",
+    "duplicates": "Duplicadas",
+    "skipped": "Omitidas",
+    "invalid": "Rechazadas",
+    "created": "Creadas",
+    "updated": "Completadas",
+    "failed": "Con error"
+  },
+  "problems": {
+    "title": "Filas con avisos o errores",
+    "download": "Descargar CSV",
+    "row": "Fila",
+    "record": "Registro",
+    "status": "Estado",
+    "detail": "Detalle",
+    "more": "… y {{count}} más (descarga el CSV para verlas todas)."
+  },
+  "execute_one": "Importar {{count}} registro",
+  "execute_other": "Importar {{count}} registros",
+  "discard": "Descartar simulación",
+  "running": "Importando… {{done}} de {{total}}",
+  "failed": "La importación se interrumpió. Puedes volver a abrirla desde el historial para reanudarla.",
+  "another": "Importar otro fichero",
+  "rollback": {
+    "button": "Deshacer importación",
+    "confirm": "¿Deshacer toda la importación? Se quitará lo que creó y se restaurará lo que completó.",
+    "done": "Importación deshecha",
+    "keptSome_one": "Importación deshecha; {{count}} registro se conserva porque ya lo has usado.",
+    "keptSome_other": "Importación deshecha; {{count}} registros se conservan porque ya los has usado."
+  },
+  "history": {
+    "title": "Historial de importaciones",
+    "empty": "Aún no has importado nada.",
+    "open": "Abrir"
+  },
+  "export": {
+    "title": "Exportar tus datos",
+    "description": "Descarga todas tus empresas o contactos en CSV (compatible con Excel).",
+    "companies": "Exportar empresas",
+    "contacts": "Exportar contactos"
+  }
+}
