@@ -23,6 +23,7 @@ import { DealDetailPage } from "../features/crm/DealDetailPage";
 import { DealsPage } from "../features/crm/DealsPage";
 import { TasksPage } from "../features/crm/TasksPage";
 import { HomePage } from "../features/home/HomePage";
+import { SalesPanel } from "../features/insights/SalesPanel";
 import { SettingsPage } from "../features/settings/SettingsPage";
 import { TeamPage } from "../features/team/TeamPage";
 import { useAuthStore } from "../shared/auth/authStore";
@@ -110,7 +111,11 @@ const appRoute = createRoute({
     if (useAuthStore.getState().tenant.status !== "authenticated") throw redirect({ to: "/login" });
   },
 });
-const homeRoute = createRoute({ getParentRoute: () => appRoute, path: "/", component: HomePage });
+const homeRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/",
+  component: () => <HomePage panel={<SalesPanel />} />,
+});
 const teamRoute = createRoute({
   getParentRoute: () => appRoute,
   path: "/team",

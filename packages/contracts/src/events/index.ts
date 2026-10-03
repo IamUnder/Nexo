@@ -21,6 +21,7 @@ export const EVENT_TYPES = {
   dealStageChanged: { type: "crm.deal.stage_changed", version: 1 },
   dealWon: { type: "crm.deal.won", version: 1 },
   dealLost: { type: "crm.deal.lost", version: 1 },
+  dealDeleted: { type: "crm.deal.deleted", version: 1 },
   taskCreated: { type: "crm.task.created", version: 1 },
   taskCompleted: { type: "crm.task.completed", version: 1 },
   activityLogged: { type: "crm.activity.logged", version: 1 },

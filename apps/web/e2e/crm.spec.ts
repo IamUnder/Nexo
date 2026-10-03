@@ -97,6 +97,16 @@ test.describe("CRM: del alta de una empresa a ganar una oportunidad", () => {
     await expect(page.getByText("Preparar demo")).toBeVisible();
     await expectAccessible(page);
 
+    // ── Panel de ventas (read models alimentados por eventos: llegan vía outbox + worker) ──
+    await page.getByRole("link", { name: "Inicio", exact: true }).click();
+    await expect(page.getByRole("heading", { name: "Panel de ventas" })).toBeVisible();
+    await expect(page.getByText("0 ganadas · 1 perdidas")).toBeVisible({ timeout: 45_000 });
+    await expect(page.getByText("Eligió a la competencia").first()).toBeVisible();
+    await expectAccessible(page);
+    await setTheme(page, "dark");
+    await expectAccessible(page);
+    await setTheme(page, "light");
+
     // ── Contactos ───────────────────────────────────────────────────────────────────────────
     await page.getByRole("link", { name: "Contactos", exact: true }).click();
     await expect(page.getByRole("cell", { name: "Eva Ruiz" })).toBeVisible();

@@ -1,0 +1,47 @@
+{
+  "title": "Sales dashboard",
+  "period": {
+    "label": "Period",
+    "30d": "Last 30 days",
+    "90d": "Last 90 days",
+    "365d": "Last year"
+  },
+  "kpi": {
+    "pipeline": "Open pipeline",
+    "pipelineHint": "{{count}} open deals",
+    "weighted": "Weighted pipeline",
+    "weightedHint": "Amount × stage probability",
+    "conversion": "Conversion",
+    "conversionHint": "{{won}} won · {{lost}} lost",
+    "cycle": "Average cycle",
+    "cycleHint": "From creation to won",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days"
+  },
+  "stalled": {
+    "badge": "Attention",
+    "text_one": "{{count}} deal has not changed stage for over 14 days",
+    "text_other": "{{count}} deals have not changed stage for over 14 days"
+  },
+  "byStage": {
+    "title": "Pipeline by stage",
+    "description": "Open amount in each stage",
+    "empty": "No open deals"
+  },
+  "revenue": {
+    "title": "Won revenue",
+    "description": "Last 8 months"
+  },
+  "forecast": {
+    "title": "Forecast revenue",
+    "description": "Weighted pipeline by expected close month"
+  },
+  "activity": {
+    "title": "Activity",
+    "description": "Logged in the period",
+    "empty": "No activity in the period yet"
+  },
+  "lost": {
+    "title": "Lost reasons"
+  }
+}

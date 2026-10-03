@@ -8,6 +8,7 @@ import { createAuditModule } from "../modules/audit";
 import { createCrmModule } from "../modules/crm";
 import { createFilesModule } from "../modules/files";
 import { createIdentityModule, type PasswordHasher } from "../modules/identity";
+import { createInsightsModule } from "../modules/insights";
 import { createTenancyModule } from "../modules/tenancy";
 import type { Env } from "../platform/config/env";
 import { parseSigningKeys } from "../platform/config/env";
@@ -141,9 +142,12 @@ export function createServices(deps: CompositionDeps) {
     clock,
   });
 
+  const insights = createInsightsModule({ database, guard, clock });
+
   const registry = new SubscriberRegistry();
   for (const s of identity.subscribers) registry.register(s);
   for (const s of crm.subscribers) registry.register(s);
+  for (const s of insights.subscribers) registry.register(s);
 
   return {
     env,
@@ -160,6 +164,7 @@ export function createServices(deps: CompositionDeps) {
     identity,
     tenancy,
     crm,
+    insights,
     registry,
     /** Registra las rutas de todos los módulos en una app Fastify ya construida. */
     registerRoutes(app: Parameters<typeof tenancy.registerRoutes>[0]) {
@@ -168,6 +173,7 @@ export function createServices(deps: CompositionDeps) {
       identity.registerRoutes(app);
       files.registerRoutes(app);
       crm.registerRoutes(app);
+      insights.registerRoutes(app);
     },
   };
 }

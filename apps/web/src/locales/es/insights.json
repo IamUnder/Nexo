@@ -1,0 +1,47 @@
+{
+  "title": "Panel de ventas",
+  "period": {
+    "label": "Periodo",
+    "30d": "Últimos 30 días",
+    "90d": "Últimos 90 días",
+    "365d": "Último año"
+  },
+  "kpi": {
+    "pipeline": "Pipeline abierto",
+    "pipelineHint": "{{count}} oportunidades abiertas",
+    "weighted": "Pipeline ponderado",
+    "weightedHint": "Importe × probabilidad de la etapa",
+    "conversion": "Conversión",
+    "conversionHint": "{{won}} ganadas · {{lost}} perdidas",
+    "cycle": "Ciclo medio",
+    "cycleHint": "De la creación a ganar",
+    "days_one": "{{count}} día",
+    "days_other": "{{count}} días"
+  },
+  "stalled": {
+    "badge": "Atención",
+    "text_one": "{{count}} oportunidad lleva más de 14 días sin cambiar de etapa",
+    "text_other": "{{count}} oportunidades llevan más de 14 días sin cambiar de etapa"
+  },
+  "byStage": {
+    "title": "Pipeline por etapa",
+    "description": "Importe abierto en cada etapa",
+    "empty": "No hay oportunidades abiertas"
+  },
+  "revenue": {
+    "title": "Ingresos ganados",
+    "description": "Últimos 8 meses"
+  },
+  "forecast": {
+    "title": "Ingresos previstos",
+    "description": "Pipeline ponderado por mes de cierre previsto"
+  },
+  "activity": {
+    "title": "Actividad",
+    "description": "Registrada en el periodo",
+    "empty": "Aún no hay actividad en el periodo"
+  },
+  "lost": {
+    "title": "Motivos de pérdida"
+  }
+}

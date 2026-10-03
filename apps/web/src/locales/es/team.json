@@ -78,6 +78,7 @@
     "audit_log_read": "Ver el registro de actividad",
     "files_file_read": "Ver archivos",
     "files_file_create": "Subir archivos",
-    "files_file_delete": "Eliminar archivos"
+    "files_file_delete": "Eliminar archivos",
+    "insights_dashboard_read": "Ver el panel de ventas"
   }
 }

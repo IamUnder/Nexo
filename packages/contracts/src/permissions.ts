@@ -40,6 +40,8 @@ export const PERMISSIONS = [
   "crm:activity:read",
   "crm:activity:create",
   "crm:pipeline:manage",
+  // Insights
+  "insights:dashboard:read",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
@@ -48,6 +50,7 @@ const PLATFORM_READ: Permission[] = [
   "identity:member:read",
   "tenancy:settings:read",
   "files:file:read",
+  "insights:dashboard:read",
 ];
 
 /** Todo el CRM de lectura. */

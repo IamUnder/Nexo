@@ -78,6 +78,7 @@
     "audit_log_read": "View the activity log",
     "files_file_read": "View files",
     "files_file_create": "Upload files",
-    "files_file_delete": "Delete files"
+    "files_file_delete": "Delete files",
+    "insights_dashboard_read": "View the sales dashboard"
   }
 }

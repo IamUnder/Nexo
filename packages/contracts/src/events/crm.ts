@@ -30,6 +30,11 @@ export const dealEventV1 = z.object({
   currency: z.string(),
   ownerId: id.nullable(),
   status: z.enum(["open", "won", "lost"]),
+  stageName: z.string(),
+  probability: z.number().int(),
+  expectedCloseOn: z.string().nullable(),
+  createdAt: z.string().datetime(),
+  closedAt: z.string().datetime().nullable(),
 });
 export type DealEventV1 = z.infer<typeof dealEventV1>;
 

@@ -57,6 +57,20 @@
       "when": 1790988143256,
       "tag": "0007_crm_rls_and_indexes",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1790990736167,
+      "tag": "0008_insights_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1790990742509,
+      "tag": "0009_insights_rls",
+      "breakpoints": true
     }
   ]
 }

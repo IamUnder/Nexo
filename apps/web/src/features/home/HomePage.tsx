@@ -9,6 +9,7 @@ import {
   Skeleton,
 } from "@nexo/ui";
 import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useAudit, useMe, useMembers } from "../../shared/api/queries";
 
@@ -22,7 +23,7 @@ const STATUS_TONE: Record<string, BadgeTone> = {
 };
 
 /** Inicio del hito 1: estado de la cuenta, primeros pasos y actividad reciente. */
-export function HomePage() {
+export function HomePage({ panel }: { panel?: ReactNode }) {
   const { t } = useTranslation("home");
   const { t: tc } = useTranslation();
   const { t: ta } = useTranslation("audit");
@@ -77,6 +78,8 @@ export function HomePage() {
         </h1>
         <p className="text-secondary mt-1 text-base">{t("subtitle", { tenant: me.tenant.name })}</p>
       </div>
+
+      {panel}
 
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">

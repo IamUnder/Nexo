@@ -46,6 +46,11 @@ export class DealService {
       currency: row.currency,
       ownerId: row.ownerMembershipId,
       status: row.status,
+      stageName: row.stageName,
+      probability: row.probability,
+      expectedCloseOn: row.expectedCloseOn,
+      createdAt: row.createdAt.toISOString(),
+      closedAt: row.closedAt ? row.closedAt.toISOString() : null,
     };
   }
 
@@ -353,6 +358,14 @@ export class DealService {
         entityId: id,
         before: { name: deal.name, amountCents: Number(deal.amountCents), status: deal.status },
       });
+      await emit(
+        this.d,
+        tx,
+        ctx,
+        EVENT_TYPES.dealDeleted,
+        { type: "deal", id },
+        dealEventV1.parse(this.base(deal)),
+      );
     });
   }
 

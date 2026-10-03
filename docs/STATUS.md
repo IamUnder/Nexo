@@ -2,7 +2,7 @@
 
 Estado real del proyecto. **Se actualiza en el mismo commit que el cambio que lo modifica** (AGENTS.md, regla de oro 8).
 
-_Última actualización: 2026-10-03 · Fase: **hitos 0 y 1 completados**; siguiente: hito 3 (CRM). Los hitos 2 (Stripe) y 5 (Google/Microsoft) esperan credenciales externas._
+_Última actualización: 2026-10-03 · Fase: **hitos 0, 1 y 3 completados** y panel de ventas (parte del 7). Los hitos 2 (Stripe) y 5 (Google/Microsoft) esperan credenciales externas. **Despliegue y repositorio GitHub: bloqueados por acceso** (ver «Bloqueos»)._
 
 ## Hitos
 
@@ -12,12 +12,35 @@ _Última actualización: 2026-10-03 · Fase: **hitos 0 y 1 completados**; siguie
 | **0 · Cimientos** | ✅ Hecho | Ver detalle abajo. |
 | **1 · Platform Core** | ✅ Hecho | Ver detalle abajo. |
 | 2 · Entitlements y Billing (Stripe) | ⬜ Pendiente | |
-| 3 · CRM | ⬜ Pendiente | |
+| **3 · CRM** | ✅ Hecho | Ver detalle abajo. |
 | 4 · Data Onboarding | ⬜ Pendiente | |
 | 5 · Comunicación | ⬜ Pendiente | |
 | 6 · Delivery Lite | ⬜ Pendiente | |
-| 7 · Insights, Onboarding y Demo | ⬜ Pendiente | Aquí también: iconos PNG de la PWA, tenant demo. |
+| 7 · Insights, Onboarding y Demo | 🟡 Parcial | Hecho: panel de ventas (módulo `insights`). Pendiente: onboarding/plantilla vertical, tenant demo, iconos PNG de la PWA. |
 | 8 · API pública y endurecimiento | ⬜ Pendiente | |
+
+## Bloqueos (necesitan al usuario)
+
+1. **Repositorio GitHub privado «Nexo»:** `gh` no está instalado y no hay sesión de GitHub utilizable (el navegador integrado no tiene login). Pasos: crear el repo privado `Nexo` en GitHub y ejecutar `git remote add origin <url> && git push -u origin main` (el historial está listo, Conventional Commits).
+2. **Despliegue con Portledger en `nexo.kaizogroup.es`:** la sesión «Portledger» no aparece entre las sesiones alcanzables (`ListAgents`). Todo lo necesario está listo y verificado a mano: `deploy/docker-compose.prod.yml`, `deploy/.env.prod.example`, `docs/runbooks/despliegue.md` y las preguntas de contrato en `docs/runbooks/portledger-preguntas.md`.
+3. **SMTP real** para el correo del sistema (obligatorio en producción; sin él nadie confirma el email).
+4. Hitos 2 (claves Stripe) y 5 (credenciales Google/Microsoft).
+
+## Hito 3 · qué hay (verificado)
+
+- **Backend `crm`:** empresas, contactos, oportunidades con pipelines configurables (etapas abierta/ganada/perdida, probabilidad), actividad/timeline, tareas y búsqueda global sin tildes (trigram). RLS forzada, FK compuestas, alcance `own`/`all` (lo ajeno responde 404), siguiente acción obligatoria, motivo de pérdida, importe de oportunidad cerrada protegido, eventos de dominio (`crm.deal.won` con contactos para Delivery). Pipeline por defecto al nacer el tenant (evento + creación perezosa).
+- **Web:** tablero con arrastre y menú accesible «Mover a…», ficha de oportunidad (ganar/perder/reabrir, edición, tareas, timeline), empresas (lista, ficha, contactos, oportunidades), contactos, «Mis tareas», búsqueda global en la barra superior; i18n es/en.
+- **Insights (panel de ventas, parte del hito 7):** read models por eventos, conciliación con el CRM verificada por test, alcance `own`/`all`, panel en Inicio con pipeline, ponderado, conversión, ciclo medio, ingresos ganados, previsión, actividad y motivos de pérdida.
+- **Tests:** API 203 (23 de integración CRM + 7 de Insights), E2E del flujo comercial completo con axe en claro/oscuro.
+- **Pendiente del CRM:** editor de pipeline en Ajustes (la API ya existe: `PUT /crm/pipelines/:id/stages`), exportación CSV, importación (hito 4).
+
+## Hallazgos de los hitos 3 y despliegue
+
+1. `ALTER ROLE` de la migración 0000 exigía `CREATEROLE` (el propietario no lo tiene en producción) → ahora condicional.
+2. Los errores 4xx de Fastify (cuerpo vacío, JSON mal formado) se devolvían como 500 → corregido con test.
+3. `.partial()` de Zod conserva los `.default()` → un PATCH habría pisado el estado con el valor por defecto; los esquemas de actualización ya no los llevan.
+4. **MinIO ya no publica imágenes** → SeaweedFS (ADR 0003). Las URLs prefirmadas necesitan un endpoint público (`S3_PUBLIC_ENDPOINT`).
+5. Los subselects correlacionados de Drizzle (`${tabla.col}` dentro de `sql`) se resolvían contra la tabla interna → contadores a 0; se califican con el nombre de tabla.
 
 ## Hito 0 · qué hay (verificado)
 
@@ -63,4 +86,4 @@ Ver ARCHITECTURE.md §17.2 (OD-01 … OD-08) y los hallazgos anteriores.
 ## Notas
 
 - v1 (`../CRM`) es solo referencia de aprendizaje; no se copia código sin revisarlo.
-- Sin remoto Git configurado: el CI de GitHub no ha corrido todavía.
+- Sin remoto Git configurado: el CI de GitHub no ha corrido todavía (ver «Bloqueos»).
