@@ -1,0 +1,256 @@
+{
+  "common": {
+    "none": "Unassigned",
+    "today": "Today",
+    "overdue": "Overdue",
+    "noValue": "—",
+    "loadMore": "Load more"
+  },
+  "deals": {
+    "title": "Deals",
+    "subtitle": "Your sales pipeline at a glance.",
+    "new": "New deal",
+    "search": "Search deals",
+    "pipeline": "Pipeline",
+    "board": "Deals board",
+    "empty": {
+      "title": "No deals yet",
+      "description": "Create the first one to start tracking your pipeline. Every deal needs a next action."
+    },
+    "noAccounts": "You need at least one company before creating a deal.",
+    "column": {
+      "count_one": "{{count}} deal",
+      "count_other": "{{count}} deals",
+      "empty": "No deals"
+    },
+    "card": {
+      "nextAction": "Next action",
+      "noNextAction": "No next action",
+      "moveTo": "Move to…",
+      "actions": "Actions for {{name}}"
+    },
+    "create": {
+      "title": "New deal",
+      "name": "Name",
+      "account": "Company",
+      "accountPlaceholder": "Choose a company",
+      "amount": "Amount (€)",
+      "expectedClose": "Expected close",
+      "nextActionText": "Next action",
+      "nextActionAt": "Action date",
+      "nextActionHint": "Say what comes next and, if you can, when.",
+      "submit": "Create deal",
+      "nextActionRequired": "Enter the next action or its date."
+    },
+    "status": {
+      "open": "Open",
+      "won": "Won",
+      "lost": "Lost"
+    },
+    "win": "Mark as won",
+    "lose": "Mark as lost",
+    "reopen": "Reopen",
+    "loseDialog": {
+      "title": "Mark as lost",
+      "description": "Note the reason: it will help you improve.",
+      "reason": "Reason",
+      "submit": "Mark as lost"
+    },
+    "won": "Deal won!",
+    "lost": "Deal marked as lost",
+    "reopened": "Deal reopened",
+    "moved": "Deal moved",
+    "detail": {
+      "back": "Back to deals",
+      "amount": "Amount",
+      "probability": "Probability",
+      "stage": "Stage",
+      "expectedClose": "Expected close",
+      "owner": "Owner",
+      "contact": "Main contact",
+      "company": "Company",
+      "lostReason": "Lost reason",
+      "closedAt": "Closed on {{date}}",
+      "details": "Details",
+      "timeline": "Activity",
+      "tasks": "Tasks",
+      "save": "Save changes",
+      "saved": "Changes saved",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this deal? It will disappear from the pipeline.",
+      "deleted": "Deal deleted",
+      "notFound": "We could not find this deal.",
+      "noTasks": "No tasks for this deal."
+    }
+  },
+  "accounts": {
+    "title": "Companies",
+    "subtitle": "The companies you work with.",
+    "new": "New company",
+    "search": "Search by name, domain or tax ID",
+    "table": "Companies list",
+    "empty": {
+      "title": "No companies yet",
+      "description": "Add your first company to start recording contacts and deals.",
+      "noResults": "No companies match your search."
+    },
+    "col": {
+      "name": "Company",
+      "status": "Status",
+      "contacts": "Contacts",
+      "openDeals": "Open",
+      "owner": "Owner"
+    },
+    "status": {
+      "prospect": "Prospect",
+      "active": "Customer",
+      "inactive": "Inactive",
+      "at_risk": "At risk"
+    },
+    "form": {
+      "nameCreate": "New company",
+      "nameEdit": "Edit company",
+      "name": "Trade name",
+      "legalName": "Legal name",
+      "taxId": "Tax ID",
+      "domain": "Web domain",
+      "industry": "Industry",
+      "website": "Website",
+      "phone": "Phone",
+      "status": "Status",
+      "notes": "Notes",
+      "submitCreate": "Create company",
+      "submitEdit": "Save changes"
+    },
+    "created": "Company created",
+    "saved": "Company updated",
+    "deleted": "Company deleted",
+    "detail": {
+      "back": "Back to companies",
+      "info": "Details",
+      "edit": "Edit",
+      "contacts": "Contacts",
+      "addContact": "Add contact",
+      "noContacts": "No contacts at this company yet.",
+      "deals": "Deals",
+      "noDeals": "No deals with this company yet.",
+      "timeline": "Activity",
+      "delete": "Delete company",
+      "deleteConfirm": "Delete this company? It will disappear from the lists.",
+      "notFound": "We could not find this company.",
+      "newDeal": "New deal"
+    }
+  },
+  "contacts": {
+    "title": "Contacts",
+    "subtitle": "The people you talk to.",
+    "new": "New contact",
+    "search": "Search by name, email or phone",
+    "table": "Contacts list",
+    "empty": {
+      "title": "No contacts yet",
+      "description": "Add the people you work with and link them to their company.",
+      "noResults": "No contacts match your search."
+    },
+    "col": {
+      "name": "Name",
+      "company": "Company",
+      "email": "Email",
+      "phone": "Phone",
+      "jobTitle": "Job title"
+    },
+    "form": {
+      "title": "New contact",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "jobTitle": "Job title",
+      "account": "Company",
+      "noAccount": "No company",
+      "submit": "Create contact"
+    },
+    "created": "Contact created"
+  },
+  "tasks": {
+    "title": "My tasks",
+    "subtitle": "What is pending, most urgent first.",
+    "new": "New task",
+    "open": "Pending",
+    "done": "Done",
+    "list": "Tasks list",
+    "empty": {
+      "open": "You have no pending tasks. Nice work!",
+      "done": "You have not completed any task yet."
+    },
+    "complete": "Complete “{{title}}”",
+    "reopen": "Reopen “{{title}}”",
+    "due": "Due {{date}}",
+    "noDue": "No date",
+    "delete": "Delete “{{title}}”",
+    "form": {
+      "title": "New task",
+      "name": "Task",
+      "due": "Due date",
+      "priority": "Priority",
+      "submit": "Create task"
+    },
+    "priority": {
+      "low": "Low",
+      "normal": "Normal",
+      "high": "High"
+    },
+    "created": "Task created",
+    "completed": "Task completed",
+    "deleted": "Task deleted"
+  },
+  "activity": {
+    "title": "Activity",
+    "empty": "No activity yet.",
+    "kind": {
+      "note": "Note",
+      "call": "Call",
+      "meeting": "Meeting",
+      "email": "Email",
+      "stage_change": "Stage change",
+      "system": "System"
+    },
+    "form": {
+      "kind": "Type",
+      "subject": "Summary",
+      "body": "Details (optional)",
+      "submit": "Log"
+    },
+    "saved": "Activity logged"
+  },
+  "search": {
+    "label": "Search the CRM",
+    "placeholder": "Search companies, contacts or deals…",
+    "empty": "No results.",
+    "type": {
+      "account": "Company",
+      "contact": "Contact",
+      "deal": "Deal"
+    }
+  },
+  "pipelines": {
+    "title": "Sales pipeline",
+    "description": "Stages a deal goes through. There must be at least one won and one lost stage.",
+    "name": "Pipeline name",
+    "stage": "Stage",
+    "probability": "Probability (%)",
+    "kind": "Type",
+    "kinds": {
+      "open": "Open",
+      "won": "Won",
+      "lost": "Lost"
+    },
+    "add": "Add stage",
+    "up": "Move {{name}} up",
+    "down": "Move {{name}} down",
+    "remove": "Remove {{name}}",
+    "save": "Save pipeline",
+    "saved": "Pipeline saved",
+    "stageLocked": "It has {{count}} deals; move them before removing it."
+  }
+}

@@ -21,5 +21,15 @@
   "rate_limit.exceeded": "Too many requests in a row. Wait a moment and try again.",
   "internal.error": "Something went wrong on our side. Try again in a few minutes.",
   "network": "Cannot reach the server. Check your network and try again.",
-  "generic": "The action could not be completed. Try again."
+  "generic": "The action could not be completed. Try again.",
+  "deal.lost_reason_required": "Enter the reason the deal is lost.",
+  "deal.next_action_required": "Every open deal needs a next action or its date.",
+  "deal.closed_amount_locked": "Only a manager can change the amount of a closed deal.",
+  "deal.already_closed": "The deal is already closed. Reopen it to change it.",
+  "deal.not_closed": "The deal is still open.",
+  "crm.account_has_open_deals": "The company has open deals. Close them before deleting it.",
+  "crm.contact_email_taken": "A contact with that email already exists.",
+  "crm.stage_has_deals": "That stage has deals. Move them before removing it.",
+  "crm.invalid_stages": "The stages are not valid: you need at least one open, one won and one lost stage, with no repeated names.",
+  "crm.invalid_owner": "The chosen person is not an active team member."
 }

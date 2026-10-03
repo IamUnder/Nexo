@@ -1,5 +1,8 @@
 {
-  "app": { "name": "Nexo", "tagline": "Everything connected. Only what you need." },
+  "app": {
+    "name": "Nexo",
+    "tagline": "Everything connected. Only what you need."
+  },
   "nav": {
     "main": "Main navigation",
     "home": "Home",
@@ -7,7 +10,11 @@
     "settings": "Settings",
     "audit": "Activity",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "deals": "Deals",
+    "accounts": "Companies",
+    "contacts": "Contacts",
+    "tasks": "Tasks"
   },
   "actions": {
     "save": "Save changes",
@@ -27,8 +34,15 @@
     "saved": "Changes saved",
     "empty": "Nothing here yet"
   },
-  "theme": { "toDark": "Switch to dark theme", "toLight": "Switch to light theme" },
-  "user": { "menu": "Account menu", "logout": "Sign out", "settings": "Account settings" },
+  "theme": {
+    "toDark": "Switch to dark theme",
+    "toLight": "Switch to light theme"
+  },
+  "user": {
+    "menu": "Account menu",
+    "logout": "Sign out",
+    "settings": "Account settings"
+  },
   "banner": {
     "trialDays_one": "{{count}} trial day left.",
     "trialDays_other": "{{count}} trial days left.",
@@ -56,7 +70,10 @@
     "delivery": "Delivery",
     "viewer": "Read only"
   },
-  "seat": { "full": "Full", "light": "Light" },
+  "seat": {
+    "full": "Full",
+    "light": "Light"
+  },
   "notFound": {
     "title": "We could not find this page",
     "description": "The link may be old or the page may have moved.",

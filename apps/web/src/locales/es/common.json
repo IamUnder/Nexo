@@ -1,5 +1,8 @@
 {
-  "app": { "name": "Nexo", "tagline": "Todo conectado. Solo lo necesario." },
+  "app": {
+    "name": "Nexo",
+    "tagline": "Todo conectado. Solo lo necesario."
+  },
   "nav": {
     "main": "Navegación principal",
     "home": "Inicio",
@@ -7,7 +10,11 @@
     "settings": "Ajustes",
     "audit": "Actividad",
     "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "closeMenu": "Cerrar menú",
+    "deals": "Oportunidades",
+    "accounts": "Empresas",
+    "contacts": "Contactos",
+    "tasks": "Tareas"
   },
   "actions": {
     "save": "Guardar cambios",
@@ -27,7 +34,10 @@
     "saved": "Cambios guardados",
     "empty": "Todavía no hay nada aquí"
   },
-  "theme": { "toDark": "Cambiar a tema oscuro", "toLight": "Cambiar a tema claro" },
+  "theme": {
+    "toDark": "Cambiar a tema oscuro",
+    "toLight": "Cambiar a tema claro"
+  },
   "user": {
     "menu": "Menú de cuenta",
     "logout": "Cerrar sesión",
@@ -60,7 +70,10 @@
     "delivery": "Operaciones",
     "viewer": "Solo lectura"
   },
-  "seat": { "full": "Completo", "light": "Ligero" },
+  "seat": {
+    "full": "Completo",
+    "light": "Ligero"
+  },
   "notFound": {
     "title": "No encontramos esta página",
     "description": "Puede que el enlace sea antiguo o que la página se haya movido.",

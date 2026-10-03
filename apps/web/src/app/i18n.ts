@@ -4,6 +4,7 @@ import enAdmin from "../locales/en/admin.json";
 import enAudit from "../locales/en/audit.json";
 import enAuth from "../locales/en/auth.json";
 import enCommon from "../locales/en/common.json";
+import enCrm from "../locales/en/crm.json";
 import enErrors from "../locales/en/errors.json";
 import enHome from "../locales/en/home.json";
 import enSettings from "../locales/en/settings.json";
@@ -12,6 +13,7 @@ import esAdmin from "../locales/es/admin.json";
 import esAudit from "../locales/es/audit.json";
 import esAuth from "../locales/es/auth.json";
 import esCommon from "../locales/es/common.json";
+import esCrm from "../locales/es/crm.json";
 import esErrors from "../locales/es/errors.json";
 import esHome from "../locales/es/home.json";
 import esSettings from "../locales/es/settings.json";
@@ -32,6 +34,7 @@ export const NAMESPACES = [
   "settings",
   "admin",
   "audit",
+  "crm",
 ] as const;
 
 export const resources = {
@@ -44,6 +47,7 @@ export const resources = {
     settings: esSettings,
     admin: esAdmin,
     audit: esAudit,
+    crm: esCrm,
   },
   en: {
     common: enCommon,
@@ -54,6 +58,7 @@ export const resources = {
     settings: enSettings,
     admin: enAdmin,
     audit: enAudit,
+    crm: enCrm,
   },
 } as const;
 

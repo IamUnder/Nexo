@@ -21,5 +21,15 @@
   "rate_limit.exceeded": "Demasiadas peticiones seguidas. Espera un momento y reinténtalo.",
   "internal.error": "Algo ha fallado por nuestra parte. Inténtalo de nuevo en unos minutos.",
   "network": "No hay conexión con el servidor. Comprueba tu red e inténtalo de nuevo.",
-  "generic": "No se ha podido completar la acción. Inténtalo de nuevo."
+  "generic": "No se ha podido completar la acción. Inténtalo de nuevo.",
+  "deal.lost_reason_required": "Indica el motivo por el que se pierde la oportunidad.",
+  "deal.next_action_required": "Toda oportunidad abierta necesita una siguiente acción o su fecha.",
+  "deal.closed_amount_locked": "Solo un responsable puede cambiar el importe de una oportunidad ya cerrada.",
+  "deal.already_closed": "La oportunidad ya está cerrada. Reábrela para cambiarla.",
+  "deal.not_closed": "La oportunidad sigue abierta.",
+  "crm.account_has_open_deals": "La empresa tiene oportunidades abiertas. Ciérralas antes de eliminarla.",
+  "crm.contact_email_taken": "Ya existe un contacto con ese email.",
+  "crm.stage_has_deals": "Esa etapa tiene oportunidades. Muévelas antes de quitarla.",
+  "crm.invalid_stages": "Las etapas no son válidas: necesitas al menos una abierta, una ganada y una perdida, sin nombres repetidos.",
+  "crm.invalid_owner": "La persona elegida no es un miembro activo del equipo."
 }

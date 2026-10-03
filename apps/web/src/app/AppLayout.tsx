@@ -3,12 +3,21 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { CrmSearch } from "../features/crm/CrmSearch";
 import { api, logout } from "../shared/api/client";
 import { qk, useMe } from "../shared/api/queries";
 import { useTheme } from "../shared/theme";
 
 interface NavItem {
-  to: "/" | "/team" | "/settings" | "/audit";
+  to:
+    | "/"
+    | "/crm/deals"
+    | "/crm/accounts"
+    | "/crm/contacts"
+    | "/crm/tasks"
+    | "/team"
+    | "/settings"
+    | "/audit";
   label: string;
   icon: IconName;
   /** Permiso necesario para ver el destino (la API sigue siendo quien impone). */
@@ -76,6 +85,20 @@ export function AppLayout() {
 
   const items: NavItem[] = [
     { to: "/", label: t("nav.home"), icon: "home" },
+    { to: "/crm/deals", label: t("nav.deals"), icon: "briefcase", permission: "crm:deal:read" },
+    {
+      to: "/crm/accounts",
+      label: t("nav.accounts"),
+      icon: "building",
+      permission: "crm:account:read",
+    },
+    {
+      to: "/crm/contacts",
+      label: t("nav.contacts"),
+      icon: "users",
+      permission: "crm:contact:read",
+    },
+    { to: "/crm/tasks", label: t("nav.tasks"), icon: "tasks", permission: "crm:task:read" },
     { to: "/team", label: t("nav.team"), icon: "users", permission: "identity:member:read" },
     { to: "/audit", label: t("nav.audit"), icon: "activity", permission: "audit:log:read" },
     {
@@ -148,7 +171,12 @@ export function AppLayout() {
             </Button>
             {brand}
           </div>
-          <p className="text-secondary hidden truncate text-sm md:block">{me?.tenant.name}</p>
+          <div className="hidden min-w-0 flex-1 items-center gap-4 md:flex">
+            <p className="text-secondary hidden max-w-48 truncate text-sm lg:block">
+              {me?.tenant.name}
+            </p>
+            {me?.permissions.includes("crm:account:read") ? <CrmSearch /> : null}
+          </div>
           <div className="flex items-center gap-1">
             <Button
               variant="ghost"

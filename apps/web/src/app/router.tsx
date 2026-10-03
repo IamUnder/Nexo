@@ -16,6 +16,12 @@ import { ResetPasswordPage } from "../features/auth/ResetPasswordPage";
 import { SelectTenantPage } from "../features/auth/SelectTenantPage";
 import { SignupPage } from "../features/auth/SignupPage";
 import { VerifyEmailPage } from "../features/auth/VerifyEmailPage";
+import { AccountDetailPage } from "../features/crm/AccountDetailPage";
+import { AccountsPage } from "../features/crm/AccountsPage";
+import { ContactsPage } from "../features/crm/ContactsPage";
+import { DealDetailPage } from "../features/crm/DealDetailPage";
+import { DealsPage } from "../features/crm/DealsPage";
+import { TasksPage } from "../features/crm/TasksPage";
 import { HomePage } from "../features/home/HomePage";
 import { SettingsPage } from "../features/settings/SettingsPage";
 import { TeamPage } from "../features/team/TeamPage";
@@ -121,6 +127,37 @@ const auditRoute = createRoute({
   component: AuditPage,
 });
 
+const crmDealsRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/crm/deals",
+  component: DealsPage,
+});
+const crmDealRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/crm/deals/$dealId",
+  component: DealDetailPage,
+});
+const crmAccountsRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/crm/accounts",
+  component: AccountsPage,
+});
+const crmAccountRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/crm/accounts/$accountId",
+  component: AccountDetailPage,
+});
+const crmContactsRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/crm/contacts",
+  component: ContactsPage,
+});
+const crmTasksRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/crm/tasks",
+  component: TasksPage,
+});
+
 // ── Administración de Nexo (sesión de superadmin, independiente) ─────────────────────────────
 const adminLoginRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -160,7 +197,18 @@ const routeTree = rootRoute.addChildren([
   resetRoute,
   verifyRoute,
   inviteRoute,
-  appRoute.addChildren([homeRoute, teamRoute, settingsRoute, auditRoute]),
+  appRoute.addChildren([
+    homeRoute,
+    crmDealsRoute,
+    crmDealRoute,
+    crmAccountsRoute,
+    crmAccountRoute,
+    crmContactsRoute,
+    crmTasksRoute,
+    teamRoute,
+    settingsRoute,
+    auditRoute,
+  ]),
   adminLoginRoute,
   adminRoute.addChildren([adminTenantsRoute, adminAuditRoute]),
 ]);

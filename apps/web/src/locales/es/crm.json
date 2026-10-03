@@ -1,0 +1,256 @@
+{
+  "common": {
+    "none": "Sin asignar",
+    "today": "Hoy",
+    "overdue": "Vencida",
+    "noValue": "—",
+    "loadMore": "Cargar más"
+  },
+  "deals": {
+    "title": "Oportunidades",
+    "subtitle": "Tu embudo de ventas, de un vistazo.",
+    "new": "Nueva oportunidad",
+    "search": "Buscar oportunidad",
+    "pipeline": "Embudo",
+    "board": "Tablero de oportunidades",
+    "empty": {
+      "title": "Aún no hay oportunidades",
+      "description": "Crea la primera para empezar a seguir tu embudo. Cada oportunidad necesita una siguiente acción."
+    },
+    "noAccounts": "Antes de crear una oportunidad necesitas al menos una empresa.",
+    "column": {
+      "count_one": "{{count}} oportunidad",
+      "count_other": "{{count}} oportunidades",
+      "empty": "Sin oportunidades"
+    },
+    "card": {
+      "nextAction": "Siguiente acción",
+      "noNextAction": "Sin siguiente acción",
+      "moveTo": "Mover a…",
+      "actions": "Acciones de {{name}}"
+    },
+    "create": {
+      "title": "Nueva oportunidad",
+      "name": "Nombre",
+      "account": "Empresa",
+      "accountPlaceholder": "Elige una empresa",
+      "amount": "Importe (€)",
+      "expectedClose": "Cierre previsto",
+      "nextActionText": "Siguiente acción",
+      "nextActionAt": "Fecha de la acción",
+      "nextActionHint": "Indica qué toca hacer y, si puedes, cuándo.",
+      "submit": "Crear oportunidad",
+      "nextActionRequired": "Indica la siguiente acción o su fecha."
+    },
+    "status": {
+      "open": "Abierta",
+      "won": "Ganada",
+      "lost": "Perdida"
+    },
+    "win": "Marcar como ganada",
+    "lose": "Marcar como perdida",
+    "reopen": "Reabrir",
+    "loseDialog": {
+      "title": "Marcar como perdida",
+      "description": "Anota el motivo: te ayudará a mejorar.",
+      "reason": "Motivo",
+      "submit": "Marcar como perdida"
+    },
+    "won": "¡Oportunidad ganada!",
+    "lost": "Oportunidad marcada como perdida",
+    "reopened": "Oportunidad reabierta",
+    "moved": "Oportunidad movida",
+    "detail": {
+      "back": "Volver a oportunidades",
+      "amount": "Importe",
+      "probability": "Probabilidad",
+      "stage": "Etapa",
+      "expectedClose": "Cierre previsto",
+      "owner": "Responsable",
+      "contact": "Contacto principal",
+      "company": "Empresa",
+      "lostReason": "Motivo de pérdida",
+      "closedAt": "Cerrada el {{date}}",
+      "details": "Datos",
+      "timeline": "Actividad",
+      "tasks": "Tareas",
+      "save": "Guardar cambios",
+      "saved": "Cambios guardados",
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Eliminar esta oportunidad? Dejará de aparecer en el embudo.",
+      "deleted": "Oportunidad eliminada",
+      "notFound": "No hemos encontrado esta oportunidad.",
+      "noTasks": "Sin tareas para esta oportunidad."
+    }
+  },
+  "accounts": {
+    "title": "Empresas",
+    "subtitle": "Las empresas con las que trabajas.",
+    "new": "Nueva empresa",
+    "search": "Buscar por nombre, dominio o NIF",
+    "table": "Listado de empresas",
+    "empty": {
+      "title": "Aún no hay empresas",
+      "description": "Añade tu primera empresa para empezar a registrar contactos y oportunidades.",
+      "noResults": "No hay empresas que coincidan con la búsqueda."
+    },
+    "col": {
+      "name": "Empresa",
+      "status": "Estado",
+      "contacts": "Contactos",
+      "openDeals": "Abiertas",
+      "owner": "Responsable"
+    },
+    "status": {
+      "prospect": "Potencial",
+      "active": "Cliente",
+      "inactive": "Inactiva",
+      "at_risk": "En riesgo"
+    },
+    "form": {
+      "nameCreate": "Nueva empresa",
+      "nameEdit": "Editar empresa",
+      "name": "Nombre comercial",
+      "legalName": "Razón social",
+      "taxId": "NIF/CIF",
+      "domain": "Dominio web",
+      "industry": "Sector",
+      "website": "Sitio web",
+      "phone": "Teléfono",
+      "status": "Estado",
+      "notes": "Notas",
+      "submitCreate": "Crear empresa",
+      "submitEdit": "Guardar cambios"
+    },
+    "created": "Empresa creada",
+    "saved": "Empresa actualizada",
+    "deleted": "Empresa eliminada",
+    "detail": {
+      "back": "Volver a empresas",
+      "info": "Datos",
+      "edit": "Editar",
+      "contacts": "Contactos",
+      "addContact": "Añadir contacto",
+      "noContacts": "Aún no hay contactos en esta empresa.",
+      "deals": "Oportunidades",
+      "noDeals": "Aún no hay oportunidades con esta empresa.",
+      "timeline": "Actividad",
+      "delete": "Eliminar empresa",
+      "deleteConfirm": "¿Eliminar esta empresa? Dejará de aparecer en los listados.",
+      "notFound": "No hemos encontrado esta empresa.",
+      "newDeal": "Nueva oportunidad"
+    }
+  },
+  "contacts": {
+    "title": "Contactos",
+    "subtitle": "Las personas con las que hablas.",
+    "new": "Nuevo contacto",
+    "search": "Buscar por nombre, email o teléfono",
+    "table": "Listado de contactos",
+    "empty": {
+      "title": "Aún no hay contactos",
+      "description": "Añade a las personas con las que trabajas y vincúlalas a su empresa.",
+      "noResults": "No hay contactos que coincidan con la búsqueda."
+    },
+    "col": {
+      "name": "Nombre",
+      "company": "Empresa",
+      "email": "Email",
+      "phone": "Teléfono",
+      "jobTitle": "Cargo"
+    },
+    "form": {
+      "title": "Nuevo contacto",
+      "firstName": "Nombre",
+      "lastName": "Apellidos",
+      "email": "Email",
+      "phone": "Teléfono",
+      "jobTitle": "Cargo",
+      "account": "Empresa",
+      "noAccount": "Sin empresa",
+      "submit": "Crear contacto"
+    },
+    "created": "Contacto creado"
+  },
+  "tasks": {
+    "title": "Mis tareas",
+    "subtitle": "Lo que tienes pendiente, lo más urgente primero.",
+    "new": "Nueva tarea",
+    "open": "Pendientes",
+    "done": "Hechas",
+    "list": "Lista de tareas",
+    "empty": {
+      "open": "No tienes tareas pendientes. ¡Buen trabajo!",
+      "done": "Todavía no has completado ninguna tarea."
+    },
+    "complete": "Completar «{{title}}»",
+    "reopen": "Reabrir «{{title}}»",
+    "due": "Vence {{date}}",
+    "noDue": "Sin fecha",
+    "delete": "Eliminar «{{title}}»",
+    "form": {
+      "title": "Nueva tarea",
+      "name": "Tarea",
+      "due": "Fecha límite",
+      "priority": "Prioridad",
+      "submit": "Crear tarea"
+    },
+    "priority": {
+      "low": "Baja",
+      "normal": "Normal",
+      "high": "Alta"
+    },
+    "created": "Tarea creada",
+    "completed": "Tarea completada",
+    "deleted": "Tarea eliminada"
+  },
+  "activity": {
+    "title": "Actividad",
+    "empty": "Aún no hay actividad.",
+    "kind": {
+      "note": "Nota",
+      "call": "Llamada",
+      "meeting": "Reunión",
+      "email": "Email",
+      "stage_change": "Cambio de etapa",
+      "system": "Sistema"
+    },
+    "form": {
+      "kind": "Tipo",
+      "subject": "Resumen",
+      "body": "Detalle (opcional)",
+      "submit": "Registrar"
+    },
+    "saved": "Actividad registrada"
+  },
+  "search": {
+    "label": "Buscar en el CRM",
+    "placeholder": "Buscar empresas, contactos u oportunidades…",
+    "empty": "Sin resultados.",
+    "type": {
+      "account": "Empresa",
+      "contact": "Contacto",
+      "deal": "Oportunidad"
+    }
+  },
+  "pipelines": {
+    "title": "Embudo de ventas",
+    "description": "Etapas por las que pasa una oportunidad. Debe haber al menos una ganada y una perdida.",
+    "name": "Nombre del embudo",
+    "stage": "Etapa",
+    "probability": "Probabilidad (%)",
+    "kind": "Tipo",
+    "kinds": {
+      "open": "Abierta",
+      "won": "Ganada",
+      "lost": "Perdida"
+    },
+    "add": "Añadir etapa",
+    "up": "Subir {{name}}",
+    "down": "Bajar {{name}}",
+    "remove": "Quitar {{name}}",
+    "save": "Guardar embudo",
+    "saved": "Embudo guardado",
+    "stageLocked": "Tiene {{count}} oportunidades; muévelas antes de quitarla."
+  }
+}
