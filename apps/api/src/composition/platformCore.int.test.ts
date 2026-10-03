@@ -333,7 +333,7 @@ describe("login, bloqueo y sesión", () => {
     expect((await login(s.email)).statusCode).toBe(200);
   });
 
-  it("refresh rota el token; reutilizar uno ya rotado revoca TODA la familia", async () => {
+  it("refresh rota el token; reutilizar uno ya rotado (pasada la tolerancia) revoca TODA la familia", async () => {
     const s = await signup();
     const r1 = await app.inject({
       method: "POST",
@@ -344,6 +344,7 @@ describe("login, bloqueo y sesión", () => {
     const newCookie = cookieOf(r1);
     expect(newCookie).not.toBe(s.refreshCookie);
 
+    now = new Date(now.getTime() + 11_000); // fuera de la ventana de tolerancia
     const reuse = await app.inject({
       method: "POST",
       url: "/api/v1/auth/refresh",
@@ -357,6 +358,30 @@ describe("login, bloqueo y sesión", () => {
       headers: refreshHeaders(newCookie),
     });
     expect(afterTheft.statusCode).toBe(401);
+  });
+
+  it("tolera la carrera de una recarga durante el refresh: reutilizar el token en los primeros segundos NO cierra la sesión", async () => {
+    const s = await signup();
+    const r1 = await app.inject({
+      method: "POST",
+      url: "/api/v1/auth/refresh",
+      headers: refreshHeaders(s.refreshCookie),
+    });
+    expect(r1.statusCode).toBe(200);
+    // La respuesta se «pierde» (recarga) y el navegador vuelve a presentar el token viejo 2 s después.
+    now = new Date(now.getTime() + 2_000);
+    const retry = await app.inject({
+      method: "POST",
+      url: "/api/v1/auth/refresh",
+      headers: refreshHeaders(s.refreshCookie),
+    });
+    expect(retry.statusCode, retry.body).toBe(200);
+    expect(cookieOf(retry)).not.toBe("");
+    const me = await app.inject({
+      url: "/api/v1/session/me",
+      headers: auth({ accessToken: retry.json().accessToken }),
+    });
+    expect(me.statusCode).toBe(200);
   });
 
   it("el refresh exige la cabecera anti-CSRF y el Origin permitido", async () => {

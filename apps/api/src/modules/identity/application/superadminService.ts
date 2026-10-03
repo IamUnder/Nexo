@@ -5,7 +5,7 @@ import type { Database } from "../../../platform/db/database";
 import { withPlatform } from "../../../platform/db/platform";
 import { UnauthenticatedError } from "../../../platform/errors";
 import type { AuditLogger, Clock } from "../../../platform/ports";
-import { isLocked, lockUntilAfterFailure } from "../domain/lockout";
+import { isLocked, isWithinReuseLeeway, lockUntilAfterFailure } from "../domain/lockout";
 import { AccountLockedError, InvalidCredentialsError, type RequestMeta } from "./authService";
 import type { PasswordHasher, SuperadminRepository, TokenService, TokenStore } from "./ports";
 
@@ -132,7 +132,8 @@ export class SuperadminService {
         const now = this.d.clock.now();
         const rec = await this.d.tokens.findRefreshByHash(tx, hashToken(token));
         if (!rec || rec.subjectType !== "superadmin") return { kind: "fail" };
-        if (rec.rotatedAt) {
+        // Misma tolerancia de carrera que en usuarios (recarga durante el refresh).
+        if (rec.rotatedAt && !isWithinReuseLeeway(rec.rotatedAt, now)) {
           await this.d.tokens.revokeFamily(tx, rec.familyId, now);
           return { kind: "fail" };
         }
@@ -142,7 +143,7 @@ export class SuperadminService {
           await this.d.tokens.revokeFamily(tx, rec.familyId, now);
           return { kind: "fail" };
         }
-        await this.d.tokens.markRefreshRotated(tx, rec.id, now);
+        if (!rec.rotatedAt) await this.d.tokens.markRefreshRotated(tx, rec.id, now);
         return { kind: "ok", session: await this.issue(tx, admin, meta, rec.familyId) };
       },
     );

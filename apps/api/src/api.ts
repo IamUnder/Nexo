@@ -14,7 +14,9 @@ async function main() {
   });
 
   const services = createServices({ env, logger, database });
-  const app = await buildApp({ env, logger, database });
+  // El rate limit solo se puede desactivar fuera de producción (E2E).
+  const rateLimit = !(env.RATE_LIMIT_DISABLED && env.NODE_ENV !== "production");
+  const app = await buildApp({ env, logger, database, rateLimit });
   services.registerRoutes(app);
 
   const shutdown = async (signal: string) => {

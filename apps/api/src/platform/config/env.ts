@@ -67,6 +67,12 @@ const baseSchema = z.object({
     .default("true")
     .transform((v) => v === "true"),
 
+  /** SOLO para pruebas E2E: desactiva el rate limit. Se IGNORA en producción (nunca se puede apagar allí). */
+  RATE_LIMIT_DISABLED: z
+    .enum(["true", "false"])
+    .default("false")
+    .transform((v) => v === "true"),
+
   // Solo primer arranque: crea el superadmin inicial (`db:seed`)
   SUPERADMIN_BOOTSTRAP_EMAIL: z.string().email().optional(),
   SUPERADMIN_BOOTSTRAP_PASSWORD: z.string().min(12).optional(),

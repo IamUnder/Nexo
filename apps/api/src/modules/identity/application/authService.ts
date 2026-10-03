@@ -17,7 +17,7 @@ import {
   UnauthenticatedError,
 } from "../../../platform/errors";
 import type { AccessClaims, AuditLogger, Clock, SystemMailer } from "../../../platform/ports";
-import { isLocked, lockUntilAfterFailure } from "../domain/lockout";
+import { isLocked, isWithinReuseLeeway, lockUntilAfterFailure } from "../domain/lockout";
 import { checkPassword } from "../domain/password";
 import { effectivePermissions } from "../domain/permissions";
 import { passwordResetMail, verifyEmailMail } from "./emails";
@@ -288,8 +288,10 @@ export class AuthService {
         const rec = await this.d.tokens.findRefreshByHash(tx, hashToken(token));
         if (!rec || rec.subjectType !== "user" || !rec.membershipId) return { kind: "fail" };
 
-        if (rec.rotatedAt) {
-          await this.d.tokens.revokeFamily(tx, rec.familyId, now); // reutilización detectada
+        // Reutilización de un token ya rotado: robo (revoca la familia) salvo que sea una carrera de
+        // pocos segundos (p. ej. recarga de página durante el refresh), que se tolera.
+        if (rec.rotatedAt && !isWithinReuseLeeway(rec.rotatedAt, now)) {
+          await this.d.tokens.revokeFamily(tx, rec.familyId, now);
           await this.d.audit.recordPlatform(
             tx,
             { superadminId: null, ip: meta.ip },
@@ -310,7 +312,7 @@ export class AuthService {
           return { kind: "fail" };
         }
 
-        await this.d.tokens.markRefreshRotated(tx, rec.id, now);
+        if (!rec.rotatedAt) await this.d.tokens.markRefreshRotated(tx, rec.id, now);
         return {
           kind: "ok",
           session: await this.issueSession(tx, user, membership, meta, rec.familyId),

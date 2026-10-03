@@ -1,6 +1,11 @@
 import { PERMISSIONS } from "@nexo/contracts";
 import { describe, expect, it } from "vitest";
-import { isLocked, lockUntilAfterFailure } from "./lockout";
+import {
+  isLocked,
+  isWithinReuseLeeway,
+  lockUntilAfterFailure,
+  REFRESH_REUSE_LEEWAY_MS,
+} from "./lockout";
 import { canInviteRole, checkMemberChange } from "./members";
 import { checkPassword } from "./password";
 import { effectivePermissions, isSeatCompatibleWithRole, scopeFor } from "./permissions";
@@ -139,5 +144,17 @@ describe("bloqueo progresivo", () => {
     expect(isLocked(new Date(now.getTime() + 1), now)).toBe(true);
     expect(isLocked(new Date(now.getTime() - 1), now)).toBe(false);
     expect(isLocked(null, now)).toBe(false);
+  });
+});
+
+describe("tolerancia ante reutilización de refresh", () => {
+  const now = new Date("2026-10-10T10:00:00Z");
+  it("solo se tolera dentro de la ventana y nunca en el futuro", () => {
+    expect(isWithinReuseLeeway(new Date(now.getTime() - 1_000), now)).toBe(true);
+    expect(isWithinReuseLeeway(new Date(now.getTime() - REFRESH_REUSE_LEEWAY_MS), now)).toBe(true);
+    expect(isWithinReuseLeeway(new Date(now.getTime() - REFRESH_REUSE_LEEWAY_MS - 1), now)).toBe(
+      false,
+    );
+    expect(isWithinReuseLeeway(new Date(now.getTime() + 1_000), now)).toBe(false);
   });
 });
