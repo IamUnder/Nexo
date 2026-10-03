@@ -35,5 +35,6 @@
   "crm.sample_exists": "The sample data is already loaded.",
   "import.batch_invalid_state": "This import is not in a state that allows that action.",
   "import.mapping_invalid": "The column mapping is not valid: check that the name is matched.",
-  "import.too_many_rows": "The file has too many rows. Split it into several."
+  "import.too_many_rows": "The file has too many rows. Split it into several.",
+  "delivery.invalid_member": "The chosen person is not an active team member."
 }

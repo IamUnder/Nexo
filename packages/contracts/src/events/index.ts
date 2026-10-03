@@ -1,4 +1,5 @@
 export * from "./crm";
+export * from "./delivery";
 export * from "./envelope";
 export * from "./identity";
 export * from "./import";
@@ -23,6 +24,13 @@ export const EVENT_TYPES = {
   dealWon: { type: "crm.deal.won", version: 1 },
   dealLost: { type: "crm.deal.lost", version: 1 },
   dealDeleted: { type: "crm.deal.deleted", version: 1 },
+  projectCreated: { type: "delivery.project.created", version: 1 },
+  projectUpdated: { type: "delivery.project.updated", version: 1 },
+  projectStatusChanged: { type: "delivery.project.status_changed", version: 1 },
+  projectCompleted: { type: "delivery.project.completed", version: 1 },
+  deliveryTaskCreated: { type: "delivery.task.created", version: 1 },
+  deliveryTaskCompleted: { type: "delivery.task.completed", version: 1 },
+  timeLogged: { type: "delivery.time.logged", version: 1 },
   importBatchCompleted: { type: "import.batch.completed", version: 1 },
   importBatchFailed: { type: "import.batch.failed", version: 1 },
   importBatchRolledBack: { type: "import.batch.rolled_back", version: 1 },

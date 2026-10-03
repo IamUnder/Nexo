@@ -15,7 +15,8 @@
     "accounts": "Empresas",
     "contacts": "Contactos",
     "tasks": "Tareas",
-    "import": "Importar"
+    "import": "Importar",
+    "delivery": "Proyectos"
   },
   "actions": {
     "save": "Guardar cambios",

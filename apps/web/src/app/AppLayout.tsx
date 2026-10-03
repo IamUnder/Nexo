@@ -16,6 +16,7 @@ interface NavItem {
     | "/crm/contacts"
     | "/crm/tasks"
     | "/import"
+    | "/delivery/projects"
     | "/team"
     | "/settings"
     | "/audit";
@@ -100,6 +101,12 @@ export function AppLayout() {
       permission: "crm:contact:read",
     },
     { to: "/crm/tasks", label: t("nav.tasks"), icon: "tasks", permission: "crm:task:read" },
+    {
+      to: "/delivery/projects",
+      label: t("nav.delivery"),
+      icon: "file",
+      permission: "delivery:project:read",
+    },
     { to: "/import", label: t("nav.import"), icon: "upload", permission: "import:batch:read" },
     { to: "/team", label: t("nav.team"), icon: "users", permission: "identity:member:read" },
     { to: "/audit", label: t("nav.audit"), icon: "activity", permission: "audit:log:read" },

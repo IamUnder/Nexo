@@ -15,7 +15,7 @@ _Última actualización: 2026-10-03 · Fase: **hitos 0, 1 y 3 completados** y pa
 | **3 · CRM** | ✅ Hecho | Ver detalle abajo. |
 | **4 · Data Onboarding** | 🟡 Parcial | Hecho: importar empresas y contactos desde CSV (simulación, dedupe, ejecución reanudable, rollback) y exportar a CSV. Pendiente: XLSX, oportunidades, plantillas de mapeo, revisión de coincidencias dudosas. |
 | 5 · Comunicación | ⬜ Pendiente | |
-| 6 · Delivery Lite | ⬜ Pendiente | |
+| **6 · Delivery Lite** | 🟡 Parcial | Deal ganado → proyecto con plantilla (idempotente), tareas, hitos, salud automática, tiempo, proyectos en la ficha de empresa. Pendiente: plantillas editables, comentarios, desactivar creación automática. |
 | 7 · Insights, Onboarding y Demo | 🟡 Parcial | Hecho: panel de ventas (módulo `insights`). Pendiente: asistente de onboarding/plantilla vertical, tenant demo persistente con reset, iconos PNG de la PWA. |
 | 8 · API pública y endurecimiento | ⬜ Pendiente | |
 
@@ -35,6 +35,12 @@ _Última actualización: 2026-10-03 · Fase: **hitos 0, 1 y 3 completados** y pa
 - **Datos de ejemplo** (onboarding minuto 0): `POST/DELETE /crm/sample-data` (8 empresas, 10 oportunidades en todas las etapas, tareas y timeline) con los casos de uso reales; solo quita lo marcado como ejemplo. Botones en el tablero.
 - **Editor de embudo** en `/crm/pipeline` (botón en el tablero).
 - **Pendiente del CRM:** exportación CSV, importación (hito 4).
+
+## Hito 6 (parcial) · qué hay (verificado)
+
+- **Backend `delivery`:** `crm.deal.won` crea el proyecto (plantilla de 3 hitos y 5 tareas, responsable, resumen con importe y contactos) una sola vez por deal; sincroniza el nombre de la empresa y la marca como archivada si se borra; tareas con estado, hitos, tiempo y salud automática (bloqueada → desviado, vencida → en riesgo).
+- **Web:** «Proyectos» (lista y ficha con tareas, hitos y registro de tiempo) y bloque «Proyectos» en la ficha de la empresa.
+- **Tests:** API 245 en total (10 de integración de Delivery), E2E del flujo deal ganado → proyecto.
 
 ## Hito 4 (parcial) · qué hay (verificado)
 

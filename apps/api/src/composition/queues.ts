@@ -1,4 +1,5 @@
 import { CRM_SUBSCRIBER_NAMES } from "../modules/crm";
+import { DELIVERY_SUBSCRIBER_NAMES } from "../modules/delivery";
 import { IDENTITY_SUBSCRIBER_NAMES } from "../modules/identity";
 import { INSIGHTS_SUBSCRIBER_NAMES } from "../modules/insights";
 import { SubscriberRegistry } from "../platform/events/subscribers";
@@ -12,6 +13,7 @@ export const SUBSCRIBER_NAMES: readonly string[] = [
   ...IDENTITY_SUBSCRIBER_NAMES,
   ...CRM_SUBSCRIBER_NAMES,
   ...INSIGHTS_SUBSCRIBER_NAMES,
+  ...DELIVERY_SUBSCRIBER_NAMES,
 ];
 
 export const SUBSCRIBER_QUEUES: string[] = SUBSCRIBER_NAMES.map((n) =>

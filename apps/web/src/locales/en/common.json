@@ -15,7 +15,8 @@
     "accounts": "Companies",
     "contacts": "Contacts",
     "tasks": "Tasks",
-    "import": "Import"
+    "import": "Import",
+    "delivery": "Projects"
   },
   "actions": {
     "save": "Save changes",

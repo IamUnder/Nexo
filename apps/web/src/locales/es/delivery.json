@@ -1,0 +1,60 @@
+{
+  "title": "Proyectos",
+  "subtitle": "Del trato ganado al trabajo entregado.",
+  "new": "Nuevo proyecto",
+  "create": "Crear proyecto",
+  "created": "Proyecto creado",
+  "table": "Listado de proyectos",
+  "accountSlot": "Proyectos",
+  "back": "Volver a proyectos",
+  "notFound": "No hemos encontrado este proyecto.",
+  "noValue": "—",
+  "archived": "empresa archivada",
+  "owner": "Responsable",
+  "logged": "{{time}} registradas",
+  "overdue_one": "{{count}} vencida",
+  "overdue_other": "{{count}} vencidas",
+  "empty": {
+    "title": "Aún no hay proyectos",
+    "description": "Cuando ganes una oportunidad se creará un proyecto con su plantilla de tareas e hitos. También puedes crear uno a mano."
+  },
+  "col": {
+    "name": "Proyecto",
+    "account": "Empresa",
+    "status": "Estado",
+    "progress": "Tareas",
+    "due": "Entrega"
+  },
+  "status": {
+    "planned": "Planificado",
+    "in_progress": "En curso",
+    "at_risk": "En riesgo",
+    "blocked": "Bloqueado",
+    "done": "Hecho",
+    "cancelled": "Cancelado"
+  },
+  "health": {
+    "on_track": "En plazo",
+    "at_risk": "Con riesgo",
+    "off_track": "Desviado"
+  },
+  "tasks": "Tareas",
+  "newTask": "Nueva tarea",
+  "add": "Añadir",
+  "overdueTask": "Vencida",
+  "taskStatus": "Estado de «{{title}}»",
+  "taskStatuses": {
+    "todo": "Por hacer",
+    "doing": "En curso",
+    "blocked": "Bloqueada",
+    "done": "Hecha"
+  },
+  "milestones": "Hitos",
+  "complete": "Completar",
+  "reopen": "Reabrir",
+  "time": "Tiempo",
+  "minutes": "Minutos",
+  "note": "Nota",
+  "logTime": "Registrar tiempo",
+  "timeLogged": "Tiempo registrado"
+}

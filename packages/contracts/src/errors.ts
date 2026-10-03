@@ -26,6 +26,7 @@ export const ERROR_CODES = [
   "crm.invalid_stages",
   "crm.invalid_owner",
   "crm.sample_exists",
+  "delivery.invalid_member",
   "import.batch_invalid_state",
   "import.mapping_invalid",
   "import.too_many_rows",

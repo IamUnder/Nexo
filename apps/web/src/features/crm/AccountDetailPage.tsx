@@ -1,7 +1,7 @@
 import { Alert, Badge, Button, Card, CardHeader, Skeleton, useToast } from "@nexo/ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "@tanstack/react-router";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { api } from "../../shared/api/client";
 import { errorMessage } from "../../shared/api/errors";
@@ -16,7 +16,12 @@ import {
   useFormatters,
 } from "./components";
 
-export function AccountDetailPage() {
+export function AccountDetailPage({
+  projectsSlot,
+}: {
+  /** Hueco para otros módulos (Delivery): lo rellena el router, esta feature no los conoce. */
+  projectsSlot?: (accountId: string) => ReactNode;
+}) {
   const { accountId } = useParams({ strict: false }) as { accountId: string };
   const { t } = useTranslation("crm");
   const { t: tc } = useTranslation();
@@ -144,6 +149,8 @@ export function AccountDetailPage() {
               ))}
             </ul>
           </Card>
+
+          {projectsSlot?.(a.id)}
 
           <Card>
             <CardHeader

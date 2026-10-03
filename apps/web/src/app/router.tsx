@@ -23,6 +23,8 @@ import { DealDetailPage } from "../features/crm/DealDetailPage";
 import { DealsPage } from "../features/crm/DealsPage";
 import { PipelineEditorPage } from "../features/crm/PipelineEditorPage";
 import { TasksPage } from "../features/crm/TasksPage";
+import { ProjectDetailPage } from "../features/delivery/ProjectDetailPage";
+import { AccountProjects, ProjectsPage } from "../features/delivery/ProjectsPage";
 import { HomePage } from "../features/home/HomePage";
 import { ImportPage } from "../features/import/ImportPage";
 import { SalesPanel } from "../features/insights/SalesPanel";
@@ -152,7 +154,9 @@ const crmAccountsRoute = createRoute({
 const crmAccountRoute = createRoute({
   getParentRoute: () => appRoute,
   path: "/crm/accounts/$accountId",
-  component: AccountDetailPage,
+  component: function AccountRoute() {
+    return <AccountDetailPage projectsSlot={(id) => <AccountProjects accountId={id} />} />;
+  },
 });
 const crmContactsRoute = createRoute({
   getParentRoute: () => appRoute,
@@ -174,6 +178,17 @@ const importRoute = createRoute({
   getParentRoute: () => appRoute,
   path: "/import",
   component: ImportPage,
+});
+
+const deliveryProjectsRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/delivery/projects",
+  component: ProjectsPage,
+});
+const deliveryProjectRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/delivery/projects/$projectId",
+  component: ProjectDetailPage,
 });
 
 // ── Administración de Nexo (sesión de superadmin, independiente) ─────────────────────────────
@@ -225,6 +240,8 @@ const routeTree = rootRoute.addChildren([
     crmTasksRoute,
     crmPipelineRoute,
     importRoute,
+    deliveryProjectsRoute,
+    deliveryProjectRoute,
     teamRoute,
     settingsRoute,
     auditRoute,

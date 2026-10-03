@@ -5,6 +5,7 @@ import enAudit from "../locales/en/audit.json";
 import enAuth from "../locales/en/auth.json";
 import enCommon from "../locales/en/common.json";
 import enCrm from "../locales/en/crm.json";
+import enDelivery from "../locales/en/delivery.json";
 import enErrors from "../locales/en/errors.json";
 import enHome from "../locales/en/home.json";
 import enImport from "../locales/en/import.json";
@@ -16,6 +17,7 @@ import esAudit from "../locales/es/audit.json";
 import esAuth from "../locales/es/auth.json";
 import esCommon from "../locales/es/common.json";
 import esCrm from "../locales/es/crm.json";
+import esDelivery from "../locales/es/delivery.json";
 import esErrors from "../locales/es/errors.json";
 import esHome from "../locales/es/home.json";
 import esImport from "../locales/es/import.json";
@@ -41,6 +43,7 @@ export const NAMESPACES = [
   "crm",
   "insights",
   "import",
+  "delivery",
 ] as const;
 
 export const resources = {
@@ -56,6 +59,7 @@ export const resources = {
     crm: esCrm,
     insights: esInsights,
     import: esImport,
+    delivery: esDelivery,
   },
   en: {
     common: enCommon,
@@ -69,6 +73,7 @@ export const resources = {
     crm: enCrm,
     insights: enInsights,
     import: enImport,
+    delivery: enDelivery,
   },
 } as const;
 

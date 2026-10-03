@@ -1,0 +1,60 @@
+{
+  "title": "Projects",
+  "subtitle": "From the won deal to the delivered work.",
+  "new": "New project",
+  "create": "Create project",
+  "created": "Project created",
+  "table": "Projects list",
+  "accountSlot": "Projects",
+  "back": "Back to projects",
+  "notFound": "We could not find this project.",
+  "noValue": "—",
+  "archived": "archived company",
+  "owner": "Owner",
+  "logged": "{{time}} logged",
+  "overdue_one": "{{count}} overdue",
+  "overdue_other": "{{count}} overdue",
+  "empty": {
+    "title": "No projects yet",
+    "description": "When you win a deal, a project is created with its task and milestone template. You can also create one by hand."
+  },
+  "col": {
+    "name": "Project",
+    "account": "Company",
+    "status": "Status",
+    "progress": "Tasks",
+    "due": "Due"
+  },
+  "status": {
+    "planned": "Planned",
+    "in_progress": "In progress",
+    "at_risk": "At risk",
+    "blocked": "Blocked",
+    "done": "Done",
+    "cancelled": "Cancelled"
+  },
+  "health": {
+    "on_track": "On track",
+    "at_risk": "At risk",
+    "off_track": "Off track"
+  },
+  "tasks": "Tasks",
+  "newTask": "New task",
+  "add": "Add",
+  "overdueTask": "Overdue",
+  "taskStatus": "Status of “{{title}}”",
+  "taskStatuses": {
+    "todo": "To do",
+    "doing": "In progress",
+    "blocked": "Blocked",
+    "done": "Done"
+  },
+  "milestones": "Milestones",
+  "complete": "Complete",
+  "reopen": "Reopen",
+  "time": "Time",
+  "minutes": "Minutes",
+  "note": "Note",
+  "logTime": "Log time",
+  "timeLogged": "Time logged"
+}

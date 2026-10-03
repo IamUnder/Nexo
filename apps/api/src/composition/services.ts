@@ -7,6 +7,7 @@
 import { createAuditModule } from "../modules/audit";
 import { createCrmModule } from "../modules/crm";
 import { createDataImportModule } from "../modules/data-import";
+import { createDeliveryModule } from "../modules/delivery";
 import { createFilesModule } from "../modules/files";
 import { createIdentityModule, type PasswordHasher } from "../modules/identity";
 import { createInsightsModule } from "../modules/insights";
@@ -143,6 +144,13 @@ export function createServices(deps: CompositionDeps) {
     clock,
   });
 
+  const delivery = createDeliveryModule({
+    database,
+    guard,
+    members: identity.directory,
+    audit: audit.logger,
+    clock,
+  });
   const insights = createInsightsModule({ database, guard, clock });
   // El adaptador del CRM cumple por estructura el puerto `ImportTarget` de data-import.
   const dataImport = createDataImportModule({
@@ -158,6 +166,7 @@ export function createServices(deps: CompositionDeps) {
   for (const s of identity.subscribers) registry.register(s);
   for (const s of crm.subscribers) registry.register(s);
   for (const s of insights.subscribers) registry.register(s);
+  for (const s of delivery.subscribers) registry.register(s);
 
   return {
     env,
@@ -175,6 +184,7 @@ export function createServices(deps: CompositionDeps) {
     tenancy,
     crm,
     insights,
+    delivery,
     dataImport,
     registry,
     /** Registra las rutas de todos los módulos en una app Fastify ya construida. */
@@ -185,6 +195,7 @@ export function createServices(deps: CompositionDeps) {
       files.registerRoutes(app);
       crm.registerRoutes(app);
       insights.registerRoutes(app);
+      delivery.registerRoutes(app);
       dataImport.registerRoutes(app);
     },
   };

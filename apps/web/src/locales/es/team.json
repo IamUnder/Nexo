@@ -83,6 +83,16 @@
     "import_batch_read": "Ver importaciones",
     "import_batch_create": "Importar datos",
     "import_batch_rollback": "Deshacer importaciones",
-    "import_data_export": "Exportar datos"
+    "import_data_export": "Exportar datos",
+    "delivery_project_read": "Ver proyectos",
+    "delivery_project_create": "Crear proyectos",
+    "delivery_project_update": "Editar proyectos",
+    "delivery_project_delete": "Borrar proyectos",
+    "delivery_task_read": "Ver tareas de proyecto",
+    "delivery_task_create": "Crear tareas de proyecto",
+    "delivery_task_update": "Actualizar tareas de proyecto",
+    "delivery_task_delete": "Borrar tareas de proyecto",
+    "delivery_time_read": "Ver tiempo registrado",
+    "delivery_time_create": "Registrar tiempo"
   }
 }

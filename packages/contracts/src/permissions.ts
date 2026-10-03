@@ -42,6 +42,17 @@ export const PERMISSIONS = [
   "crm:pipeline:manage",
   // Insights
   "insights:dashboard:read",
+  // Delivery Lite
+  "delivery:project:read",
+  "delivery:project:create",
+  "delivery:project:update",
+  "delivery:project:delete",
+  "delivery:task:read",
+  "delivery:task:create",
+  "delivery:task:update",
+  "delivery:task:delete",
+  "delivery:time:read",
+  "delivery:time:create",
   // Data Onboarding
   "import:batch:read",
   "import:batch:create",
@@ -50,6 +61,21 @@ export const PERMISSIONS = [
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
+
+/** Lectura de Delivery (la tienen todos los roles). */
+const DELIVERY_READ: Permission[] = [
+  "delivery:project:read",
+  "delivery:task:read",
+  "delivery:time:read",
+];
+
+/** Trabajo diario de ejecución: sin crear/borrar proyectos. */
+const DELIVERY_WORK: Permission[] = [
+  ...DELIVERY_READ,
+  "delivery:task:create",
+  "delivery:task:update",
+  "delivery:time:create",
+];
 
 const PLATFORM_READ: Permission[] = [
   "identity:member:read",
@@ -100,12 +126,17 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     "crm:deal:manage",
     "crm:task:delete",
     "crm:pipeline:manage",
+    ...DELIVERY_WORK,
+    "delivery:project:create",
+    "delivery:project:update",
+    "delivery:project:delete",
+    "delivery:task:delete",
     "import:batch:read",
     "import:batch:create",
     "import:batch:rollback",
     "import:data:export",
   ],
-  sales: [...PLATFORM_READ, "files:file:create", ...CRM_WORK],
+  sales: [...PLATFORM_READ, "files:file:create", ...CRM_WORK, ...DELIVERY_READ],
   delivery: [
     ...PLATFORM_READ,
     "files:file:create",
@@ -113,8 +144,11 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     "crm:task:create",
     "crm:task:update",
     "crm:activity:create",
+    ...DELIVERY_WORK,
+    "delivery:project:create",
+    "delivery:project:update",
   ],
-  viewer: [...PLATFORM_READ, ...CRM_READ],
+  viewer: [...PLATFORM_READ, ...CRM_READ, ...DELIVERY_READ],
 };
 
 /**

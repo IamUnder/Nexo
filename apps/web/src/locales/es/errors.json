@@ -35,5 +35,6 @@
   "crm.sample_exists": "Los datos de ejemplo ya están cargados.",
   "import.batch_invalid_state": "Esta importación no está en un estado que permita esa acción.",
   "import.mapping_invalid": "La correspondencia de columnas no es válida: revisa que el nombre esté relacionado.",
-  "import.too_many_rows": "El fichero tiene demasiadas filas. Divídelo en varios."
+  "import.too_many_rows": "El fichero tiene demasiadas filas. Divídelo en varios.",
+  "delivery.invalid_member": "La persona elegida no es un miembro activo del equipo."
 }

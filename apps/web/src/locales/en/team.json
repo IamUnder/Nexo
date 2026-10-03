@@ -83,6 +83,16 @@
     "import_batch_read": "View imports",
     "import_batch_create": "Import data",
     "import_batch_rollback": "Undo imports",
-    "import_data_export": "Export data"
+    "import_data_export": "Export data",
+    "delivery_project_read": "View projects",
+    "delivery_project_create": "Create projects",
+    "delivery_project_update": "Edit projects",
+    "delivery_project_delete": "Delete projects",
+    "delivery_task_read": "View project tasks",
+    "delivery_task_create": "Create project tasks",
+    "delivery_task_update": "Update project tasks",
+    "delivery_task_delete": "Delete project tasks",
+    "delivery_time_read": "View logged time",
+    "delivery_time_create": "Log time"
   }
 }

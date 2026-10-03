@@ -3,6 +3,7 @@ export * from "./api/audit";
 export * from "./api/auth";
 export * from "./api/common";
 export * from "./api/crm";
+export * from "./api/delivery";
 export * from "./api/files";
 export * from "./api/import";
 export * from "./api/insights";
