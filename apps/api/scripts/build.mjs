@@ -1,4 +1,4 @@
-// Compila los tres entry points (api, worker, migrate) a ESM en dist/ con esbuild.
+// Compila los entry points (api, worker, migrate, seed) a ESM en dist/ con esbuild.
 // Las dependencias de npm quedan como imports externos (se instalan en la imagen); los paquetes del
 // workspace (@nexo/*) se incluyen en el bundle porque exportan TypeScript, no JavaScript compilado.
 import { readFileSync } from "node:fs";
@@ -10,7 +10,12 @@ const external = Object.keys({ ...pkg.dependencies, ...pkg.devDependencies }).fi
 );
 
 await build({
-  entryPoints: { api: "src/api.ts", worker: "src/worker.ts", migrate: "src/migrate.ts" },
+  entryPoints: {
+    api: "src/api.ts",
+    worker: "src/worker.ts",
+    migrate: "src/migrate.ts",
+    seed: "scripts/seed.ts",
+  },
   outdir: "dist",
   bundle: true,
   platform: "node",

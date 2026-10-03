@@ -61,7 +61,18 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     // Errores de validación de Fastify (esquemas de ruta) y de límite de peticiones.
     const fastifyCode = (error as { code?: string; statusCode?: number }).code;
     const statusCode = (error as { statusCode?: number }).statusCode;
-    if (fastifyCode === "FST_ERR_VALIDATION" || fastifyCode === "FST_ERR_CTP_INVALID_MEDIA_TYPE") {
+    // Cualquier otro error 4xx de Fastify (JSON mal formado, cuerpo vacío, demasiado grande…) es del cliente.
+    const isFastify4xx =
+      typeof fastifyCode === "string" &&
+      fastifyCode.startsWith("FST_ERR_") &&
+      typeof statusCode === "number" &&
+      statusCode >= 400 &&
+      statusCode < 500;
+    if (
+      fastifyCode === "FST_ERR_VALIDATION" ||
+      fastifyCode === "FST_ERR_CTP_INVALID_MEDIA_TYPE" ||
+      isFastify4xx
+    ) {
       const mapped = toApiError(new ValidationError("Datos no válidos"), req.id);
       return reply.status(mapped.status).send(mapped.body);
     }

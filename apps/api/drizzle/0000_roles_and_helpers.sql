@@ -29,7 +29,14 @@ $$;
 --> statement-breakpoint
 
 -- Garantías de seguridad de los roles (idempotente): nexo_app jamás puede saltarse la RLS.
-ALTER ROLE nexo_app NOSUPERUSER NOBYPASSRLS;
+DO $$
+BEGIN
+  -- Solo se toca si hace falta: ALTER ROLE exige CREATEROLE, que el propietario NO tiene en producción.
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'nexo_app' AND (rolsuper OR rolbypassrls)) THEN
+    ALTER ROLE nexo_app NOSUPERUSER NOBYPASSRLS;
+  END IF;
+END
+$$;
 --> statement-breakpoint
 
 CREATE EXTENSION IF NOT EXISTS pg_trgm;

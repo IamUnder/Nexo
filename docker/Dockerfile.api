@@ -2,6 +2,7 @@
 #   api:     node dist/api.js
 #   worker:  node dist/worker.js
 #   migrate: node dist/migrate.js   (paso de release: aplica migraciones y termina)
+#   seed:    node dist/seed.js      (paso de release tras migrate: superadmin inicial, idempotente)
 FROM node:24-alpine AS base
 RUN corepack enable && corepack prepare pnpm@12.8.1 --activate
 WORKDIR /repo

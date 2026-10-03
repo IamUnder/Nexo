@@ -58,6 +58,8 @@ const baseSchema = z.object({
 
   // Almacenamiento S3-compatible (todas o ninguna)
   S3_ENDPOINT: z.string().url().optional(),
+  /** Endpoint S3 alcanzable desde el navegador, si difiere de `S3_ENDPOINT` (red interna del compose). */
+  S3_PUBLIC_ENDPOINT: z.string().url().optional(),
   S3_REGION: z.string().default("eu-west-1"),
   S3_BUCKET: z.string().optional(),
   S3_ACCESS_KEY_ID: z.string().optional(),

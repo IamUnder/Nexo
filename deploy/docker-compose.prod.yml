@@ -1,0 +1,140 @@
+# Nexo · despliegue de producción autocontenido (un solo host con Docker/Podman Compose).
+#
+#   cp deploy/.env.prod.example deploy/.env      # y rellena los secretos (ver comentarios)
+#   docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env up -d --build
+#
+# Orden de arranque garantizado: postgres → migrate → seed → api + worker → web.
+# Solo `web` publica un puerto (WEB_PORT, 8080 por defecto): ponle delante tu proxy/túnel con TLS
+# (Traefik, Cloudflare Tunnel…) apuntando a http://<host>:WEB_PORT. `web` también hace de proxy de /api.
+name: nexo
+
+x-api: &api
+  build:
+    context: ..
+    dockerfile: docker/Dockerfile.api
+  restart: unless-stopped
+  environment: &api-env
+    NODE_ENV: production
+    LOG_LEVEL: ${LOG_LEVEL:-info}
+    NEXO_PUBLIC_URL: ${NEXO_PUBLIC_URL:?define NEXO_PUBLIC_URL (https://nexo.kaizogroup.es)}
+    TENANT_RESOLUTION_MODE: session
+    DATABASE_URL_APP: postgres://nexo_app:${NEXO_APP_DB_PASSWORD:?}@postgres:5432/nexo
+    DATABASE_URL_PLATFORM: postgres://nexo_platform:${NEXO_PLATFORM_DB_PASSWORD:?}@postgres:5432/nexo
+    JWT_SIGNING_KEYS: ${JWT_SIGNING_KEYS:?}
+    SMTP_URL: ${SMTP_URL:?}
+    EMAIL_FROM_SYSTEM: ${EMAIL_FROM_SYSTEM:-Nexo <no-reply@nexo.local>}
+    S3_ENDPOINT: ${S3_ENDPOINT:-http://s3:8333}
+    S3_PUBLIC_ENDPOINT: ${S3_PUBLIC_ENDPOINT:-}
+    S3_REGION: ${S3_REGION:-eu-west-1}
+    S3_BUCKET: ${S3_BUCKET:-nexo}
+    S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:?}
+    S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:?}
+    S3_FORCE_PATH_STYLE: ${S3_FORCE_PATH_STYLE:-true}
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_SUPERUSER_PASSWORD:?}
+      NEXO_OWNER_DB_PASSWORD: ${NEXO_OWNER_DB_PASSWORD:?}
+      NEXO_APP_DB_PASSWORD: ${NEXO_APP_DB_PASSWORD:?}
+      NEXO_PLATFORM_DB_PASSWORD: ${NEXO_PLATFORM_DB_PASSWORD:?}
+    volumes:
+      - pgdata:/var/lib/postgresql
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nexo"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # Almacenamiento S3-compatible: SeaweedFS (MinIO dejó de publicar imágenes gratuitas; ADR 0003).
+  s3:
+    image: chrislusf/seaweedfs:latest
+    restart: unless-stopped
+    command: server -s3 -dir=/data -ip=s3
+    environment:
+      AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:?}
+      AWS_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:?}
+    volumes:
+      - s3data:/data
+
+  s3-init:
+    image: chrislusf/seaweedfs:latest
+    depends_on:
+      - s3
+    restart: "no"
+    entrypoint: >
+      /bin/sh -c "until echo 's3.bucket.create -name ${S3_BUCKET:-nexo}' | weed shell -master=s3:9333 2>&1 | grep -qE 'created bucket|already exists'; do echo 'esperando a s3...'; sleep 3; done"
+
+  # Paso de release 1: migraciones (único con rol propietario) y creación de colas de pg-boss.
+  migrate:
+    <<: *api
+    restart: "no"
+    command: ["node", "dist/migrate.js"]
+    environment:
+      NODE_ENV: production
+      # Las contraseñas de los roles ya las fijó el script de initdb: aquí NO se pasan
+      # (el propietario no tiene CREATEROLE y no podría hacer ALTER ROLE).
+      DATABASE_URL_OWNER: postgres://nexo_owner:${NEXO_OWNER_DB_PASSWORD:?}@postgres:5432/nexo
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # Paso de release 2: superadmin inicial (idempotente). Quita las dos variables tras el primer arranque.
+  seed:
+    <<: *api
+    restart: "no"
+    command: ["node", "dist/seed.js"]
+    environment:
+      <<: *api-env
+      SUPERADMIN_BOOTSTRAP_EMAIL: ${SUPERADMIN_BOOTSTRAP_EMAIL:-}
+      SUPERADMIN_BOOTSTRAP_PASSWORD: ${SUPERADMIN_BOOTSTRAP_PASSWORD:-}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  api:
+    <<: *api
+    command: ["node", "dist/api.js"]
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+      s3-init:
+        condition: service_completed_successfully
+
+  worker:
+    <<: *api
+    command: ["node", "dist/worker.js"]
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+      s3-init:
+        condition: service_completed_successfully
+
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.web
+    restart: unless-stopped
+    environment:
+      API_UPSTREAM: api:4000
+    ports:
+      - "${WEB_PORT:-8080}:8080"
+    depends_on:
+      - api
+
+  # Opcional: bandeja de correo de pruebas (NO es un SMTP real; ver docs/runbooks/despliegue.md).
+  #   docker compose ... --profile mail-sandbox up -d    con SMTP_URL=smtp://mailpit:1025
+  mailpit:
+    image: axllent/mailpit:latest
+    profiles: ["mail-sandbox"]
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8025:8025"
+
+volumes:
+  pgdata:
+  s3data:

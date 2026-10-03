@@ -17,18 +17,18 @@ services:
       timeout: 3s
       retries: 10
 
-  # Almacenamiento S3-compatible (ARCHITECTURE §12). Consola en http://localhost:9001
-  minio:
-    image: minio/minio:latest
-    command: server /data --console-address ":9001"
+  # Almacenamiento S3-compatible (ARCHITECTURE §12): SeaweedFS (MinIO dejó de publicar imágenes
+  # gratuitas, ver ADR 0003). Endpoint S3 en http://localhost:9000.
+  s3:
+    image: chrislusf/seaweedfs:latest
+    command: server -s3 -dir=/data -s3.port=9000 -ip=s3
     environment:
-      MINIO_ROOT_USER: nexo_dev
-      MINIO_ROOT_PASSWORD: nexo_dev_secret
+      AWS_ACCESS_KEY_ID: nexo_dev
+      AWS_SECRET_ACCESS_KEY: nexo_dev_secret
     ports:
       - "9000:9000"
-      - "9001:9001"
     volumes:
-      - nexo_minio:/data
+      - nexo_s3:/data
 
   # Bandeja de correo de desarrollo: SMTP en :1025, interfaz en http://localhost:8025
   mailpit:
@@ -39,4 +39,4 @@ services:
 
 volumes:
   nexo_pg:
-  nexo_minio:
+  nexo_s3:

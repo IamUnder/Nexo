@@ -54,6 +54,21 @@ describe("app HTTP base", () => {
     expect(res.json().error.code).toBe("internal.error");
   });
 
+  it("cuerpo vacío o JSON mal formado con content-type JSON → 400, no 500", async () => {
+    current = await app();
+    const headers = { "content-type": "application/json" };
+    const empty = await current.inject({ method: "POST", url: "/echo", headers });
+    expect(empty.statusCode).toBe(400);
+    expect(empty.json().error.code).toBe("validation.failed");
+    const broken = await current.inject({
+      method: "POST",
+      url: "/echo",
+      headers,
+      payload: "{no es json",
+    });
+    expect(broken.statusCode).toBe(400);
+  });
+
   it("errores de aplicación → código estable y parámetros", async () => {
     current = await app();
     const res = await current.inject({ url: "/limit" });

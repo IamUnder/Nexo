@@ -10,6 +10,8 @@ import type { FileStorage } from "../ports";
 
 export interface S3Config {
   endpoint?: string | undefined;
+  /** Endpoint con el que firman las URLs que ve el NAVEGADOR (si difiere del interno, p. ej. `http://s3:8333`). */
+  publicEndpoint?: string | undefined;
   region: string;
   bucket: string;
   accessKeyId: string;
@@ -24,18 +26,23 @@ const DOWNLOAD_TTL_SECONDS = 120;
 /** Almacenamiento S3-compatible (producción: bucket UE; local: MinIO). ARCHITECTURE §12. */
 export class S3FileStorage implements FileStorage {
   private readonly client: S3Client;
+  /** Cliente que firma las URLs para el navegador (la firma incluye el host, por eso no se reutiliza el interno). */
+  private readonly signer: S3Client;
   constructor(private readonly config: S3Config) {
-    this.client = new S3Client({
-      region: config.region,
-      ...(config.endpoint ? { endpoint: config.endpoint } : {}),
-      forcePathStyle: config.forcePathStyle,
-      credentials: { accessKeyId: config.accessKeyId, secretAccessKey: config.secretAccessKey },
-    });
+    const make = (endpoint: string | undefined) =>
+      new S3Client({
+        region: config.region,
+        ...(endpoint ? { endpoint } : {}),
+        forcePathStyle: config.forcePathStyle,
+        credentials: { accessKeyId: config.accessKeyId, secretAccessKey: config.secretAccessKey },
+      });
+    this.client = make(config.endpoint);
+    this.signer = config.publicEndpoint ? make(config.publicEndpoint) : this.client;
   }
 
   presignUpload(key: string, contentType: string, maxBytes: number): Promise<string> {
     return getSignedUrl(
-      this.client,
+      this.signer,
       new PutObjectCommand({
         Bucket: this.config.bucket,
         Key: key,
@@ -52,7 +59,7 @@ export class S3FileStorage implements FileStorage {
   presignDownload(key: string, filename: string): Promise<string> {
     const safe = filename.replace(/[^\w.\- ]+/g, "_");
     return getSignedUrl(
-      this.client,
+      this.signer,
       new GetObjectCommand({
         Bucket: this.config.bucket,
         Key: key,
