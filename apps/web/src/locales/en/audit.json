@@ -1,0 +1,31 @@
+{
+  "title": "Activity",
+  "subtitle": "Log of important actions in your workspace.",
+  "table": "Activity log",
+  "when": "When",
+  "action": "Action",
+  "who": "Source",
+  "empty": "No activity recorded yet",
+  "emptyHint": "Important actions (sign-ups, permission changes, invitations…) will show up here.",
+  "source": {
+    "user": "User",
+    "system": "System",
+    "api": "API",
+    "import": "Import",
+    "superadmin": "Administration"
+  },
+  "actions": {
+    "tenancy.tenant.created": "Workspace created",
+    "tenancy.settings.updated": "Company settings updated",
+    "tenancy.tenant.status_changed": "Account status changed",
+    "tenancy.tenant.trial_extended": "Trial extended",
+    "identity.invitation_created": "Invitation sent",
+    "identity.invitation_revoked": "Invitation revoked",
+    "identity.invitation_accepted": "Invitation accepted",
+    "identity.member_updated": "Member updated",
+    "identity.role_permissions_updated": "Role permissions updated",
+    "identity.password_changed": "Password changed",
+    "files.file_uploaded": "File uploaded",
+    "files.file_deleted": "File deleted"
+  }
+}

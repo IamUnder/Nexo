@@ -1,15 +1,69 @@
 {
-  "app": {
-    "name": "Nexo",
-    "tagline": "Todo conectado. Solo lo necesario."
+  "app": { "name": "Nexo", "tagline": "Todo conectado. Solo lo necesario." },
+  "nav": {
+    "main": "Navegación principal",
+    "home": "Inicio",
+    "team": "Equipo",
+    "settings": "Ajustes",
+    "audit": "Actividad",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
   },
-  "home": {
-    "title": "Bienvenido a Nexo",
-    "description": "CRM operativo modular: del lead al trabajo entregado. Esta es la base técnica del proyecto; los módulos llegan por hitos.",
-    "primaryAction": "Empezar"
+  "actions": {
+    "save": "Guardar cambios",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "delete": "Eliminar",
+    "back": "Volver",
+    "create": "Crear",
+    "continue": "Continuar",
+    "retry": "Reintentar",
+    "copy": "Copiar",
+    "search": "Buscar"
   },
-  "theme": {
-    "toDark": "Cambiar a tema oscuro",
-    "toLight": "Cambiar a tema claro"
+  "state": {
+    "loading": "Cargando…",
+    "saved": "Cambios guardados",
+    "empty": "Todavía no hay nada aquí"
+  },
+  "theme": { "toDark": "Cambiar a tema oscuro", "toLight": "Cambiar a tema claro" },
+  "user": {
+    "menu": "Menú de cuenta",
+    "logout": "Cerrar sesión",
+    "settings": "Ajustes de la cuenta"
+  },
+  "banner": {
+    "trialDays_one": "Te queda {{count}} día de prueba.",
+    "trialDays_other": "Te quedan {{count}} días de prueba.",
+    "trialExpired": "Tu periodo de prueba ha terminado. Contacta con nosotros para seguir usando Nexo.",
+    "suspended": "Esta cuenta está suspendida. Contacta con el soporte para reactivarla.",
+    "cancelled": "Esta cuenta está cancelada.",
+    "pastDue": "Hay un pago pendiente. Regularízalo para evitar el bloqueo de la cuenta.",
+    "emailUnverified": "Confirma tu email para poder invitar a tu equipo.",
+    "resend": "Reenviar correo",
+    "resent": "Te hemos enviado un nuevo correo de confirmación."
+  },
+  "status": {
+    "trial": "En prueba",
+    "trial_expired": "Prueba caducada",
+    "active": "Activo",
+    "past_due": "Pago pendiente",
+    "suspended": "Suspendido",
+    "cancelled": "Cancelado"
+  },
+  "role": {
+    "owner": "Propietario",
+    "admin": "Administrador",
+    "manager": "Responsable",
+    "sales": "Comercial",
+    "delivery": "Operaciones",
+    "viewer": "Solo lectura"
+  },
+  "seat": { "full": "Completo", "light": "Ligero" },
+  "notFound": {
+    "title": "No encontramos esta página",
+    "description": "Puede que el enlace sea antiguo o que la página se haya movido.",
+    "action": "Ir al inicio"
   }
 }

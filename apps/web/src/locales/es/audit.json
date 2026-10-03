@@ -1,0 +1,31 @@
+{
+  "title": "Actividad",
+  "subtitle": "Registro de acciones importantes en tu espacio.",
+  "table": "Registro de actividad",
+  "when": "Cuándo",
+  "action": "Acción",
+  "who": "Origen",
+  "empty": "Todavía no hay actividad registrada",
+  "emptyHint": "Las acciones importantes (altas, cambios de permisos, invitaciones…) aparecerán aquí.",
+  "source": {
+    "user": "Usuario",
+    "system": "Sistema",
+    "api": "API",
+    "import": "Importación",
+    "superadmin": "Administración"
+  },
+  "actions": {
+    "tenancy.tenant.created": "Espacio creado",
+    "tenancy.settings.updated": "Ajustes de la empresa actualizados",
+    "tenancy.tenant.status_changed": "Estado de la cuenta modificado",
+    "tenancy.tenant.trial_extended": "Prueba ampliada",
+    "identity.invitation_created": "Invitación enviada",
+    "identity.invitation_revoked": "Invitación revocada",
+    "identity.invitation_accepted": "Invitación aceptada",
+    "identity.member_updated": "Miembro actualizado",
+    "identity.role_permissions_updated": "Permisos de un rol actualizados",
+    "identity.password_changed": "Contraseña cambiada",
+    "files.file_uploaded": "Archivo subido",
+    "files.file_deleted": "Archivo eliminado"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Hello, {{name}}",
+  "subtitle": "Here is what you need to know about your {{tenant}} workspace.",
+  "welcome": {
+    "title": "Welcome to Nexo",
+    "description": "Your workspace is ready. The CRM, delivery and insights modules arrive in the next versions; meanwhile you can already set up your team."
+  },
+  "checklist": {
+    "title": "First steps",
+    "verify": "Confirm your email",
+    "invite": "Invite your team",
+    "settings": "Review your company details",
+    "go": "Go"
+  },
+  "account": {
+    "title": "Your account",
+    "company": "Company",
+    "role": "Your role",
+    "plan": "Status"
+  },
+  "activity": {
+    "title": "Recent activity",
+    "empty": "No activity yet.",
+    "viewAll": "View all activity"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "title": "Nexo administration",
+  "nav": { "tenants": "Companies", "audit": "Audit", "label": "Administration navigation" },
+  "login": {
+    "title": "Administration access",
+    "subtitle": "For the Nexo team only.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in"
+  },
+  "logout": "Sign out",
+  "tenants": {
+    "title": "Companies",
+    "subtitle": "Every company on the platform. You see operational status here, not their business data.",
+    "table": "Companies",
+    "name": "Company",
+    "slug": "Identifier",
+    "status": "Status",
+    "origin": "Origin",
+    "members": "Users",
+    "created": "Created",
+    "search": "Search by name or identifier",
+    "allStatuses": "All statuses",
+    "empty": "No companies match those criteria",
+    "emptyHint": "Try another search or create a new company.",
+    "new": "New company",
+    "origin_self_service": "Self-service",
+    "origin_manual": "Manual",
+    "loadMore": "Load more"
+  },
+  "create": {
+    "title": "Manual company setup",
+    "description": "Creates the company and its owner. The owner will receive an email to choose a password.",
+    "company": "Company name",
+    "ownerName": "Owner name",
+    "ownerEmail": "Owner email",
+    "billing": "Billing",
+    "billingManual": "Manual (you invoice outside Nexo)",
+    "billingStripe": "Stripe (automatic subscription)",
+    "trial": "Trial days",
+    "trialHint": "0 = created directly as an active customer.",
+    "submit": "Create company",
+    "created": "Company created. The owner will receive their email."
+  },
+  "detail": {
+    "title": "Company detail",
+    "billingMode": "Billing mode",
+    "trialEnds": "Trial ends",
+    "country": "Country",
+    "actions": "Actions",
+    "changeStatus": "Change status",
+    "newStatus": "New status",
+    "reason": "Reason (kept in the audit log)",
+    "applyStatus": "Apply change",
+    "statusChanged": "Status updated",
+    "extendTrial": "Extend trial",
+    "days": "Days to add",
+    "applyExtend": "Extend",
+    "trialExtended": "Trial extended"
+  },
+  "audit": {
+    "title": "Platform audit",
+    "subtitle": "Superadmin actions and security events.",
+    "table": "Platform audit",
+    "when": "When",
+    "action": "Action",
+    "entity": "Entity",
+    "empty": "No activity recorded yet"
+  }
+}

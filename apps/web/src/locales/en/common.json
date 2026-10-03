@@ -1,15 +1,65 @@
 {
-  "app": {
-    "name": "Nexo",
-    "tagline": "Everything connected. Only what you need."
+  "app": { "name": "Nexo", "tagline": "Everything connected. Only what you need." },
+  "nav": {
+    "main": "Main navigation",
+    "home": "Home",
+    "team": "Team",
+    "settings": "Settings",
+    "audit": "Activity",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
-  "home": {
-    "title": "Welcome to Nexo",
-    "description": "Modular operational CRM: from lead to delivered work. This is the project's technical foundation; modules arrive in milestones.",
-    "primaryAction": "Get started"
+  "actions": {
+    "save": "Save changes",
+    "cancel": "Cancel",
+    "close": "Close",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "back": "Back",
+    "create": "Create",
+    "continue": "Continue",
+    "retry": "Retry",
+    "copy": "Copy",
+    "search": "Search"
   },
-  "theme": {
-    "toDark": "Switch to dark theme",
-    "toLight": "Switch to light theme"
+  "state": {
+    "loading": "Loading…",
+    "saved": "Changes saved",
+    "empty": "Nothing here yet"
+  },
+  "theme": { "toDark": "Switch to dark theme", "toLight": "Switch to light theme" },
+  "user": { "menu": "Account menu", "logout": "Sign out", "settings": "Account settings" },
+  "banner": {
+    "trialDays_one": "{{count}} trial day left.",
+    "trialDays_other": "{{count}} trial days left.",
+    "trialExpired": "Your trial has ended. Contact us to keep using Nexo.",
+    "suspended": "This account is suspended. Contact support to reactivate it.",
+    "cancelled": "This account is cancelled.",
+    "pastDue": "A payment is overdue. Settle it to avoid the account being blocked.",
+    "emailUnverified": "Confirm your email so you can invite your team.",
+    "resend": "Resend email",
+    "resent": "We have sent you a new confirmation email."
+  },
+  "status": {
+    "trial": "Trial",
+    "trial_expired": "Trial expired",
+    "active": "Active",
+    "past_due": "Payment due",
+    "suspended": "Suspended",
+    "cancelled": "Cancelled"
+  },
+  "role": {
+    "owner": "Owner",
+    "admin": "Administrator",
+    "manager": "Manager",
+    "sales": "Sales",
+    "delivery": "Delivery",
+    "viewer": "Read only"
+  },
+  "seat": { "full": "Full", "light": "Light" },
+  "notFound": {
+    "title": "We could not find this page",
+    "description": "The link may be old or the page may have moved.",
+    "action": "Go home"
   }
 }

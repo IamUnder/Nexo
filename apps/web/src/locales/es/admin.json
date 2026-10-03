@@ -1,0 +1,70 @@
+{
+  "title": "Administración de Nexo",
+  "nav": { "tenants": "Empresas", "audit": "Auditoría", "label": "Navegación de administración" },
+  "login": {
+    "title": "Acceso de administración",
+    "subtitle": "Solo para el equipo de Nexo.",
+    "email": "Email",
+    "password": "Contraseña",
+    "submit": "Entrar"
+  },
+  "logout": "Cerrar sesión",
+  "tenants": {
+    "title": "Empresas",
+    "subtitle": "Todas las empresas de la plataforma. Aquí ves el estado operativo, no sus datos de negocio.",
+    "table": "Empresas",
+    "name": "Empresa",
+    "slug": "Identificador",
+    "status": "Estado",
+    "origin": "Origen",
+    "members": "Usuarios",
+    "created": "Alta",
+    "search": "Buscar por nombre o identificador",
+    "allStatuses": "Todos los estados",
+    "empty": "No hay empresas con esos criterios",
+    "emptyHint": "Prueba con otra búsqueda o crea una empresa nueva.",
+    "new": "Nueva empresa",
+    "origin_self_service": "Autoservicio",
+    "origin_manual": "Alta manual",
+    "loadMore": "Cargar más"
+  },
+  "create": {
+    "title": "Alta manual de empresa",
+    "description": "Crea la empresa y su propietario. El propietario recibirá un email para elegir su contraseña.",
+    "company": "Nombre de la empresa",
+    "ownerName": "Nombre del propietario",
+    "ownerEmail": "Email del propietario",
+    "billing": "Facturación",
+    "billingManual": "Manual (la facturas tú fuera de Nexo)",
+    "billingStripe": "Stripe (suscripción automática)",
+    "trial": "Días de prueba",
+    "trialHint": "0 = alta directa como cliente activo.",
+    "submit": "Crear empresa",
+    "created": "Empresa creada. El propietario recibirá su email."
+  },
+  "detail": {
+    "title": "Detalle de la empresa",
+    "billingMode": "Modo de facturación",
+    "trialEnds": "Fin de la prueba",
+    "country": "País",
+    "actions": "Acciones",
+    "changeStatus": "Cambiar estado",
+    "newStatus": "Nuevo estado",
+    "reason": "Motivo (queda en la auditoría)",
+    "applyStatus": "Aplicar cambio",
+    "statusChanged": "Estado actualizado",
+    "extendTrial": "Ampliar prueba",
+    "days": "Días a añadir",
+    "applyExtend": "Ampliar",
+    "trialExtended": "Prueba ampliada"
+  },
+  "audit": {
+    "title": "Auditoría de plataforma",
+    "subtitle": "Acciones de superadmin y eventos de seguridad.",
+    "table": "Auditoría de plataforma",
+    "when": "Cuándo",
+    "action": "Acción",
+    "entity": "Entidad",
+    "empty": "Todavía no hay actividad registrada"
+  }
+}

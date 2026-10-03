@@ -2,7 +2,7 @@
 
 Estado real del proyecto. **Se actualiza en el mismo commit que el cambio que lo modifica** (AGENTS.md, regla de oro 8).
 
-_Última actualización: 2026-10-03 · Fase: **hito 0 completado**; siguiente: hito 1 (Platform Core)._
+_Última actualización: 2026-10-03 · Fase: **hitos 0 y 1 completados**; siguiente: hito 3 (CRM). Los hitos 2 (Stripe) y 5 (Google/Microsoft) esperan credenciales externas._
 
 ## Hitos
 
@@ -10,7 +10,7 @@ _Última actualización: 2026-10-03 · Fase: **hito 0 completado**; siguiente: h
 |---|---|---|
 | Documentación base | ✅ Hecho | `AGENTS.md`, `ARCHITECTURE.md`, `TECH_STACK.md`, `DESIGN_SYSTEM.md`, `MODULES_SPEC.md`. |
 | **0 · Cimientos** | ✅ Hecho | Ver detalle abajo. |
-| 1 · Platform Core (identidad, alta self-service/manual, superadmin, outbox/worker, archivos) | ⬜ Pendiente | La base (RLS, `withTenant`, outbox, roles de BD) ya está del hito 0. |
+| **1 · Platform Core** | ✅ Hecho | Ver detalle abajo. |
 | 2 · Entitlements y Billing (Stripe) | ⬜ Pendiente | |
 | 3 · CRM | ⬜ Pendiente | |
 | 4 · Data Onboarding | ⬜ Pendiente | |
@@ -32,6 +32,22 @@ _Última actualización: 2026-10-03 · Fase: **hito 0 completado**; siguiente: h
 - **Contenedores**: `docker/Dockerfile.api` y `Dockerfile.web` construidos y arrancados con Podman; `dist/migrate.js` + `dist/api.js` probados contra Postgres 18 real.
 - **CI** (`.github/workflows`): estático, tests (unit+integración+aislamiento), build (imágenes sin publicar), e2e, seguridad semanal. _Aún no ejecutado en GitHub: el repositorio no tiene remoto._
 - **Tests**: 106 (contracts 5 · design-tokens 30 · ui 8 · web 4 · api 59) + 3 e2e.
+
+## Hito 1 · qué hay (verificado)
+
+- **Identidad:** usuarios globales con membresías por tenant, login con bloqueo progresivo (5 fallos → 15 min, duplicando), selección de empresa, sesión con access token de 15 min en memoria + refresh rotado en cookie `httpOnly`/`SameSite=Strict` con detección de reutilización (ADR 0002), recuperación y cambio de contraseña, verificación de email, invitaciones, roles predefinidos y **matriz de permisos editable por tenant**, asientos Full/Light.
+- **Tenancy:** alta self-service (prueba de 21 días) y alta manual por superadmin, estados con bloqueo real por prueba caducada, ajustes del tenant, ampliar prueba, suspender/reactivar con motivo auditado.
+- **Superadmin:** sesión, cookie y token propios (ámbito `platform`); panel con empresas, alta manual, detalle y auditoría de plataforma.
+- **Archivos** (subida/descarga por URL firmada, claves fijadas por el servidor, cuota), **auditoría** inmutable, **outbox + worker (pg-boss)** con suscriptor de correos de bienvenida/verificación.
+- **Web:** login, alta, recuperación, verificación, aceptar invitación, selector de empresa, inicio, equipo (miembros, invitaciones, permisos), ajustes, actividad y panel de administración; i18n es/en; tema claro/oscuro; responsive con cajón móvil; accesibilidad AA.
+- **Tests:** API 160 (incl. 45 de integración HTTP del Platform Core + 26 de aislamiento + dispatcher), UI 17, web 13, contracts 5, design-tokens 30; **11 E2E** con la pila real (PostgreSQL + Mailpit + api + worker + navegador) y axe en ambos temas.
+- **Entitlements provisionales:** hasta el hito 2 todo tenant tiene los módulos Core activos y sin límite de asientos (`apps/api/src/composition/localEntitlements.ts`).
+
+## Hallazgos del hito 1
+
+1. **La rotación estricta de refresh tokens cerraba la sesión al recargar** durante una renovación (carrera). Tolerancia de 10 s (ADR 0002).
+2. **i18next trata `:` como separador de namespace:** las etiquetas de permisos (`identity:member:read`) salían sin traducir; ahora las claves usan `_`.
+3. El arnés E2E reveló además un falso positivo de axe por transiciones de color (se espera a que terminen) y un asterisco de «obligatorio» dentro de la etiqueta (ahora es CSS).
 
 ## Hallazgos del hito 0
 

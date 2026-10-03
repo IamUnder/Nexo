@@ -115,7 +115,7 @@ module.exports = {
       name: "not-to-test-from-prod",
       severity: "error",
       comment: "El código de producción no importa código de test.",
-      from: { pathNot: "(\\.test\\.|/testing/|^packages/testing/|^tools/)" },
+      from: { pathNot: "(\\.test\\.|/testing/|/e2e/|^packages/testing/|^tools/)" },
       to: { path: "(\\.test\\.|/testing/|^packages/testing/)" },
     },
   ],

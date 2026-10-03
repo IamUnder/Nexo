@@ -27,7 +27,10 @@ export default defineConfig({
   ],
   server: {
     port: 5173,
-    proxy: { "/api": { target: "http://localhost:4000", changeOrigin: true } },
+    // El destino del proxy es configurable para que los tests E2E apunten a su propia API.
+    proxy: {
+      "/api": { target: process.env.NEXO_API_PROXY ?? "http://localhost:4000", changeOrigin: true },
+    },
   },
   test: {
     environment: "jsdom",

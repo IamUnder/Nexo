@@ -1,0 +1,26 @@
+{
+  "title": "Hola, {{name}}",
+  "subtitle": "Esto es lo que necesitas saber de tu espacio {{tenant}}.",
+  "welcome": {
+    "title": "Bienvenido a Nexo",
+    "description": "Tu espacio está listo. Los módulos de CRM, entrega y análisis llegarán en las próximas versiones; mientras tanto ya puedes preparar a tu equipo."
+  },
+  "checklist": {
+    "title": "Primeros pasos",
+    "verify": "Confirma tu email",
+    "invite": "Invita a tu equipo",
+    "settings": "Revisa los datos de tu empresa",
+    "go": "Ir"
+  },
+  "account": {
+    "title": "Tu cuenta",
+    "company": "Empresa",
+    "role": "Tu rol",
+    "plan": "Estado"
+  },
+  "activity": {
+    "title": "Actividad reciente",
+    "empty": "Aún no hay actividad.",
+    "viewAll": "Ver toda la actividad"
+  }
+}

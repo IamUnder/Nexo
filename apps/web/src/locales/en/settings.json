@@ -1,0 +1,39 @@
+{
+  "title": "Settings",
+  "subtitle": "Your company and account details.",
+  "tenant": {
+    "title": "Your company",
+    "description": "How your company is shown and how dates, amounts and times are formatted.",
+    "name": "Company name",
+    "locale": "Language and region",
+    "timezone": "Time zone",
+    "currency": "Currency",
+    "readOnly": "Only administrators can change these settings.",
+    "saved": "Settings saved"
+  },
+  "locales": { "es-ES": "Español (España)", "en-GB": "English (UK)" },
+  "account": {
+    "title": "Your account",
+    "description": "Personal details and security.",
+    "name": "Name",
+    "email": "Email",
+    "verified": "Email confirmed",
+    "unverified": "Email not confirmed"
+  },
+  "password": {
+    "title": "Change password",
+    "description": "Changing it will sign you out on other devices.",
+    "current": "Current password",
+    "next": "New password",
+    "hint": "At least 12 characters. A long phrase works best.",
+    "submit": "Change password",
+    "saved": "Password updated"
+  },
+  "plan": {
+    "title": "Plan and billing",
+    "description": "Your subscription status.",
+    "status": "Status",
+    "trialEnds": "Trial ends",
+    "comingSoon": "Subscription and billing management will be available soon."
+  }
+}

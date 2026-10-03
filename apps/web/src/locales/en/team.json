@@ -1,0 +1,83 @@
+{
+  "title": "Team",
+  "subtitle": "People with access to your workspace, invitations and permissions per role.",
+  "tabs": {
+    "label": "Team sections",
+    "members": "Members",
+    "invitations": "Invitations",
+    "permissions": "Permissions"
+  },
+  "members": {
+    "table": "Team members",
+    "name": "Name",
+    "role": "Role",
+    "seat": "Seat",
+    "status": "Status",
+    "lastSeen": "Last activity",
+    "never": "Never",
+    "you": "(you)",
+    "active": "Active",
+    "suspended": "Suspended",
+    "edit": "Edit member",
+    "suspend": "Suspend",
+    "reactivate": "Reactivate",
+    "empty": "There are no other members yet",
+    "emptyHint": "Invite your team to work together."
+  },
+  "invite": {
+    "button": "Invite a person",
+    "title": "Invite to the team",
+    "description": "We will email them a link to join. It expires in 7 days.",
+    "email": "Email",
+    "role": "Role",
+    "seat": "Seat type",
+    "seatHint": "Light seats can only view, comment and log time.",
+    "submit": "Send invitation",
+    "sent": "Invitation sent"
+  },
+  "invitations": {
+    "table": "Invitations",
+    "email": "Email",
+    "expires": "Expires",
+    "status": "Status",
+    "revoke": "Revoke",
+    "revoked": "Invitation revoked",
+    "empty": "There are no invitations",
+    "emptyHint": "When you invite someone they will show up here.",
+    "pending": "Pending",
+    "expired": "Expired",
+    "accepted": "Accepted",
+    "revoked_status": "Revoked"
+  },
+  "edit": {
+    "title": "Edit member",
+    "role": "Role",
+    "seat": "Seat type",
+    "submit": "Save",
+    "saved": "Member updated"
+  },
+  "permissions": {
+    "title": "Permissions per role",
+    "description": "Adjust what each role can do in your company. The owner's permissions cannot be changed. A light seat never gets write permissions.",
+    "role": "Role",
+    "locked": "Owner permissions are not editable",
+    "save": "Save {{role}} permissions",
+    "saved": "Permissions updated",
+    "default": "Default",
+    "custom": "Customised",
+    "readOnly": "You do not have permission to edit permissions"
+  },
+  "permission": {
+    "identity_member_read": "View the team",
+    "identity_member_manage": "Invite and manage members",
+    "identity_role_manage": "Edit role permissions",
+    "tenancy_settings_read": "View company settings",
+    "tenancy_settings_manage": "Change company settings",
+    "billing_subscription_read": "View the subscription",
+    "billing_subscription_manage": "Manage the subscription",
+    "audit_log_read": "View the activity log",
+    "files_file_read": "View files",
+    "files_file_create": "Upload files",
+    "files_file_delete": "Delete files"
+  }
+}

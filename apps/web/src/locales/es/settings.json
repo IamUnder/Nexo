@@ -1,0 +1,39 @@
+{
+  "title": "Ajustes",
+  "subtitle": "Datos de tu empresa y de tu cuenta.",
+  "tenant": {
+    "title": "Tu empresa",
+    "description": "Cómo se muestra tu empresa y cómo se formatean fechas, importes y horas.",
+    "name": "Nombre de la empresa",
+    "locale": "Idioma y región",
+    "timezone": "Zona horaria",
+    "currency": "Moneda",
+    "readOnly": "Solo los administradores pueden cambiar estos ajustes.",
+    "saved": "Ajustes guardados"
+  },
+  "locales": { "es-ES": "Español (España)", "en-GB": "English (UK)" },
+  "account": {
+    "title": "Tu cuenta",
+    "description": "Datos personales y seguridad.",
+    "name": "Nombre",
+    "email": "Email",
+    "verified": "Email confirmado",
+    "unverified": "Email sin confirmar"
+  },
+  "password": {
+    "title": "Cambiar contraseña",
+    "description": "Al cambiarla se cerrarán tus sesiones en otros dispositivos.",
+    "current": "Contraseña actual",
+    "next": "Nueva contraseña",
+    "hint": "Mínimo 12 caracteres. Mejor una frase larga.",
+    "submit": "Cambiar contraseña",
+    "saved": "Contraseña actualizada"
+  },
+  "plan": {
+    "title": "Plan y facturación",
+    "description": "Estado de tu suscripción.",
+    "status": "Estado",
+    "trialEnds": "Fin de la prueba",
+    "comingSoon": "La gestión de suscripción y facturación estará disponible próximamente."
+  }
+}

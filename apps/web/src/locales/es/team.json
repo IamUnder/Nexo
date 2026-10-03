@@ -1,0 +1,83 @@
+{
+  "title": "Equipo",
+  "subtitle": "Personas con acceso a tu espacio, invitaciones y permisos por rol.",
+  "tabs": {
+    "label": "Secciones del equipo",
+    "members": "Miembros",
+    "invitations": "Invitaciones",
+    "permissions": "Permisos"
+  },
+  "members": {
+    "table": "Miembros del equipo",
+    "name": "Nombre",
+    "role": "Rol",
+    "seat": "Asiento",
+    "status": "Estado",
+    "lastSeen": "Última actividad",
+    "never": "Nunca",
+    "you": "(tú)",
+    "active": "Activo",
+    "suspended": "Suspendido",
+    "edit": "Editar miembro",
+    "suspend": "Suspender",
+    "reactivate": "Reactivar",
+    "empty": "Aún no hay más miembros",
+    "emptyHint": "Invita a tu equipo para trabajar juntos."
+  },
+  "invite": {
+    "button": "Invitar a una persona",
+    "title": "Invitar al equipo",
+    "description": "Le enviaremos un correo con un enlace para unirse. Caduca en 7 días.",
+    "email": "Email",
+    "role": "Rol",
+    "seat": "Tipo de asiento",
+    "seatHint": "Los asientos ligeros solo consultan, comentan y registran tiempo.",
+    "submit": "Enviar invitación",
+    "sent": "Invitación enviada"
+  },
+  "invitations": {
+    "table": "Invitaciones",
+    "email": "Email",
+    "expires": "Caduca",
+    "status": "Estado",
+    "revoke": "Revocar",
+    "revoked": "Invitación revocada",
+    "empty": "No hay invitaciones",
+    "emptyHint": "Cuando invites a alguien aparecerá aquí.",
+    "pending": "Pendiente",
+    "expired": "Caducada",
+    "accepted": "Aceptada",
+    "revoked_status": "Revocada"
+  },
+  "edit": {
+    "title": "Editar miembro",
+    "role": "Rol",
+    "seat": "Tipo de asiento",
+    "submit": "Guardar",
+    "saved": "Miembro actualizado"
+  },
+  "permissions": {
+    "title": "Permisos por rol",
+    "description": "Ajusta qué puede hacer cada rol en tu empresa. Los permisos del propietario no se pueden modificar. Un asiento ligero nunca obtiene permisos de escritura.",
+    "role": "Rol",
+    "locked": "Los permisos del propietario no son editables",
+    "save": "Guardar permisos de {{role}}",
+    "saved": "Permisos actualizados",
+    "default": "Por defecto",
+    "custom": "Personalizado",
+    "readOnly": "No tienes permiso para editar los permisos"
+  },
+  "permission": {
+    "identity_member_read": "Ver el equipo",
+    "identity_member_manage": "Invitar y gestionar miembros",
+    "identity_role_manage": "Editar permisos de los roles",
+    "tenancy_settings_read": "Ver los ajustes de la empresa",
+    "tenancy_settings_manage": "Cambiar los ajustes de la empresa",
+    "billing_subscription_read": "Ver la suscripción",
+    "billing_subscription_manage": "Gestionar la suscripción",
+    "audit_log_read": "Ver el registro de actividad",
+    "files_file_read": "Ver archivos",
+    "files_file_create": "Subir archivos",
+    "files_file_delete": "Eliminar archivos"
+  }
+}
