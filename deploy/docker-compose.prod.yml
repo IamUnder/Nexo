@@ -4,8 +4,8 @@
 #   docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env up -d --build
 #
 # Orden de arranque garantizado: postgres → migrate → seed → api + worker → web.
-# Solo `web` publica un puerto (WEB_PORT, 8080 por defecto): ponle delante tu proxy/túnel con TLS
-# (Traefik, Cloudflare Tunnel…) apuntando a http://<host>:WEB_PORT. `web` también hace de proxy de /api.
+# Ningún servicio publica puertos en el host. `web` (puerto 8080, también proxy de /api) se une a la red
+# `tunnel` (TUNNEL_NETWORK) con el alias WEB_ALIAS: el túnel/proxy con TLS apunta a http://<WEB_ALIAS>:8080.
 name: nexo
 
 x-api: &api
@@ -33,6 +33,7 @@ x-api: &api
 
 services:
   postgres:
+    mem_limit: 512m
     image: postgres:18-alpine
     restart: unless-stopped
     environment:
@@ -52,6 +53,7 @@ services:
 
   # Almacenamiento S3-compatible: SeaweedFS (MinIO dejó de publicar imágenes gratuitas; ADR 0003).
   s3:
+    mem_limit: 384m
     image: chrislusf/seaweedfs:latest
     restart: unless-stopped
     command: server -s3 -dir=/data -ip=s3
@@ -71,6 +73,7 @@ services:
 
   # Paso de release 1: migraciones (único con rol propietario) y creación de colas de pg-boss.
   migrate:
+    mem_limit: 256m
     <<: *api
     restart: "no"
     command: ["node", "dist/migrate.js"]
@@ -85,6 +88,7 @@ services:
 
   # Paso de release 2: superadmin inicial (idempotente). Quita las dos variables tras el primer arranque.
   seed:
+    mem_limit: 256m
     <<: *api
     restart: "no"
     command: ["node", "dist/seed.js"]
@@ -97,6 +101,7 @@ services:
         condition: service_completed_successfully
 
   api:
+    mem_limit: 384m
     <<: *api
     command: ["node", "dist/api.js"]
     depends_on:
@@ -106,6 +111,7 @@ services:
         condition: service_completed_successfully
 
   worker:
+    mem_limit: 256m
     <<: *api
     command: ["node", "dist/worker.js"]
     depends_on:
@@ -121,8 +127,13 @@ services:
     restart: unless-stopped
     environment:
       API_UPSTREAM: api:4000
-    ports:
-      - "${WEB_PORT:-8080}:8080"
+    # No publica puertos en el host: el túnel entra por la red `tunnel` (alias WEB_ALIAS, puerto 8080).
+    mem_limit: 96m
+    networks:
+      default: {}
+      tunnel:
+        aliases:
+          - ${WEB_ALIAS:-nexo-web}
     depends_on:
       - api
 
@@ -134,6 +145,11 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:8025:8025"
+
+networks:
+  # Red PROPIA del proyecto a la que el operador conecta el túnel (nunca `external`).
+  tunnel:
+    name: ${TUNNEL_NETWORK:-nexo-tunnel}
 
 volumes:
   pgdata:

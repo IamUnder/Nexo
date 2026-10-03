@@ -24,7 +24,7 @@ docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env up -d --
 docker compose -f deploy/docker-compose.prod.yml logs -f api worker
 ```
 
-1. **Dominio y TLS**: poner delante un proxy/túnel con TLS (Traefik, Cloudflare Tunnel…) hacia `http://<host>:8080` (`WEB_PORT`). `NEXO_PUBLIC_URL` debe ser exactamente el origen público (`https://nexo.kaizogroup.es`): la API valida `Origin` contra él y marca las cookies como `Secure`.
+1. **Dominio y TLS**: poner delante un proxy/túnel con TLS (Traefik, Cloudflare Tunnel…) hacia `http://<WEB_ALIAS>:8080`: `web` no publica puertos y se une a la red propia `TUNNEL_NETWORK` con ese alias (el operador conecta el túnel a esa red). Límites de memoria previstos (`mem_limit`): postgres 512m, s3 384m, api 384m, worker 256m, web 96m, migrate/seed 256m puntuales (≈1,6 GB en reposo como techo; el consumo real de SeaweedFS en reposo no está medido). `NEXO_PUBLIC_URL` debe ser exactamente el origen público (`https://nexo.kaizogroup.es`): la API valida `Origin` contra él y marca las cookies como `Secure`.
 2. **Correo (imprescindible)**: sin SMTP real nadie puede confirmar su email, y sin email confirmado no se puede invitar. Rellena `SMTP_URL` (p. ej. `smtps://usuario:clave@smtp.proveedor.com:465`) y `EMAIL_FROM_SYSTEM`. Solo para una prueba rápida: `--profile mail-sandbox` + `SMTP_URL=smtp://mailpit:1025`; la bandeja queda en `127.0.0.1:8025` del host (túnel SSH) — **nunca** exponerla.
 3. **Superadmin**: entra en `/admin/login` con `SUPERADMIN_BOOTSTRAP_EMAIL/PASSWORD`; después elimina esas dos variables.
 4. **Secretos**: `JWT_SIGNING_KEYS` (`kid:secreto`, ≥ 32 car.; rotación: añadir la nueva delante), contraseñas de BD, S3.
